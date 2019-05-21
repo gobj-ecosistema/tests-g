@@ -1,0 +1,60 @@
+{
+    "__json_config_variables__": {              #^^ special dict to replace json config variables
+        "__router_port__": 2000                 #^^ variables normally set by agent
+    },
+    "fixed_config": {
+        "key_not_writable1": "try re-write",
+        "string-zero": "",
+        "null": null
+    },
+    "variable_config": {
+        "list": [0, 1, 2, "from xxx.json"],     #^^ inline comment
+        "key_writable2": {
+            "key_writable3": "from xxx.json"
+        },
+        "router_port": "(^^__router_port__^^)"  #^^ value set by agent
+    },
+    "more_variable_config": {
+        "max_size": 0                           #^^ inline comment
+    },
+    "{^^gossamers^^}": {
+        "__range__": [[12000,12002]],
+        "__vars__": {
+            "__local_ip__": "192.168.1.24",
+            "__remote_ip__": "192.168.1.4"
+        },
+        "__content__": {
+            "PAOG_PID_1P_P(^^__range__^^)": {
+                "gclass": "Uts",
+                "lHost": "(^^__local_ip__^^)",
+                "lPort": "0",
+                "pid": "P(^^__range__^^)",
+                "kw_connex": {
+                    "urls": [
+                        "tcp://(^^__remote_ip__^^):102"
+                    ]
+                }
+            }
+        }
+    },
+    "[^^list-gossamers^^]": {
+        "__range__": [[12000,12002]],
+        "__vars__": {
+            "__local_ip__": "192.168.1.24",
+            "__remote_ip__": "192.168.1.4"
+        },
+        "__content__": {
+            "PAOG_PID_1P_P(^^__range__^^)": {
+                "gclass": "Uts",
+                "lHost": "(^^__local_ip__^^)",
+                "lPort": "0",
+                "pid": "P(^^__range__^^)",
+                "kw_connex": {
+                    "urls": [
+                        "tcp://(^^__remote_ip__^^):102"
+                    ]
+                }
+            }
+        }
+    }
+}

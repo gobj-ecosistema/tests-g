@@ -1,0 +1,9 @@
+{
+    "fixed_config": {
+        "key_not_writable1": "try re-write"
+    },
+    "variable_config": {
+        "list": ["from xx.json"],
+        "key_writable1": ["from xx.json"]
+    }
+}
