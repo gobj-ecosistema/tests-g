@@ -223,7 +223,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter1 = trtb_list_messages(
+            hrc2_topic_iter1 = trtb_open_list(
                 rc2,
                 "gpss3",    // topic
                 0          // filter
@@ -237,7 +237,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter2 = trtb_list_messages(
+            hrc2_topic_iter2 = trtb_open_list(
                 rc2,
                 "gpss3",    // topic
                 json_pack("{s:b, s:b}",  // filter

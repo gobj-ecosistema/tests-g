@@ -438,7 +438,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY",   // topic
                 0           // filter
@@ -461,7 +461,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY",           // topic
                 json_pack("{s:b}",  // filter
@@ -501,7 +501,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -542,7 +542,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -583,7 +583,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -624,7 +624,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -649,7 +649,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -675,7 +675,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -701,7 +701,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -727,7 +727,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -753,7 +753,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -779,7 +779,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -805,7 +805,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -831,7 +831,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_list_messages(
+            json_t *list  = trtb_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
