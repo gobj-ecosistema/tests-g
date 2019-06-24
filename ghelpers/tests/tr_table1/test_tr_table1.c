@@ -296,7 +296,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -308,7 +309,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -321,7 +323,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -334,7 +337,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -347,7 +351,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -360,7 +365,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -372,7 +378,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -385,7 +392,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
             trtb_add_instance(
                 rc2,
@@ -398,7 +406,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     "level", 0
                 ),
                 0,
-                TRUE
+                fc_only_desc_cols,
+                0
             );
 
             for (i = 0; i < cnt/2; i++) {
@@ -413,7 +422,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i+1
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
                 trtb_add_instance(
                     rc2,
@@ -426,7 +436,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i+1
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
             }
 
@@ -497,7 +508,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
             }
 
@@ -538,7 +550,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
             }
 
@@ -579,7 +592,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
             }
 
@@ -620,7 +634,8 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                         "level", i
                     ),
                     0,
-                    TRUE
+                    fc_only_desc_cols,
+                    0
                 );
             }
 

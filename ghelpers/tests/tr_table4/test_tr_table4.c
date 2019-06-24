@@ -210,7 +210,8 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
                             "idle", 0
                         ),
                         0,
-                        TRUE
+                        fc_only_desc_cols,
+                        0
                     );
                 }
             }
