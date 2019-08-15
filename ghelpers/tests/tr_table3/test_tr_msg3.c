@@ -193,15 +193,13 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             for(long trace=1; trace<=trazas; trace++) { // traces de 1 hora, a 1/segundo
-                for(int imei=1; imei<=devices; imei++) {
+                for(unsigned long imei=1; imei<=devices; imei++) {
                     const char *event = "CycleOff";
-                    char simei[32];
-                    snprintf(simei, sizeof(simei), "%016d", imei);
-                    trtb_add_instance(
+                    trmsg_add_instance(
                         rc2,
-                        "gpss2",     // topic
-                        json_pack("{s:s, s:s, s:I, s:f, s:f, s:i, s:i, s:b, s:b}",
-                            "imei", simei,
+                        "gpss3",     // topic
+                        json_pack("{s:I, s:s, s:I, s:f, s:f, s:i, s:i, s:b, s:b}",
+                            "imei", (json_int_t)imei,
                             "event", event,
                             "gps_date", (json_int_t)trace,
                             "latitude", 0.0,
@@ -226,9 +224,9 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter1 = trtb_open_list(
+            hrc2_topic_iter1 = trmsg_open_list(
                 rc2,
-                "gpss2",    // topic
+                "gpss3",    // topic
                 0          // filter
             );
 
@@ -240,9 +238,9 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter2 = trtb_open_list(
+            hrc2_topic_iter2 = trmsg_open_list(
                 rc2,
-                "gpss2",    // topic
+                "gpss3",    // topic
                 json_pack("{s:b, s:b}",  // filter
                     "backward", 1,
                     "order_by_tm", 1
@@ -258,9 +256,9 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000001";
+            const char *key = "1";
 
-            json_t *msg = trtb_get_active_content(
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter1,
                 key
             );
@@ -275,8 +273,8 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000500";
-            json_t *msg = trtb_get_active_content(
+            const char *key = "500";
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter1,
                 key
             );
@@ -291,8 +289,8 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000999";
-            json_t *msg = trtb_get_active_content(
+            const char *key = "999";
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter1,
                 key
             );
@@ -307,8 +305,8 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000001";
-            json_t *msg = trtb_get_active_content(
+            const char *key = "1";
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter2,
                 key
             );
@@ -323,8 +321,8 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000500";
-            json_t *msg = trtb_get_active_content(
+            const char *key = "500";
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter2,
                 key
             );
@@ -339,113 +337,17 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             cnt = 1;
-            const char *key = "0000000000000999";
-            json_t *msg = trtb_get_active_content(
+            const char *key = "999";
+            json_t *msg = trmsg_get_active_content(
                 hrc2_topic_iter2,
                 key
             );
             if(!msg) printf("Merde\n");
 
             clock_gettime (CLOCK_MONOTONIC, &et);
-        }
-        break;
 
-    case 11:
-        {
             tranger_close_list(rc2, hrc2_topic_iter1);
             tranger_close_list(rc2, hrc2_topic_iter2);
-
-            clock_gettime (CLOCK_MONOTONIC, &st);
-
-            json_t *jn_topic = json_object();
-            for(long trace=1; trace<=trazas; trace++) { // traces de 1 hora, a 1/segundo
-                for(int imei=1; imei<=devices; imei++) {
-                    char simei[32];
-                    snprintf(simei, sizeof(simei), "%016d", imei);
-                    json_object_set_new(
-                        jn_topic,
-                        simei,
-                        json_pack("{s:s, s:I, s:f, s:f, s:i, s:i, s:b, s:b}",
-                            "imei", simei,
-                            "gps_date", (json_int_t)trace,
-                            "latitude", 0.0,
-                            "longitude", 0.0,
-                            "altitude", 0,
-                            "heading", 0,
-                            "on", 0,
-                            "idle", 0
-                        )
-                    );
-                }
-            }
-            // WARNING esto no es equivalente a rc_tranger, aquí salvamos al final, no row a row
-            json_dump_file(
-                jn_topic,
-                "/test/trdb/db_test2/json_topic.json",
-                JSON_INDENT(4)
-            );
-            json_decref(jn_topic);
-
-            clock_gettime (CLOCK_MONOTONIC, &et);
-        }
-        break;
-
-    case 12:
-        {
-            clock_gettime (CLOCK_MONOTONIC, &st);
-
-            json_error_t error;
-            jn_mem_topic = json_load_file("/test/trdb/db_test2/json_topic.json", 0, &error);
-            if(!jn_mem_topic) {
-                printf("ERROR jn_mem_topic \n");
-            }
-
-            clock_gettime (CLOCK_MONOTONIC, &et);
-        }
-        break;
-
-    case 14:
-        {
-            clock_gettime (CLOCK_MONOTONIC, &st);
-
-            cnt = 1;
-            const char *key = "0000000000000001";
-            json_t *jn_item = json_object_get(jn_mem_topic, key);
-            if(!jn_item) {
-                printf("ERROR msg %s not found\n", key);
-            }
-
-            clock_gettime (CLOCK_MONOTONIC, &et);
-        }
-        break;
-
-    case 15:
-        {
-            clock_gettime (CLOCK_MONOTONIC, &st);
-
-            cnt = 1;
-            const char *key = "0000000000000500";
-            json_t *jn_item = json_object_get(jn_mem_topic, key);
-            if(!jn_item) {
-                printf("ERROR msg %s not found\n", key);
-            }
-
-            clock_gettime (CLOCK_MONOTONIC, &et);
-        }
-        break;
-
-    case 16:
-        {
-            clock_gettime (CLOCK_MONOTONIC, &st);
-
-            cnt = 1;
-            const char *key = "0000000000000999";
-            json_t *jn_item = json_object_get(jn_mem_topic, key);
-            if(!jn_item) {
-                printf("ERROR msg %s not found\n", key);
-            }
-
-            clock_gettime (CLOCK_MONOTONIC, &et);
         }
         break;
 
@@ -556,7 +458,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  La bbddd de pruebas
      *------------------------------*/
-    char *path = "/test/trdb/db_test2";
+    char *path = "/test/trdb/db_test3";
 
     /*------------------------------*
      *  Destruye la bbdd previa
@@ -568,7 +470,7 @@ int main(int argc, char *argv[])
      *------------------------------*/
     static const json_desc_t traces_json_desc[] = {
         // Name             Type        Default
-        {"imei",            "str",      ""},
+        {"imei",            "int",      ""},
         {"event",           "str",      ""},
         {"gps_date",        "int",      ""},
         {"latitude",        "int",      ""},
@@ -581,8 +483,8 @@ int main(int argc, char *argv[])
     };
 
     static topic_desc_t db_test_desc[] = {
-    // Topic Name,  Pkey    Key Type                    Tkey            Topic Json Desc
-    {"gpss2",      "imei",  sf_string_key|sf_no_disk,   "gps_date",     traces_json_desc},
+    // Topic Name,  Pkey    Key Type            Tkey            Topic Json Desc
+    {"gpss3",      "imei",  sf_int_key,         "gps_date",     traces_json_desc},
     {0}
     };
 
@@ -590,15 +492,15 @@ int main(int argc, char *argv[])
         "path", path,
         "master", 1
     );
-    json_t *rc2 = trtb_open_db(jn_tranger, db_test_desc);
+    json_t *rc2 = trmsg_open_db(jn_tranger, db_test_desc);
 
     /*------------------------------*
      *  Ejecuta los tests
      *------------------------------*/
     printf("\n\n");
+    test(rc2, 1, "ADD RECORDS", arguments.devices, arguments.trazas);
     test(rc2, 2, "LOAD FORWARD", arguments.devices, arguments.trazas);
     test(rc2, 3, "LOAD BACKWARD/TM", arguments.devices, arguments.trazas);
-    test(rc2, 1, "ADD RECORDS", arguments.devices, arguments.trazas);
     test(rc2, 4, "FIND fore first", arguments.devices, arguments.trazas);
     test(rc2, 5, "FIND fore medium", arguments.devices, arguments.trazas);
     test(rc2, 6, "FIND fore last", arguments.devices, arguments.trazas);
@@ -606,16 +508,10 @@ int main(int argc, char *argv[])
     test(rc2, 8, "FIND back medium", arguments.devices, arguments.trazas);
     test(rc2, 9, "FIND back last", arguments.devices, arguments.trazas);
 
-    test(rc2, 11, "CREATE JSON DB", arguments.devices, arguments.trazas);
-    test(rc2, 12, "LOAD JSON", arguments.devices, arguments.trazas);
-    test(rc2, 14, "FIND first", arguments.devices, arguments.trazas);
-    test(rc2, 15, "FIND medium", arguments.devices, arguments.trazas);
-    test(rc2, 16, "FIND last", arguments.devices, arguments.trazas);
-
     /*------------------------------*
      *  Cierra la bbdd
      *------------------------------*/
-    trtb_close_db(rc2);
+    trmsg_close_db(rc2);
     json_decref(jn_mem_topic);
 
     /*---------------------------*

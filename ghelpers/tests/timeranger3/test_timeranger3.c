@@ -90,7 +90,7 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
                     md_record_t md_record;
                     tranger_append_record(tranger, topic_name, 0, 0, &md_record, jn_record1);
                 }
-                sleep(1);
+                //sleep(1);
             }
 
             clock_gettime (CLOCK_MONOTONIC, &et);

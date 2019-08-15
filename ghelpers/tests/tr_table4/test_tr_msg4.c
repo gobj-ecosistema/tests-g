@@ -195,7 +195,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             for(long trace=1; trace<=trazas; trace++) { // traces de 1 hora, a 1/segundo
                 for(unsigned long imei=1; imei<=devices; imei++) {
                     const char *event = "CycleOff";
-                    trtb_add_instance(
+                    trmsg_add_instance(
                         rc2,
                         "gpss4",     // topic
                         json_pack("{s:I, s:s, s:I, s:f, s:f, s:i, s:i, s:b, s:b}",
@@ -224,7 +224,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter1 = trtb_open_list(
+            hrc2_topic_iter1 = trmsg_open_list(
                 rc2,
                 "gpss4",    // topic
                 0          // filter
@@ -238,7 +238,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            hrc2_topic_iter2 = trtb_open_list(
+            hrc2_topic_iter2 = trmsg_open_list(
                 rc2,
                 "gpss4",    // topic
                 json_pack("{s:b, s:b}",  // filter
@@ -258,7 +258,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             cnt = 1;
             const char *key = "1";
 
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter1,
                 key
             );
@@ -274,7 +274,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "500";
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter1,
                 key
             );
@@ -290,7 +290,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "999";
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter1,
                 key
             );
@@ -306,7 +306,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "1";
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter2,
                 key
             );
@@ -322,7 +322,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "500";
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter2,
                 key
             );
@@ -338,7 +338,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "999";
-            json_t *msg = trtb_get_active_md(
+            json_t *msg = trmsg_get_active_md(
                 hrc2_topic_iter2,
                 key
             );
@@ -493,7 +493,7 @@ int main(int argc, char *argv[])
         "path", path,
         "master", 1
     );
-    json_t *rc2 = trtb_open_db(jn_tranger, db_test_desc);
+    json_t *rc2 = trmsg_open_db(jn_tranger, db_test_desc);
 
     /*------------------------------*
      *  Ejecuta los tests
@@ -512,7 +512,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Cierra la bbdd
      *------------------------------*/
-    trtb_close_db(rc2);
+    trmsg_close_db(rc2);
     json_decref(jn_mem_topic);
 
     /*---------------------------*

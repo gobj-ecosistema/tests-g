@@ -1,7 +1,7 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_tr_table2 C)
+project(test_tr_msg2 C)
 cmake_minimum_required(VERSION 2.8)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
@@ -29,7 +29,7 @@ include_directories(BEFORE /yuneta/development/output/include)
 ##############################################
 
 SET (YUNO_SRCS
-    test_tr_table2.c
+    test_tr_msg2.c
 )
 SET (YUNO_HDRS
 )
@@ -37,9 +37,9 @@ SET (YUNO_HDRS
 ##############################################
 #   yuno
 ##############################################
-ADD_EXECUTABLE(test_tr_table2 ${YUNO_SRCS} ${YUNO_HDRS})
+ADD_EXECUTABLE(test_tr_msg2 ${YUNO_SRCS} ${YUNO_HDRS})
 
-TARGET_LINK_LIBRARIES(test_tr_table2
+TARGET_LINK_LIBRARIES(test_tr_msg2
     /yuneta/development/output/lib/libginsfsm.a
     /yuneta/development/output/lib/libghelpersd.a
     /yuneta/development/output/lib/libjansson.a
@@ -53,7 +53,7 @@ TARGET_LINK_LIBRARIES(test_tr_table2
 #   Installation
 ##############################################
 install(
-    TARGETS test_tr_table2
+    TARGETS test_tr_msg2
     PERMISSIONS
     OWNER_READ OWNER_WRITE OWNER_EXECUTE
     GROUP_READ GROUP_WRITE GROUP_EXECUTE

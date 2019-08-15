@@ -286,7 +286,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -299,7 +299,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -312,7 +312,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -326,7 +326,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -340,7 +340,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -354,7 +354,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -368,7 +368,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -381,7 +381,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -395,7 +395,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 fc_only_desc_cols,
                 0
             );
-            trtb_add_instance(
+            trmsg_add_instance(
                 rc2,
                 "FAMILY",   // topic
                 json_pack("{s:s, s:s, s:s, s:i}",
@@ -411,7 +411,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
             );
 
             for (i = 0; i < cnt/2; i++) {
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY",   // topic
                     json_pack("{s:s, s:s, s:s, s:i}",
@@ -425,7 +425,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                     fc_only_desc_cols,
                     0
                 );
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY",   // topic
                     json_pack("{s:s, s:s, s:s, s:i}",
@@ -449,7 +449,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY",   // topic
                 0           // filter
@@ -472,7 +472,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY",           // topic
                 json_pack("{s:b}",  // filter
@@ -498,7 +498,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
 
             uint64_t edades[] = {9,1,3,2,5,4,6,6,8,8,0};
             for(int i=0; edades[i]!=0; i++) {
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY2",   // topic
                     json_pack("{s:s, s:i, s:s, s:i}",
@@ -513,7 +513,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -540,7 +540,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
 
             uint64_t edades[] = {9,1,3,2,5,4,6,6,8,8,0};
             for(int i=0; edades[i]!=0; i++) {
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY3",   // topic
                     json_pack("{s:s, s:i, s:s, s:i}",
@@ -555,7 +555,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -582,7 +582,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
 
             uint64_t edades[] = {9,1,3,2,5,4,6,6,8,8,0};
             for(int i=0; edades[i]!=0; i++) {
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY4",   // topic
                     json_pack("{s:s, s:i, s:s, s:i}",
@@ -597,7 +597,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -624,7 +624,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
 
             uint64_t edades[] = {9,1,3,2,5,4,6,6,8,8,0};
             for(int i=0; edades[i]!=0; i++) {
-                trtb_add_instance(
+                trmsg_add_instance(
                     rc2,
                     "FAMILY5",   // topic
                     json_pack("{s:s, s:i, s:s, s:i}",
@@ -639,7 +639,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
                 );
             }
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:b, s:b}",  // filter
@@ -664,7 +664,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -690,7 +690,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -716,7 +716,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -742,7 +742,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -768,7 +768,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY2",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -794,7 +794,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY3",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -820,7 +820,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY4",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -846,7 +846,7 @@ static void test(json_t *rc2, int caso, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
 
-            json_t *list  = trtb_open_list(
+            json_t *list  = trmsg_open_list(
                 rc2,
                 "FAMILY5",           // topic
                 json_pack("{s:s, s:i, s:b, s:b}",  // filter
@@ -1003,7 +1003,7 @@ int main(int argc, char *argv[])
         "path", path,
         "master", 1
     );
-    json_t *rc2 = trtb_open_db(jn_tranger, db_test_desc);
+    json_t *rc2 = trmsg_open_db(jn_tranger, db_test_desc);
 
     /*------------------------------*
      *  Ejecuta los tests
@@ -1036,7 +1036,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Cierra la bbdd
      *------------------------------*/
-    trtb_close_db(rc2);
+    trmsg_close_db(rc2);
 
     /*---------------------------*
      *      Destroy all
