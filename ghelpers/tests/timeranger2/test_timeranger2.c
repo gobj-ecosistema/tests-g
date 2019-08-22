@@ -114,6 +114,7 @@ int load_rango_callback(
 
 int load_record_callback3(
     json_t *tranger,
+    json_t *topic,
     json_t *list,
     md_record_t *md_record,
     json_t *jn_record

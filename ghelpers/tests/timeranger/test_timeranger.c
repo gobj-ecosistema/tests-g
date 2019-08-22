@@ -83,6 +83,7 @@ static int test_result(json_t * list, uint64_t *result, int max)
 int leidos = 0;
 int load_all_records_callback(
     json_t *tranger,
+    json_t *topic,
     json_t *list,
     md_record_t *md_record,
     json_t *jn_record
@@ -99,6 +100,7 @@ int load_all_records_callback(
 
 int load_rango_callback(
     json_t *tranger,
+    json_t *topic,
     json_t *list,
     md_record_t *md_record,
     json_t *jn_record
@@ -114,6 +116,7 @@ int load_rango_callback(
 
 int load_record_callback3(
     json_t *tranger,
+    json_t *topic,
     json_t *list,
     md_record_t *md_record,
     json_t *jn_record

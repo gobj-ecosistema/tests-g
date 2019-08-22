@@ -209,7 +209,6 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
                             "on", 0,
                             "idle", 0
                         ),
-                        0,
                         fc_only_desc_cols,
                         0
                     );
@@ -458,7 +457,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  La bbddd de pruebas
      *------------------------------*/
-    char *path = "/test/trdb/db_test3";
+    char *path = "/test/trmsg/db_test3";
 
     /*------------------------------*
      *  Destruye la bbdd previa
@@ -492,7 +491,10 @@ int main(int argc, char *argv[])
         "path", path,
         "master", 1
     );
-    json_t *rc2 = trmsg_open_db(jn_tranger, db_test_desc);
+    json_t *rc2 = tranger_startup(
+        jn_tranger // owned
+    );
+    trmsg_open_topics(rc2, db_test_desc);
 
     /*------------------------------*
      *  Ejecuta los tests
@@ -511,7 +513,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Cierra la bbdd
      *------------------------------*/
-    trmsg_close_db(rc2);
+    tranger_shutdown(rc2);
     json_decref(jn_mem_topic);
 
     /*---------------------------*

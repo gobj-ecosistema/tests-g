@@ -1,24 +1,7 @@
 ##############################################
 #   CMake
 ##############################################
-project(tests-ghelpers C)
 cmake_minimum_required(VERSION 2.8)
-include(CheckIncludeFiles)
-include(CheckSymbolExists)
-
-set(CMAKE_INSTALL_PREFIX /yuneta/development/yuneta/^gobj-ecosistema/tests-g/output)
-
-set(INC_DEST_DIR ${CMAKE_INSTALL_PREFIX}/include)
-set(LIB_DEST_DIR ${CMAKE_INSTALL_PREFIX}/lib)
-set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX}/bin)
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
-
-IF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
-  add_definitions(-DNOT_INCLUDE_LIBUNWIND=1)
-ELSE(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
-
-ENDIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
 
 
 ##############################################
@@ -42,4 +25,5 @@ add_subdirectory(tr_msg2)
 add_subdirectory(tr_msg3)
 add_subdirectory(tr_msg4)
 add_subdirectory(stats)
+add_subdirectory(tr_treedb)
 
