@@ -81,38 +81,7 @@ static int test_result(json_t * list, uint64_t *result, int max)
  *
  ***************************************************************************/
 int leidos = 0;
-int load_all_records_callback(
-    json_t *tranger,
-    json_t *list,
-    md_record_t *md_record,
-    json_t *jn_record
-)
-{
-    leidos++;
-    if(leidos != md_record->__rowid__) {
-        printf("ERROR en rowid, leidos %'d, rowid %'d\n", leidos, (int)md_record->__rowid__);
-        //exit(-1);
-    }
-    JSON_DECREF(jn_record);
-    return 0;
-}
-
 int load_rango_callback(
-    json_t *tranger,
-    json_t *list,
-    md_record_t *md_record,
-    json_t *jn_record
-)
-{
-    leidos++;
-    if(pinta_rows) {
-        printf("rowid = %"PRIu64"\n", (uint64_t)md_record->__rowid__);
-    }
-    JSON_DECREF(jn_record);
-    return 1; // add to returned list
-}
-
-int load_record_callback3(
     json_t *tranger,
     json_t *topic,
     json_t *list,
@@ -121,15 +90,8 @@ int load_record_callback3(
 )
 {
     leidos++;
-    json_int_t id = kw_get_int((json_t *)jn_record, "id", 0, 0);
-    int id2 = md_record->key.i;
     if(pinta_rows) {
-        printf("Leo %'d, rowid %'d, id %'d, id %'d\n",
-            leidos,
-            (int)md_record->__rowid__,
-            (int)id,
-            (int)id2
-        );
+        printf("rowid = %"PRIu64"\n", (uint64_t)md_record->__rowid__);
     }
     JSON_DECREF(jn_record);
     return 1; // add to returned list
@@ -454,7 +416,7 @@ int main(int argc, char *argv[])
     );
     log_add_handler("test_stdout", "stdout", LOG_OPT_LOGGER|LOG_HND_OPT_TRACE_STACK, 0);
 
-    static uint32_t mem_list[] = {0, 0};
+    static uint32_t mem_list[] = {2126, 0};
     // You also need link with ghelpersd library
     gbmem_trace_alloc_free(1, mem_list);
 
@@ -541,13 +503,13 @@ int main(int argc, char *argv[])
 
     test(tranger, "topic", 0, count);
     test(tranger, "topic", 4, count);
-    test(tranger, "topic", 5, count);
-    test(tranger, "topic", 6, count);
-    test(tranger, "topic", 7, count);
-    test(tranger, "topic", 8, count);
-    //test(tranger, "topic", 9, count);
-    test(tranger, "topic", 10, count);
-    test(tranger, "topic", 11, count);
+//     test(tranger, "topic", 5, count);
+//     test(tranger, "topic", 6, count);
+//     test(tranger, "topic", 7, count);
+//     test(tranger, "topic", 8, count);
+//     //test(tranger, "topic", 9, count);
+//     test(tranger, "topic", 10, count);
+//     test(tranger, "topic", 11, count);
     printf("====> mem %'lu\n", gbmem_mem_in_use());
 
     /*-------------------------------------*

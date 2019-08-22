@@ -764,7 +764,7 @@ int main(int argc, char *argv[])
     test(tranger, "topic", 6, count);
     test(tranger, "topic", 7, count);
     test(tranger, "topic", 8, count);
-    //test(tranger, "topic", 9, count);
+    test(tranger, "topic", 9, count);
     test(tranger, "topic", 10, count);
     test(tranger, "topic", 11, count);
     printf("====> mem %'lu\n", gbmem_mem_in_use());
