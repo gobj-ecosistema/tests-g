@@ -12,31 +12,31 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|pkey|uuid'                  \n\
+                    'flag': ['persistent','pkey','uuid']            \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'username',                               \n\
                     'header': 'User Name',                          \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|required'                   \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'firstName',                              \n\
                     'header': 'First Name',                         \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|required'                   \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'lastName',                               \n\
                     'header': 'Last Name',                          \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|required'                   \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'email',                                  \n\
                     'header': 'Email',                              \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|required'                   \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'emailVerified',                          \n\
@@ -60,7 +60,7 @@ static char schema_sample[]= "\
                     'id': 'department',                             \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|link|reverse',              \n\
+                    'flag': ['persistent','link','reverse'],        \n\
                     'link': 'departments$id',                       \n\
                     'reverse': 'departments$id.users'               \n\
                 },                                                  \n\
@@ -68,14 +68,14 @@ static char schema_sample[]= "\
                     'id': 'attributes',                             \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|include',                   \n\
+                    'flag': ['persistent','include'],               \n\
                     'include': ['attributes$id.attribute']          \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'roles',                                  \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|include',                   \n\
+                    'flag': ['persistent','include'],               \n\
                     'include': ['roles$id.role']                    \n\
                 }                                                   \n\
             ]                                                       \n\
@@ -90,19 +90,19 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|pkey|uuid'                  \n\
+                    'flag': ['persistent','pkey','uuid']            \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'name',                                   \n\
                     'header': 'Name',                               \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|required'                   \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'managers',                               \n\
                     'header': 'Managers',                           \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|link',                      \n\
+                    'flag': ['persistent','link'],                  \n\
                     'link': [                                       \n\
                         'users$id',                                 \n\
                         'departments$id.users'                      \n\
@@ -112,14 +112,14 @@ static char schema_sample[]= "\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|link',                      \n\
+                    'flag': ['persistent','link'],                  \n\
                     'link': 'departments$id'                        \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'users',                                  \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
-                    'flag': 'volatil|link|reverse',                 \n\
+                    'flag': ['volatil','link','reverse'],           \n\
                     'link': 'users$id',                             \n\
                     'reverse': 'users$id.department'                \n\
                 }                                                   \n\
@@ -135,7 +135,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|pkey|uuid'                  \n\
+                    'flag': ['persistent','pkey','uuid']            \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'attribute',                              \n\
@@ -147,7 +147,7 @@ static char schema_sample[]= "\
                     'id': 'attributes',                             \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|link',                      \n\
+                    'flag': ['persistent','link'],                  \n\
                     'link': 'attributes$id'                         \n\
                 }                                                   \n\
             ]                                                       \n\
@@ -162,7 +162,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': 'persistent|pkey|uuid'                  \n\
+                    'flag': ['persistent','pkey','uuid']            \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'role',                                   \n\
@@ -174,7 +174,7 @@ static char schema_sample[]= "\
                     'id': 'roles',                                  \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': 'persistent|link',                      \n\
+                    'flag': ['persistent','link'],                  \n\
                     'link': 'roles$id'                              \n\
                 }                                                   \n\
             ]                                                       \n\

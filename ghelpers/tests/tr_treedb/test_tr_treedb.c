@@ -18,6 +18,7 @@
 /***************************************************************************
  *      Constants
  ***************************************************************************/
+#define APP_NAME "test_tr_treedb"
 
 /***************************************************************************
  *      Structures
@@ -49,8 +50,8 @@ PRIVATE json_t *expected_log_messages = 0;
 PRIVATE json_t *unexpected_log_messages = 0;
 
 // Set by yuneta_entry_point()
-// const char *argp_program_version = APP_NAME " " APP_VERSION;
-// const char *argp_program_bug_address = APP_SUPPORT;
+const char *argp_program_version = APP_NAME;
+const char *argp_program_bug_address = "";
 
 /* Program documentation. */
 static char doc[] = "";
@@ -343,6 +344,7 @@ PRIVATE int test_treedb_schema(
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
         show_results(test, errors);
+        tranger_delete_topic(tranger, test);
     }
 
     /*-----------------------------------*
@@ -375,6 +377,7 @@ PRIVATE int test_treedb_schema(
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
         show_results(test, errors);
+        tranger_delete_topic(tranger, test);
     }
 
     /*-----------------------------------*
@@ -415,6 +418,7 @@ PRIVATE int test_treedb_schema(
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
         show_results(test, errors);
+        tranger_delete_topic(tranger, test);
     }
 
     return errors;
@@ -423,8 +427,39 @@ PRIVATE int test_treedb_schema(
 /***************************************************************************
  *
  ***************************************************************************/
-PRIVATE void test_load_data(json_t *tranger, const char *treedb_name)
+PRIVATE int test_schema(
+    json_t *tranger,
+    json_t *topic_cols_desc,
+    const char *treedb_name
+)
 {
+    int errors = 0;
+
+    const char *topic_name; json_t *topic;
+    json_object_foreach(kw_get_dict(tranger, "topics", 0, KW_REQUIRED), topic_name, topic)
+    {
+        set_expected_results(
+            topic_name,
+            json_pack("[]"  // error's list
+            )
+        );
+        errors += parse_schema_cols(
+            topic_name,
+            topic_cols_desc,
+            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+        );
+        show_results(topic_name, errors);
+    }
+
+    return errors;
+}
+
+/***************************************************************************
+ *
+ ***************************************************************************/
+PRIVATE int test_load_data(json_t *tranger, const char *treedb_name)
+{
+    int errors = 0;
 /*
     Dirección
         |
@@ -447,9 +482,6 @@ PRIVATE void test_load_data(json_t *tranger, const char *treedb_name)
          -> Administración
 */
 
-    /*
-     *  Resetea cola de mensajes log
-     */
     json_t *id = json_string("1");
     json_t *data = json_pack("{s:s}",
         "name", "Dirección"
@@ -574,12 +606,13 @@ PRIVATE void test_load_data(json_t *tranger, const char *treedb_name)
     );
 #endif
 
+    return errors;
 }
 
 /***************************************************************************
  *
  ***************************************************************************/
-PRIVATE void test_performance(
+void test_performance(
     json_t *rc2,
     int caso,
     const char *desc,
@@ -640,6 +673,8 @@ PRIVATE void test_performance(
  ***************************************************************************/
 int main(int argc, char *argv[])
 {
+    int errors = 0;
+
     struct arguments arguments;
     /*
      *  Default values
@@ -656,6 +691,7 @@ int main(int argc, char *argv[])
     /*-------------------------------------*
      *  Your start code
      *-------------------------------------*/
+    init_ghelpers_library(APP_NAME);
     log_startup(
         "test",             // application name
         "1.0.0",            // applicacion version
@@ -748,53 +784,51 @@ int main(int argc, char *argv[])
      *  Check treedb internals
      *------------------------------*/
     json_t *topic_cols_desc =_trtdb_create_topic_cols_desc();
-    test_treedb_schema(
+    errors += test_treedb_schema(
         tranger,
         topic_cols_desc,
         arguments.without_ok_tests,
         arguments.without_bad_tests
     );
-    JSON_DECREF(topic_cols_desc);
 
     /*------------------------------*
      *      Check treedb sample
      *------------------------------*/
-//     helper_quote2doublequote(schema_sample);
-//     json_t *jn_schema_sample = legalstring2json(schema_sample, TRUE);
-//     if(!jn_schema_sample) {
-//         exit(-1);
-//     }
-//
-//     const char *treedb_name = "treedb_test";
-//     trtdb_open_db(
-//         tranger,  // owned
-//         treedb_name,
-//         jn_schema_sample  // owned
-//     );
-//
-//     // print_json(tranger);
-//
-//     /*------------------------------*
-//      *  Ejecuta los tests
-//      *------------------------------*/
-//     test_load_data(tranger, treedb_name);
-//
-//     /*------------------------------*
-//      *  Cierra la bbdd
-//      *------------------------------*/
-//     trtdb_close_db(tranger, treedb_name);
+    helper_quote2doublequote(schema_sample);
+    json_t *jn_schema_sample = legalstring2json(schema_sample, TRUE);
+    if(!jn_schema_sample) {
+        exit(-1);
+    }
+
+    const char *treedb_name = "treedb_test";
+    trtdb_open_db(
+        tranger,  // owned
+        treedb_name,
+        jn_schema_sample  // owned
+    );
+
+    /*------------------------------*
+     *  Ejecuta los tests
+     *------------------------------*/
+    errors += test_schema(tranger, topic_cols_desc, treedb_name);
+    errors += test_load_data(tranger, treedb_name);
+
+    /*------------------------------*
+     *  Cierra la bbdd
+     *------------------------------*/
+    trtdb_close_db(tranger, treedb_name);
 
     tranger_shutdown(tranger);
 
     /*---------------------------*
      *      Destroy all
      *---------------------------*/
+    JSON_DECREF(topic_cols_desc);
     JSON_DECREF(expected_log_messages);
     JSON_DECREF(unexpected_log_messages);
     gbmem_shutdown();
     end_ghelpers_library();
 
-
-    return 0;
+    return errors;
 }
 
