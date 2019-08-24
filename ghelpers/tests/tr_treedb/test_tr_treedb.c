@@ -221,11 +221,11 @@ PRIVATE void set_expected_results(
 /***************************************************************************
  *  Return TRUE if all is ok.
  ***************************************************************************/
-PRIVATE BOOL show_results(const char *test, int errors)
+PRIVATE BOOL check_log_result(const char *test)
 {
     if(json_array_size(unexpected_log_messages)>0) {
 
-        printf("%s  --> ERROR %d fields%s\n", On_Red BWhite, -errors, Color_Off);
+        printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
         int idx; json_t *value;
         printf("      Unexpected error:\n");
         json_array_foreach(unexpected_log_messages, idx, value) {
@@ -235,7 +235,7 @@ PRIVATE BOOL show_results(const char *test, int errors)
     }
 
     if(json_array_size(expected_log_messages)>0) {
-        printf("%s  --> ERROR %d fields%s\n", On_Red BWhite, -errors, Color_Off);
+        printf("%s  --> ERROR %s\n", On_Red BWhite, Color_Off);
         int idx; json_t *value;
         printf("      Expected error not consumed:\n");
         json_array_foreach(expected_log_messages, idx, value) {
@@ -251,61 +251,6 @@ PRIVATE BOOL show_results(const char *test, int errors)
 /***************************************************************************
  *
  ***************************************************************************/
-// PRIVATE json_t *__trtdb_create_topic_cols_desc(void)
-// {
-//     json_t *topic_cols_desc = json_array();
-//     json_array_append_new(
-//         topic_cols_desc,
-//         json_pack("{s:s, s:s, s:[s,s], s:[s,s]}",
-//             "id", "id",
-//             "header", "Id",
-//             "type",
-//                 "string", "integer",
-//             "flag",
-//                 "required", "pkey"
-//         )
-//     );
-//     json_array_append_new(
-//         topic_cols_desc,
-//         json_pack("{s:s, s:s, s:s, s:s}",
-//             "id", "header",
-//             "header", "Header",
-//             "type",
-//                 "string",
-//             "flag",
-//                 ""
-//         )
-//     );
-//     json_array_append_new(
-//         topic_cols_desc,
-//         json_pack("{s:s, s:s, s:s, s:[s,s,s,s,s,s,s,s], s:s}",
-//             "id", "type",
-//             "header", "Type",
-//             "type", "enum",
-//             "enum",
-//                 "string","integer","object","array","real","boolean","null",  "enum",
-//             "flag",
-//                 "required"
-//         )
-//     );
-//     json_array_append_new(
-//         topic_cols_desc,
-//         json_pack("{s:s, s:s, s:s, s:[s,s,s,s,s,s,s,s,s], s:s}",
-//             "id", "flag",
-//             "header", "Flag",
-//             "type", "enum",
-//             "enum",
-//                 "","persistent","required","volatil","pkey","uuid","link","reverse","include",
-//             "flag",
-//                 ""
-//         )
-//     );
-//     return topic_cols_desc;
-// }
-
-/***************************************************************************
- *
- ***************************************************************************/
 PRIVATE BOOL test_treedb_schema(
     json_t *tranger,
     json_t *topic_cols_desc,
@@ -315,7 +260,6 @@ PRIVATE BOOL test_treedb_schema(
 {
     BOOL ret = TRUE;
     const char *test;
-    int errors = 0;
 
     /*-----------------------------------*
      *
@@ -340,12 +284,12 @@ PRIVATE BOOL test_treedb_schema(
             json_pack("[]"  // error's list
             )
         );
-        errors = parse_schema_cols(
+        parse_schema_cols(
             test,
             topic_cols_desc,
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
-        if(!show_results(test, errors)) {
+        if(!check_log_result(test)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -375,12 +319,12 @@ PRIVATE BOOL test_treedb_schema(
             json_pack("[]"  // error's list
             )
         );
-        errors = parse_schema_cols(
+        parse_schema_cols(
             test,
             topic_cols_desc,
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
-        if(!show_results(test, errors)) {
+        if(!check_log_result(test)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -418,12 +362,12 @@ PRIVATE BOOL test_treedb_schema(
             )
         );
 
-        errors = parse_schema_cols(
+        parse_schema_cols(
             test,
             topic_cols_desc,
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
-        if(!show_results(test, errors)) {
+        if(!check_log_result(test)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -437,36 +381,57 @@ PRIVATE BOOL test_treedb_schema(
  ***************************************************************************/
 PRIVATE BOOL match_record(
     json_t *record_, // NOT owned
-    json_t *expected_, // owned
-    BOOL verbose
+    json_t *expected_ // owned
 )
 {
     BOOL ret = TRUE;
     json_t *record = json_deep_copy(record_);
     json_t *expected = json_deep_copy(expected_);
 
-    void *n; const char *key; json_t *value;
-    json_object_foreach_safe(record, n, key, value) {
-        if(!kw_has_key(expected, key)) {
-            ret = FALSE;
-        }
-        if(!kw_is_identical(value, json_object_get(expected, key))) {
-            ret = FALSE;
-        }
-        json_object_del(record, key);
-        json_object_del(expected, key);
-    }
-
-    if(json_object_size(record)>0) {
+    if(json_typeof(record) != json_typeof(expected)) {
         ret = FALSE;
-    }
-    if(json_object_size(expected)>0) {
-        ret = FALSE;
-    }
+    } else {
+        switch(json_typeof(record)) {
+            case JSON_ARRAY:
+                {
+                    int idx; json_t *v1;
+                    json_array_foreach(record, idx, v1) {
+                        json_t *v2 = json_array_get(expected, idx);
+                        if(!match_record(v1, v2)) {
+                            ret = FALSE;
+                            break;
+                        }
 
-    if(!ret && verbose) {
-        log_debug_json(0, record, "record");
-        log_debug_json(0, expected, "expected");
+                    }
+                }
+                break;
+            case JSON_OBJECT:
+                {
+                    void *n; const char *key; json_t *value;
+                    json_object_foreach_safe(record, n, key, value) {
+                        if(!kw_has_key(expected, key)) {
+                            ret = FALSE;
+                        }
+                        if(!kw_is_identical(value, json_object_get(expected, key))) {
+                            ret = FALSE;
+                        }
+                        json_object_del(record, key);
+                        json_object_del(expected, key);
+                    }
+
+                    if(json_object_size(record)>0) {
+                        ret = FALSE;
+                    }
+                    if(json_object_size(expected)>0) {
+                        ret = FALSE;
+                    }
+                }
+                break;
+            default:
+                ret = FALSE;
+                break;
+        }
+
     }
 
     JSON_DECREF(record);
@@ -485,7 +450,6 @@ PRIVATE BOOL test_schema(
 )
 {
     BOOL ret = TRUE;
-    int errors = 0;
 
     const char *topic_name; json_t *topic;
     json_object_foreach(kw_get_dict(tranger, "topics", 0, KW_REQUIRED), topic_name, topic)
@@ -495,12 +459,12 @@ PRIVATE BOOL test_schema(
             json_pack("[]"  // error's list
             )
         );
-        errors = parse_schema_cols(
+        parse_schema_cols(
             topic_name,
             topic_cols_desc,
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
-        if(!show_results(topic_name, errors)) {
+        if(!check_log_result(topic_name)) {
             ret = FALSE;
         }
     }
@@ -509,19 +473,6 @@ PRIVATE BOOL test_schema(
 }
 
 /***************************************************************************
- *
- ***************************************************************************/
-PRIVATE BOOL test_load_data(json_t *tranger, const char *treedb_name, BOOL verbose)
-{
-    BOOL ret = TRUE;
-    const char *test = "load_data";
-    set_expected_results(
-        test,
-        json_pack("[]"  // error's list
-        )
-    );
-
-/*
     Dirección
         |
          -> Administración
@@ -535,7 +486,17 @@ PRIVATE BOOL test_load_data(json_t *tranger, const char *treedb_name, BOOL verbo
                 |-> Sistemas
                 |
                  -> Desarrollo
-*/
+ ***************************************************************************/
+PRIVATE BOOL test_load_data(
+    json_t *tranger,
+    const char *treedb_name,
+    int without_ok_tests,
+    int without_bad_tests
+)
+{
+    BOOL ret = TRUE;
+    json_t *direction = 0;
+    json_t *administration = 0;
 
 /*
     Dirección
@@ -547,57 +508,198 @@ PRIVATE BOOL test_load_data(json_t *tranger, const char *treedb_name, BOOL verbo
     json_t *data = 0;
     json_t *expected = 0;
 
-    /*--------------------------*
-     *      Dirección
-     *--------------------------*/
-    id = json_string("1");
-    data = json_pack("{s:s}",
-        "name", "Dirección"
-    );
-    expected = json_deep_copy(data);
-    json_object_set_new(expected, "id", json_deep_copy(id));
+    /*-----------------------------------*
+     *  Dirección
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        const char *test = "create direction ok";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
 
-    json_t *direction = trtdb_read_node(
-        tranger, treedb_name,       // treedb
-        "departments",              // topic_name
-        id,                         // id
-        0,                          // fields
-        data,                       // data
-        "create|verbose"            // options
-    );
-    if(!match_record(direction, expected, verbose)) {
-        ret = FALSE;
-        printf("%s  --> ERROR Dirección %s\n", On_Red BWhite, Color_Off);
+        id = json_string("1");
+        data = json_pack("{s:s}",
+            "name", "Dirección"
+        );
+        expected = json_deep_copy(data);
+        json_object_set_new(expected, "id", json_deep_copy(id));
+
+        direction = trtdb_read_node(
+            tranger, treedb_name,       // treedb
+            "departments",              // topic_name
+            id,                         // id
+            0,                          // fields
+            data,                       // data
+            "create|verbose"            // options
+        );
+        if(!match_record(direction, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR Dirección %s\n", On_Red BWhite, Color_Off);
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
     }
 
-    /*--------------------------*
-     *      Administración
-     *--------------------------*/
-    data = json_pack("{s:s, s:s}",
-        "id", "2",
-        "name", "Administración"
-    );
-    expected = json_deep_copy(data);
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_bad_tests) {
+        const char *test = "load_data administration error";
+        set_expected_results(
+            test,
+            json_pack("[{s:s}]",  // error's list
+                "msg", "Cannot append record, Record without pkey"
+            )
+        );
 
-    json_t *administration = trtdb_read_node(
-        tranger, treedb_name,
-        "departments",
-        0,
-        0,
-        data,
-        "create|verbose"
-    );
-    if(!match_record(administration, expected, verbose)) {
-        ret = FALSE;
-        printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+        data = json_pack("{s:s}",
+            "name", "Administración"
+        );
+
+        json_t *empty = trtdb_read_node(
+            tranger, treedb_name,
+            "departments",
+            0,
+            0,
+            data,
+            "create|verbose"
+        );
+        JSON_DECREF(empty);
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
     }
 
-    /*------------------------------*
-     *  Dirección->Administración
-     *------------------------------*/
-//     {
-//         trtdb_link_node(tranger, direction, administration, 0);
-//     }
+    /*-----------------------------------*
+     *  Administración
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        const char *test = "create administration ok";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+
+        data = json_pack("{s:s, s:s}",
+            "id", "2",
+            "name", "Administración"
+        );
+        expected = json_deep_copy(data);
+
+        administration = trtdb_read_node(
+            tranger, treedb_name,
+            "departments",
+            0,
+            0,
+            data,
+            "create|verbose"
+        );
+        if(!match_record(administration, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_bad_tests) {
+        const char *test = "load_data administration error";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+
+        data = json_pack("{s:s}",
+            "name", "Administración"
+        );
+        expected = json_pack("[{s:s, s:s}]",
+            "id", "2",
+            "name", "XAdministración"
+        );
+
+        json_t *not_empty = trtdb_read_node(
+            tranger, treedb_name,
+            "departments",
+            0,
+            0,
+            data,
+            "verbose"
+        );
+        if(match_record(not_empty, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
+        JSON_DECREF(not_empty);
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        const char *test = "load_data administration ok";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+
+        data = json_pack("{s:s}",
+            "name", "Administración"
+        );
+        expected = json_pack("[{s:s, s:s}]",
+            "id", "2",
+            "name", "Administración"
+        );
+
+        json_t *not_empty = trtdb_read_node(
+            tranger, treedb_name,
+            "departments",
+            0,
+            0,
+            data,
+            "verbose"
+        );
+        if(!match_record(not_empty, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
+        JSON_DECREF(not_empty);
+    }
+
+    /*-------------------------------------*
+     *      Dirección->Administración
+     *------------------------------------*/
+    {
+        const char *test = "link direction->administration ok";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+        trtdb_link_node(tranger, direction, administration, 0);
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
+    }
 
 #ifdef PEPE
 
@@ -697,11 +799,8 @@ PRIVATE BOOL test_load_data(json_t *tranger, const char *treedb_name, BOOL verbo
     );
 #endif
 
-    if(ret) {
-        if(!show_results(test, 0)) {
-            ret = FALSE;
-        }
-    }
+    JSON_DECREF(direction);
+    JSON_DECREF(administration);
 
     return ret;
 }
@@ -850,8 +949,8 @@ int main(int argc, char *argv[])
         capture_log_write,  // write_fn
         0                   // fwrite_fn
     );
-    log_add_handler("test_capture", "testing", LOG_OPT_UP_INFO, 0);
-    log_add_handler("test_stdout", "stdout", LOG_OPT_ALL, 0);
+    log_add_handler("test_capture", "testing", LOG_OPT_UP_WARNING, 0);
+    log_add_handler("test_stdout", "stdout", LOG_OPT_UP_WARNING, 0);
 
     expected_log_messages = json_array();
     unexpected_log_messages = json_array();
@@ -913,7 +1012,11 @@ int main(int argc, char *argv[])
         ret = -1;
     }
 
-    if(!test_load_data(tranger, treedb_name, FALSE)) { // verbose a option
+    if(!test_load_data(
+        tranger,
+        treedb_name,
+        arguments.without_ok_tests,
+        arguments.without_bad_tests)) {
         ret = -1;
     }
 
