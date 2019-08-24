@@ -695,7 +695,15 @@ PRIVATE BOOL test_load_data(
             json_pack("[]"  // error's list
             )
         );
-        trtdb_link_node(tranger, direction, administration, 0);
+        trtdb_link_node(
+            tranger, treedb_name,
+            "departments",
+            "departments",
+            "departments",
+            direction,
+            administration,
+            0
+        );
         if(!check_log_result(test)) {
             ret = FALSE;
         }
@@ -1020,7 +1028,7 @@ int main(int argc, char *argv[])
         ret = -1;
     }
 
-    //print_json(kw_get_dict(tranger, "treedbs", 0, 0));
+    print_json(kw_get_dict(tranger, "treedbs", 0, 0));
     //print_json(tranger);
 
     /*------------------------------*
