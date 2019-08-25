@@ -51,8 +51,8 @@ static char schema_sample[]= "\
                     'flag': 'persistent'                            \n\
                 },                                                  \n\
                 {                                                   \n\
-                    'id': 'connected',                              \n\
-                    'header': 'Connected',                          \n\
+                    'id': 'online',                                 \n\
+                    'header': 'On Line',                            \n\
                     'type': 'boolean',                              \n\
                     'flag': 'volatil'                               \n\
                 },                                                  \n\
@@ -113,7 +113,7 @@ static char schema_sample[]= "\
                     'header': 'Departments',                        \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent','link'],                  \n\
-                    'link': 'departments$id'                        \n\
+                    'link': 'departments'                           \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'users',                                  \n\

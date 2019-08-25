@@ -35,6 +35,8 @@ struct arguments
 
     int without_ok_tests;
     int without_bad_tests;
+    int print_tranger;
+    int print_treedb;
 };
 PRIVATE int show_log_output;
 
@@ -68,6 +70,8 @@ static struct argp_option options[] = {
 {"without-ok-tests",    1,      0,          0,      "Not execute ok tests", 1},
 {"without-bad-tests",   2,      0,          0,      "Not execute bad tests", 1},
 {"show-log-output",     3,      0,          0,      "Show log ouputs", 1},
+{"print-tranger",       4,      0,          0,      "Print tranger json", 1},
+{"print-treedb",        5,      0,          0,      "Print treedb json", 1},
 
 {0}
 };
@@ -102,6 +106,14 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 
     case 3:
         show_log_output = 1;
+        break;
+
+    case 4:
+        arguments->print_tranger = 1;
+        break;
+
+    case 5:
+        arguments->print_treedb = 1;
         break;
 
     case ARGP_KEY_ARG:
@@ -407,16 +419,18 @@ PRIVATE BOOL match_record(
                 break;
             case JSON_OBJECT:
                 {
+                    json_object_del(record, "__md_treedb__");
+                    json_object_del(expected, "__md_treedb__");
                     void *n; const char *key; json_t *value;
                     json_object_foreach_safe(record, n, key, value) {
                         if(!kw_has_key(expected, key)) {
                             ret = FALSE;
-                        }
-                        if(!kw_is_identical(value, json_object_get(expected, key))) {
+                        } else if(!kw_is_identical(value, json_object_get(expected, key))) {
                             ret = FALSE;
+                        } else {
+                            json_object_del(record, key);
+                            json_object_del(expected, key);
                         }
-                        json_object_del(record, key);
-                        json_object_del(expected, key);
                     }
 
                     if(json_object_size(record)>0) {
@@ -1028,8 +1042,11 @@ int main(int argc, char *argv[])
         ret = -1;
     }
 
-    print_json(kw_get_dict(tranger, "treedbs", 0, 0));
-    //print_json(tranger);
+    if(arguments.print_tranger) {
+        print_json(tranger);
+    } else if(arguments.print_treedb) {
+        print_json(kw_get_dict(tranger, "treedbs", 0, 0));
+    }
 
     /*------------------------------*
      *  Cierra la bbdd
