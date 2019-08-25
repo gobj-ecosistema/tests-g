@@ -60,7 +60,7 @@ static char schema_sample[]= "\
                     'id': 'department',                             \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','link','reverse'],        \n\
+                    'flag': ['persistent'],                         \n\
                     'link': 'departments$id',                       \n\
                     'reverse': 'departments$id.users'               \n\
                 },                                                  \n\
@@ -98,28 +98,38 @@ static char schema_sample[]= "\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'managers',                               \n\
-                    'header': 'Managers',                           \n\
-                    'type': 'array',                                \n\
-                    'flag': ['persistent','link'],                  \n\
-                    'link': [                                       \n\
-                        'users$id',                                 \n\
-                        'departments$id.users'                      \n\
-                    ]                                               \n\
-                },                                                  \n\
+                                                                    \n\
                 {                                                   \n\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','link'],                  \n\
-                    'link': 'departments'                           \n\
+                    'flag': ['volatil'],                            \n\
+                    'link': 'departments`id',                       \n\
+                    'reverse': 'departments`department_id'          \n\
+                },                                                  \n\
+                {                                                   \n\
+                    'id': 'department_id',                          \n\
+                    'header': 'Top Department',                     \n\
+                    'type': 'string',                               \n\
+                    'flag': ['persistent'],                         \n\
+                    'link': 'departments`id'                        \n\
+                },                                                  \n\
+                                                                    \n\
+                {                                                   \n\
+                    'id': 'managers',                               \n\
+                    'header': 'Managers',                           \n\
+                    'type': 'array',                                \n\
+                    'flag': ['persistent'],                         \n\
+                    'link': [                                       \n\
+                        'users`id',                                 \n\
+                        'departments`users'                         \n\
+                    ]                                               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'users',                                  \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['volatil','link','reverse'],           \n\
+                    'flag': ['volatil'],                            \n\
                     'link': 'users$id',                             \n\
                     'reverse': 'users$id.department'                \n\
                 }                                                   \n\
@@ -147,7 +157,7 @@ static char schema_sample[]= "\
                     'id': 'attributes',                             \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','link'],                  \n\
+                    'flag': ['persistent'],                         \n\
                     'link': 'attributes$id'                         \n\
                 }                                                   \n\
             ]                                                       \n\
@@ -174,7 +184,7 @@ static char schema_sample[]= "\
                     'id': 'roles',                                  \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','link'],                  \n\
+                    'flag': ['persistent'],                         \n\
                     'link': 'roles$id'                              \n\
                 }                                                   \n\
             ]                                                       \n\

@@ -711,9 +711,7 @@ PRIVATE BOOL test_load_data(
         );
         trtdb_link_node(
             tranger, treedb_name,
-            "departments",
-            "departments",
-            "departments",
+            "departments", // HACK departments.users para links multiples
             direction,
             administration,
             0
