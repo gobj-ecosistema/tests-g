@@ -599,10 +599,11 @@ PRIVATE BOOL test_load_data(
      *-----------------------------------*/
     if(!without_bad_tests) {
         // TEST no record with name "Administración"
-        const char *test = "load_data administration error, not exists";
+        const char *test = "load_data administration error, cannot create without pkey";
         set_expected_results(
             test,
-            json_pack("[]"  // error's list
+            json_pack("[{s:s}]",  // error's list
+                "msg", "Field required"
             )
         );
 
@@ -717,9 +718,9 @@ PRIVATE BOOL test_load_data(
             data,
             "verbose"
         );
-
-log_debug_json(0, found, "Record found");
-log_debug_json(0, expected, "Record expected");
+// print_json(kw_get_subdict_value(tranger, "treedbs", treedb_name, 0, 0));
+// log_debug_json(0, found, "Record found");
+// log_debug_json(0, expected, "Record expected");
         if(match_record(found, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
@@ -771,8 +772,6 @@ log_debug_json(0, expected, "Record expected");
             data,
             "verbose"
         );
-log_debug_json(0, found, "Record found");
-log_debug_json(0, expected, "Record expected");
         if(!match_record(found, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
