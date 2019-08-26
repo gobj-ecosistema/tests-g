@@ -35,8 +35,10 @@ struct arguments
 
     int without_ok_tests;
     int without_bad_tests;
+    int show_oks;
     int print_tranger;
     int print_treedb;
+    int verbose;
 };
 PRIVATE int show_log_output;
 
@@ -70,8 +72,10 @@ static struct argp_option options[] = {
 {"without-ok-tests",    1,      0,          0,      "Not execute ok tests", 1},
 {"without-bad-tests",   2,      0,          0,      "Not execute bad tests", 1},
 {"show-log-output",     3,      0,          0,      "Show log ouputs", 1},
-{"print-tranger",       4,      0,          0,      "Print tranger json", 1},
-{"print-treedb",        5,      0,          0,      "Print treedb json", 1},
+{"show-oks",            4,      0,          0,      "Show log ouputs", 1},
+{"print-tranger",       5,      0,          0,      "Print tranger json", 1},
+{"print-treedb",        6,      0,          0,      "Print treedb json", 1},
+{"verbose",             7,      0,          0,      "Verbose", 1},
 
 {0}
 };
@@ -109,11 +113,19 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
         break;
 
     case 4:
-        arguments->print_tranger = 1;
+        arguments->show_oks = 1;
         break;
 
     case 5:
+        arguments->print_tranger = 1;
+        break;
+
+    case 6:
         arguments->print_treedb = 1;
+        break;
+
+    case 7:
+        arguments->verbose = 1;
         break;
 
     case ARGP_KEY_ARG:
@@ -263,144 +275,22 @@ PRIVATE BOOL check_log_result(const char *test)
 /***************************************************************************
  *
  ***************************************************************************/
-PRIVATE BOOL test_treedb_schema(
-    json_t *tranger,
-    json_t *topic_cols_desc,
-    int without_ok_tests,
-    int without_bad_tests
-)
-{
-    BOOL ret = TRUE;
-    const char *test;
-
-    /*-----------------------------------*
-     *
-     *-----------------------------------*/
-    if(!without_ok_tests) {
-        test = "good_desc_01";
-        json_t *topic = tranger_create_topic(
-            tranger,
-            test,
-            "id",
-            "",
-            sf_rowid_key,
-            json_pack("[{s:s, s:s, s:s, s:s}]",
-                "id", "id",
-                "header", "Id",
-                "type", "integer",
-                "flag", "required"
-            )
-        );
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            )
-        );
-        parse_schema_cols(
-            test,
-            topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
-        );
-        if(!check_log_result(test)) {
-            ret = FALSE;
-        }
-        tranger_delete_topic(tranger, test);
-    }
-
-    /*-----------------------------------*
-     *
-     *-----------------------------------*/
-    if(!without_ok_tests) {
-        test = "good_desc_02";
-        json_t *topic = tranger_create_topic(
-            tranger,
-            test,
-            "id",
-            "",
-            sf_rowid_key,
-            json_pack("[{s:s, s:s, s:[s], s:[s,s]}]",
-                "id", "name",
-                "header", "Name",
-                "type", "string",
-                "flag",
-                    "persistent", "required"
-            )
-        );
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            )
-        );
-        parse_schema_cols(
-            test,
-            topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
-        );
-        if(!check_log_result(test)) {
-            ret = FALSE;
-        }
-        tranger_delete_topic(tranger, test);
-    }
-
-    /*-----------------------------------*
-     *
-     *-----------------------------------*/
-    if(!without_bad_tests) {
-        test = "bad_desc_01";
-        json_t *topic = tranger_create_topic(
-            tranger,
-            test,
-            "id",
-            "",
-            sf_rowid_key,
-            json_pack("[{s:b, s:[s], s:s, s:s}]",
-                "id", 1,
-                "header", "Xx",
-                "type", "xinteger",
-                "flag", "xrequired"
-            )
-        );
-        set_expected_results(
-            test,
-            json_pack("[{s:s, s:s}, {s:s, s:s}, {s:s, s:s}, {s:s, s:s}]",  // error's list
-                "msg", "Wrong basic type",
-                "field", "id",
-                "msg", "Wrong basic type",
-                "field", "header",
-                "msg", "Wrong enum type",
-                "field", "type",
-                "msg", "Wrong enum type",
-                "field", "flag"
-            )
-        );
-
-        parse_schema_cols(
-            test,
-            topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
-        );
-        if(!check_log_result(test)) {
-            ret = FALSE;
-        }
-        tranger_delete_topic(tranger, test);
-    }
-
-    return ret;
-}
-
-/***************************************************************************
- *
- ***************************************************************************/
 PRIVATE BOOL match_record(
     json_t *record_, // NOT owned
-    json_t *expected_ // owned
+    json_t *expected_ // NOT owned
 )
 {
     BOOL ret = TRUE;
+    if(!record_) {
+        return FALSE;
+    }
+    if(!expected_) {
+        return FALSE;
+    }
     json_t *record = json_deep_copy(record_);
     json_t *expected = json_deep_copy(expected_);
 
-    if(json_typeof(record) != json_typeof(expected)) {
+    if(json_typeof(record) != json_typeof(expected)) { // json_typeof CONTROLADO
         ret = FALSE;
     } else {
         switch(json_typeof(record)) {
@@ -450,7 +340,133 @@ PRIVATE BOOL match_record(
 
     JSON_DECREF(record);
     JSON_DECREF(expected);
-    JSON_DECREF(expected_);
+    return ret;
+}
+
+/***************************************************************************
+ *
+ ***************************************************************************/
+PRIVATE BOOL test_treedb_schema(
+    json_t *tranger,
+    json_t *topic_cols_desc,
+    int without_ok_tests,
+    int without_bad_tests,
+    int show_oks,
+    int verbose
+)
+{
+    BOOL ret = TRUE;
+    const char *test;
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        test = "good_desc_01";
+        json_t *topic = tranger_create_topic(
+            tranger,
+            test,
+            "id",
+            "",
+            sf_rowid_key,
+            json_pack("[{s:s, s:s, s:s, s:s}]",
+                "id", "id",
+                "header", "Id",
+                "type", "integer",
+                "flag", "required"
+            )
+        );
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+        parse_schema_cols(
+            topic_cols_desc,
+            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+        );
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
+        tranger_delete_topic(tranger, test);
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        test = "good_desc_02";
+        json_t *topic = tranger_create_topic(
+            tranger,
+            test,
+            "id",
+            "",
+            sf_rowid_key,
+            json_pack("[{s:s, s:s, s:[s], s:[s,s]}]",
+                "id", "name",
+                "header", "Name",
+                "type", "string",
+                "flag",
+                    "persistent", "required"
+            )
+        );
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+        parse_schema_cols(
+            topic_cols_desc,
+            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+        );
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
+        tranger_delete_topic(tranger, test);
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_bad_tests) {
+        test = "bad_desc_01";
+        json_t *topic = tranger_create_topic(
+            tranger,
+            test,
+            "id",
+            "",
+            sf_rowid_key,
+            json_pack("[{s:b, s:[s], s:s, s:s}]",
+                "id", 1,
+                "header", "Xx",
+                "type", "xinteger",
+                "flag", "xrequired"
+            )
+        );
+        set_expected_results(
+            test,
+            json_pack("[{s:s, s:s}, {s:s, s:s}, {s:s, s:s}, {s:s, s:s}]",  // error's list
+                "msg", "Wrong basic type",
+                "field", "id",
+                "msg", "Wrong basic type",
+                "field", "header",
+                "msg", "Wrong enum type",
+                "field", "type",
+                "msg", "Wrong enum type",
+                "field", "flag"
+            )
+        );
+
+        parse_schema_cols(
+            topic_cols_desc,
+            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+        );
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
+        tranger_delete_topic(tranger, test);
+    }
+
     return ret;
 }
 
@@ -460,7 +476,8 @@ PRIVATE BOOL match_record(
 PRIVATE BOOL test_schema(
     json_t *tranger,
     json_t *topic_cols_desc,
-    const char *treedb_name
+    const char *treedb_name,
+    int verbose
 )
 {
     BOOL ret = TRUE;
@@ -474,7 +491,6 @@ PRIVATE BOOL test_schema(
             )
         );
         parse_schema_cols(
-            topic_name,
             topic_cols_desc,
             kw_get_list(topic, "cols", 0, KW_REQUIRED)
         );
@@ -505,7 +521,9 @@ PRIVATE BOOL test_load_data(
     json_t *tranger,
     const char *treedb_name,
     int without_ok_tests,
-    int without_bad_tests
+    int without_bad_tests,
+    int show_oks,
+    int verbose
 )
 {
     BOOL ret = TRUE;
@@ -520,6 +538,7 @@ PRIVATE BOOL test_load_data(
 
     json_t *id = 0;
     json_t *data = 0;
+    json_t *found = 0;
     json_t *expected = 0;
 
     /*-----------------------------------*
@@ -537,7 +556,15 @@ PRIVATE BOOL test_load_data(
         data = json_pack("{s:s}",
             "name", "Dirección"
         );
-        expected = json_deep_copy(data);
+        expected = json_pack("{s:s, s:s, s:s, s:[], s:[], s:[]}",
+            "id", "1",
+            "name", "Dirección",
+            "department_id", "",
+            "departments",
+            "managers",
+            "users"
+
+        );
         json_object_set_new(expected, "id", json_deep_copy(id));
 
         direction = trtdb_read_node(
@@ -551,30 +578,40 @@ PRIVATE BOOL test_load_data(
         if(!match_record(direction, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Dirección %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, direction, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
         } else {
             if(!check_log_result(test)) {
                 ret = FALSE;
             }
         }
+        if(show_oks) {
+            log_debug_json(0, direction, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(expected);
     }
 
     /*-----------------------------------*
      *
      *-----------------------------------*/
     if(!without_bad_tests) {
-        const char *test = "load_data administration error";
+        // TEST no record with name "Administración"
+        const char *test = "load_data administration error, not exists";
         set_expected_results(
             test,
-            json_pack("[{s:s}]",  // error's list
-                "msg", "Cannot append record, Record without pkey"
+            json_pack("[]"  // error's list
             )
         );
 
         data = json_pack("{s:s}",
             "name", "Administración"
         );
+        expected = json_pack("[]");
 
-        json_t *empty = trtdb_read_node(
+        found = trtdb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -582,10 +619,26 @@ PRIVATE BOOL test_load_data(
             data,
             "create|verbose"
         );
-        JSON_DECREF(empty);
-        if(!check_log_result(test)) {
+
+        if(!match_record(found, expected)) {
             ret = FALSE;
+            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
         }
+
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
     }
 
     /*-----------------------------------*
@@ -603,7 +656,14 @@ PRIVATE BOOL test_load_data(
             "id", "2",
             "name", "Administración"
         );
-        expected = json_deep_copy(data);
+        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]", // HACK return list: because no id!
+            "id", "2",
+            "name", "Administración",
+            "department_id", "",
+            "departments",
+            "managers",
+            "users"
+        );
 
         administration = trtdb_read_node(
             tranger, treedb_name,
@@ -616,18 +676,27 @@ PRIVATE BOOL test_load_data(
         if(!match_record(administration, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, administration, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
         } else {
             if(!check_log_result(test)) {
                 ret = FALSE;
             }
         }
+        if(show_oks) {
+            log_debug_json(0, direction, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(expected);
     }
 
     /*-----------------------------------*
      *
      *-----------------------------------*/
     if(!without_bad_tests) {
-        const char *test = "load_data administration error";
+        const char *test = "load_data administration error, can't be empty response";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -637,12 +706,10 @@ PRIVATE BOOL test_load_data(
         data = json_pack("{s:s}",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s}]",
-            "id", "2",
-            "name", "XAdministración"
+        expected = json_pack("[]"
         );
 
-        json_t *not_empty = trtdb_read_node(
+        found = trtdb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -650,15 +717,27 @@ PRIVATE BOOL test_load_data(
             data,
             "verbose"
         );
-        if(match_record(not_empty, expected)) {
+
+log_debug_json(0, found, "Record found");
+log_debug_json(0, expected, "Record expected");
+        if(match_record(found, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
         } else {
             if(!check_log_result(test)) {
                 ret = FALSE;
             }
         }
-        JSON_DECREF(not_empty);
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
     }
 
     /*-----------------------------------*
@@ -675,12 +754,16 @@ PRIVATE BOOL test_load_data(
         data = json_pack("{s:s}",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s}]",
+        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]",
             "id", "2",
-            "name", "Administración"
+            "name", "Administración",
+            "department_id", "",
+            "departments",
+            "managers",
+            "users"
         );
 
-        json_t *not_empty = trtdb_read_node(
+        found = trtdb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -688,15 +771,26 @@ PRIVATE BOOL test_load_data(
             data,
             "verbose"
         );
-        if(!match_record(not_empty, expected)) {
+log_debug_json(0, found, "Record found");
+log_debug_json(0, expected, "Record expected");
+        if(!match_record(found, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
         } else {
             if(!check_log_result(test)) {
                 ret = FALSE;
             }
         }
-        JSON_DECREF(not_empty);
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
     }
 
     /*-------------------------------------*
@@ -833,7 +927,8 @@ void test_performance(
     int caso,
     const char *desc,
     int without_ok_tests,
-    int without_bad_tests
+    int without_bad_tests,
+    int show_oks
 )
 {
     uint64_t cnt;
@@ -970,7 +1065,12 @@ int main(int argc, char *argv[])
         0                   // fwrite_fn
     );
     log_add_handler("test_capture", "testing", LOG_OPT_UP_WARNING, 0);
-    log_add_handler("test_stdout", "stdout", LOG_OPT_UP_WARNING, 0);
+    log_add_handler(
+        "test_stdout",
+        "stdout",
+        arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING,
+        0
+    );
 
     expected_log_messages = json_array();
     unexpected_log_messages = json_array();
@@ -1004,7 +1104,10 @@ int main(int argc, char *argv[])
         tranger,
         topic_cols_desc,
         arguments.without_ok_tests,
-        arguments.without_bad_tests)) {
+        arguments.without_bad_tests,
+        arguments.show_oks,
+        arguments.verbose
+    )) {
             ret = -1;
     }
 
@@ -1028,15 +1131,18 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Ejecuta los tests
      *------------------------------*/
-    if(!test_schema(tranger, topic_cols_desc, treedb_name)) {
+    if(!test_schema(tranger, topic_cols_desc, treedb_name, arguments.verbose)) {
         ret = -1;
     }
 
     if(!test_load_data(
-        tranger,
-        treedb_name,
-        arguments.without_ok_tests,
-        arguments.without_bad_tests)) {
+            tranger,
+            treedb_name,
+            arguments.without_ok_tests,
+            arguments.without_bad_tests,
+            arguments.show_oks,
+            arguments.verbose
+        )) {
         ret = -1;
     }
 

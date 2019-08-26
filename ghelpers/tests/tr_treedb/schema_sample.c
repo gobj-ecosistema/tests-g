@@ -12,7 +12,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','pkey','uuid']            \n\
+                    'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'username',                               \n\
@@ -90,7 +90,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','pkey','uuid']            \n\
+                    'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'name',                                   \n\
@@ -100,19 +100,19 @@ static char schema_sample[]= "\
                 },                                                  \n\
                                                                     \n\
                 {                                                   \n\
+                    'id': 'department_id',                          \n\
+                    'header': 'Top Department',                     \n\
+                    'type': 'string',                               \n\
+                    'flag': ['persistent'],                         \n\
+                    'link': 'departments`id'                        \n\
+                },                                                  \n\
+                {                                                   \n\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
                     'type': 'array',                                \n\
                     'flag': ['volatil'],                            \n\
                     'link': 'departments`id',                       \n\
                     'reverse': 'departments`department_id'          \n\
-                },                                                  \n\
-                {                                                   \n\
-                    'id': 'department_id',                          \n\
-                    'header': 'Top Department',                     \n\
-                    'type': 'string',                               \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': 'departments`id'                        \n\
                 },                                                  \n\
                                                                     \n\
                 {                                                   \n\
@@ -145,7 +145,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','pkey','uuid']            \n\
+                    'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'attribute',                              \n\
@@ -172,7 +172,7 @@ static char schema_sample[]= "\
                     'id': 'id',                                     \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','pkey','uuid']            \n\
+                    'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'role',                                   \n\
