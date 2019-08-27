@@ -571,7 +571,6 @@ PRIVATE BOOL test_load_data(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
             id,                         // id
-            0,                          // fields
             data,                       // data
             "create|verbose"            // options
         );
@@ -616,7 +615,6 @@ PRIVATE BOOL test_load_data(
             tranger, treedb_name,
             "departments",
             0,
-            0,
             data,
             "create|verbose"
         );
@@ -657,7 +655,7 @@ PRIVATE BOOL test_load_data(
             "id", "2",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]", // HACK return list: because no id!
+        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]",
             "id", "2",
             "name", "Administración",
             "department_id", "",
@@ -666,11 +664,10 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        administration = trtdb_read_node(
+        administration = trtdb_read_node( // HACK return list: because no explicit id!
             tranger, treedb_name,
             "departments",
-            0,
-            0,
+            0, // no explicit id
             data,
             "create|verbose"
         );
@@ -713,7 +710,6 @@ PRIVATE BOOL test_load_data(
         found = trtdb_read_node(
             tranger, treedb_name,
             "departments",
-            0,
             0,
             data,
             "verbose"
@@ -768,7 +764,6 @@ PRIVATE BOOL test_load_data(
             tranger, treedb_name,
             "departments",
             0,
-            0,
             data,
             "verbose"
         );
@@ -802,9 +797,9 @@ PRIVATE BOOL test_load_data(
             json_pack("[]"  // error's list
             )
         );
-        trtdb_link_node(
+        trtdb_link_nodes(
             tranger, treedb_name,
-            "departments", // HACK departments.users para links multiples
+            "departments",
             direction,
             administration,
             0
@@ -1008,7 +1003,7 @@ int main(int argc, char *argv[])
         "test_glogger"     // executable program, to can trace stack
     );
 
-    static uint32_t mem_list[] = {2680, 0};
+    static uint32_t mem_list[] = {0, 0};
     gbmem_trace_alloc_free(0, mem_list);
 
     /*------------------------------------------------*
@@ -1067,7 +1062,7 @@ int main(int argc, char *argv[])
     log_add_handler(
         "test_stdout",
         "stdout",
-        arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING,
+        arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON,
         0
     );
 

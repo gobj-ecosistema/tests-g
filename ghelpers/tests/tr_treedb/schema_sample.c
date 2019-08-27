@@ -103,16 +103,19 @@ static char schema_sample[]= "\
                     'id': 'department_id',                          \n\
                     'header': 'Top Department',                     \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': 'departments`id'                        \n\
+                    'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
                     'type': 'array',                                \n\
                     'flag': ['volatil'],                            \n\
-                    'link': 'departments`id',                       \n\
-                    'reverse': 'departments`department_id'          \n\
+                    'link': {                                       \n\
+                        'departments': 'id'                         \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'departments': 'department_id'              \n\
+                    }                                               \n\
                 },                                                  \n\
                                                                     \n\
                 {                                                   \n\
