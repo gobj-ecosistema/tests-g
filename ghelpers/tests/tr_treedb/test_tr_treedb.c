@@ -556,7 +556,7 @@ PRIVATE BOOL test_load_data(
         data = json_pack("{s:s}",
             "name", "Dirección"
         );
-        expected = json_pack("{s:s, s:s, s:s, s:[], s:[], s:[]}",
+        expected = json_pack("{s:s, s:s, s:s, s:{}, s:[], s:[]}",
             "id", "1",
             "name", "Dirección",
             "department_id", "",
@@ -655,7 +655,7 @@ PRIVATE BOOL test_load_data(
             "id", "2",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]",
+        expected = json_pack("[{s:s, s:s, s:s, s:{}, s:[], s:[]}]",
             "id", "2",
             "name", "Administración",
             "department_id", "",
@@ -751,7 +751,7 @@ PRIVATE BOOL test_load_data(
         data = json_pack("{s:s}",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s, s:s, s:[], s:[], s:[]}]",
+        expected = json_pack("[{s:s, s:s, s:s, s:{}, s:[], s:[]}]",
             "id", "2",
             "name", "Administración",
             "department_id", "",

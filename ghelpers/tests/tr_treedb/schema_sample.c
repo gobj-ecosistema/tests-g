@@ -108,7 +108,7 @@ static char schema_sample[]= "\
                 {                                                   \n\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
-                    'type': 'array',                                \n\
+                    'type': 'object',                                \n\
                     'flag': ['volatil'],                            \n\
                     'link': {                                       \n\
                         'departments': 'id'                         \n\
