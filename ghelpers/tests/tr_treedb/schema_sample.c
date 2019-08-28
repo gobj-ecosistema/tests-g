@@ -24,7 +24,8 @@ static char schema_sample[]= "\
                     'id': 'firstName',                              \n\
                     'header': 'First Name',                         \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','required']               \n\
+                    'flag': ['persistent','required'],              \n\
+                    'link': ''                                      \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'lastName',                               \n\
@@ -54,15 +55,19 @@ static char schema_sample[]= "\
                     'id': 'online',                                 \n\
                     'header': 'On Line',                            \n\
                     'type': 'boolean',                              \n\
-                    'flag': 'volatil'                               \n\
+                    'flag': ''                                      \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'department',                             \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': 'departments$id',                       \n\
-                    'reverse': 'departments$id.users'               \n\
+                    'flag': ['persistent', 'hook'],                 \n\
+                    'link': {                                       \n\
+                        'departments': 'id'                         \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'departments': 'users'                      \n\
+                    }                                               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'attributes',                             \n\
@@ -108,8 +113,8 @@ static char schema_sample[]= "\
                 {                                                   \n\
                     'id': 'departments',                            \n\
                     'header': 'Departments',                        \n\
-                    'type': 'object',                                \n\
-                    'flag': ['volatil'],                            \n\
+                    'type': 'object',                               \n\
+                    'flag': 'hook',                                 \n\
                     'link': {                                       \n\
                         'departments': 'id'                         \n\
                     },                                              \n\
@@ -122,19 +127,23 @@ static char schema_sample[]= "\
                     'id': 'managers',                               \n\
                     'header': 'Managers',                           \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': [                                       \n\
-                        'users`id',                                 \n\
-                        'departments`users'                         \n\
-                    ]                                               \n\
+                    'flag': ['persistent', 'hook'],                 \n\
+                    'link': {                                       \n\
+                        'users': 'id',                              \n\
+                        'departments': 'users'                      \n\
+                    }                                               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'users',                                  \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['volatil'],                            \n\
-                    'link': 'users$id',                             \n\
-                    'reverse': 'users$id.department'                \n\
+                    'flag': ['hook'],                               \n\
+                    'link': {                                       \n\
+                        'users': 'id'                               \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'users': 'department'                       \n\
+                    }                                               \n\
                 }                                                   \n\
             ]                                                       \n\
         },                                                          \n\
@@ -160,8 +169,10 @@ static char schema_sample[]= "\
                     'id': 'attributes',                             \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': 'attributes$id'                         \n\
+                    'flag': ['persistent', 'hook'],                 \n\
+                    'link': {                                       \n\
+                        'attributes': 'id'                          \n\
+                    }                                               \n\
                 }                                                   \n\
             ]                                                       \n\
         },                                                          \n\
@@ -187,8 +198,10 @@ static char schema_sample[]= "\
                     'id': 'roles',                                  \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent'],                         \n\
-                    'link': 'roles$id'                              \n\
+                    'flag': ['persistent', 'hook'],                 \n\
+                    'link': {                                       \n\
+                        'roles': 'id'                               \n\
+                    }                                               \n\
                 }                                                   \n\
             ]                                                       \n\
         }                                                           \n\
