@@ -383,7 +383,7 @@ PRIVATE BOOL test_treedb_schema(
         );
         parse_schema_cols(
             topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+            kwid_new_list("verbose", topic, "cols")
         );
         if(!check_log_result(test)) {
             ret = FALSE;
@@ -417,7 +417,7 @@ PRIVATE BOOL test_treedb_schema(
         );
         parse_schema_cols(
             topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+            kwid_new_list("verbose", topic, "cols")
         );
         if(!check_log_result(test)) {
             ret = FALSE;
@@ -459,7 +459,7 @@ PRIVATE BOOL test_treedb_schema(
 
         parse_schema_cols(
             topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+            kwid_new_list("verbose", topic, "cols")
         );
         if(!check_log_result(test)) {
             ret = FALSE;
@@ -492,7 +492,7 @@ PRIVATE BOOL test_schema(
         );
         parse_schema_cols(
             topic_cols_desc,
-            kw_get_list(topic, "cols", 0, KW_REQUIRED)
+            kwid_new_list("verbose", topic, "cols")
         );
         if(!check_log_result(topic_name)) {
             ret = FALSE;

@@ -90,28 +90,24 @@ static char schema_sample[]= "\
             'topic_name': 'departments',                            \n\
             'pkey': 'id',                                           \n\
             'system_flag': 'sf_string_key',                         \n\
-            'cols': [                                               \n\
-                {                                                   \n\
-                    'id': 'id',                                     \n\
+            'cols': {                                               \n\
+                'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'name',                                   \n\
+                'name': {                                           \n\
                     'header': 'Name',                               \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
                                                                     \n\
-                {                                                   \n\
-                    'id': 'department_id',                          \n\
+                'department_id': {                                  \n\
                     'header': 'Top Department',                     \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'departments',                            \n\
+                'departments': {                                    \n\
                     'header': 'Departments',                        \n\
                     'type': 'object',                               \n\
                     'flag': 'hook',                                 \n\
@@ -123,8 +119,7 @@ static char schema_sample[]= "\
                     }                                               \n\
                 },                                                  \n\
                                                                     \n\
-                {                                                   \n\
-                    'id': 'managers',                               \n\
+                'managers': {                                       \n\
                     'header': 'Managers',                           \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'hook'],                 \n\
@@ -133,8 +128,7 @@ static char schema_sample[]= "\
                         'departments': 'users'                      \n\
                     }                                               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'users',                                  \n\
+                'users': {                                          \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['hook'],                               \n\
@@ -145,7 +139,7 @@ static char schema_sample[]= "\
                         'users': 'department'                       \n\
                     }                                               \n\
                 }                                                   \n\
-            ]                                                       \n\
+            }                                                       \n\
         },                                                          \n\
                                                                     \n\
         {                                                           \n\
