@@ -567,7 +567,7 @@ PRIVATE BOOL test_load_data(
         );
         json_object_set_new(expected, "id", json_deep_copy(id));
 
-        direction = trtdb_read_node(
+        direction = treedb_read_node(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
             id,                         // id
@@ -611,7 +611,7 @@ PRIVATE BOOL test_load_data(
         );
         expected = json_pack("[]");
 
-        found = trtdb_read_node(
+        found = treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -664,7 +664,7 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        administration = trtdb_read_node( // HACK return list: because no explicit id!
+        administration = treedb_read_node( // HACK return list: because no explicit id!
             tranger, treedb_name,
             "departments",
             0, // no explicit id
@@ -707,7 +707,7 @@ PRIVATE BOOL test_load_data(
         expected = json_pack("[]"
         );
 
-        found = trtdb_read_node(
+        found = treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -760,7 +760,7 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        found = trtdb_read_node(
+        found = treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -797,7 +797,7 @@ PRIVATE BOOL test_load_data(
             json_pack("[]"  // error's list
             )
         );
-        trtdb_link_nodes(
+        treedb_link_nodes(
             tranger, treedb_name,
             "departments",
             direction,
@@ -816,9 +816,9 @@ PRIVATE BOOL test_load_data(
                 |
                 |-> Gestión
 */
-    trtdb_link_node(tranger,
+    treedb_link_node(tranger,
         administration,
-        trtdb_read_node(
+        treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -835,9 +835,9 @@ PRIVATE BOOL test_load_data(
                 |
                 |-> Microinformática
 */
-    trtdb_link_node(tranger,
+    treedb_link_node(tranger,
         administration,
-        trtdb_read_node(
+        treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -854,9 +854,9 @@ PRIVATE BOOL test_load_data(
                 |
                 |-> Redes
 */
-    trtdb_link_node(tranger,
+    treedb_link_node(tranger,
         administration,
-        trtdb_read_node(
+        treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -873,9 +873,9 @@ PRIVATE BOOL test_load_data(
                 |
                 |-> Sistemas
 */
-    trtdb_link_node(tranger,
+    treedb_link_node(tranger,
         administration,
-        trtdb_read_node(
+        treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -892,9 +892,9 @@ PRIVATE BOOL test_load_data(
                 |
                  -> Desarrollo
 */
-    trtdb_link_node(tranger,
+    treedb_link_node(tranger,
         administration,
-        trtdb_read_node(
+        treedb_read_node(
             tranger, treedb_name,
             "departments",
             0,
@@ -1072,7 +1072,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  La bbddd de pruebas
      *------------------------------*/
-    char *path = "/test/trtdb/db_test1";
+    char *path = "/test/treedb/db_test1";
 
     /*------------------------------*
      *  Destruye la bbdd previa
@@ -1093,7 +1093,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Check treedb internals
      *------------------------------*/
-    json_t *topic_cols_desc =_trtdb_create_topic_cols_desc();
+    json_t *topic_cols_desc =_treedb_create_topic_cols_desc();
     if(!test_treedb_schema(
         tranger,
         topic_cols_desc,
@@ -1115,7 +1115,7 @@ int main(int argc, char *argv[])
     }
 
     const char *treedb_name = "treedb_test";
-    trtdb_open_db(
+    treedb_open_db(
         tranger,  // owned
         treedb_name,
         jn_schema_sample,  // owned
@@ -1149,7 +1149,7 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *  Cierra la bbdd
      *------------------------------*/
-    trtdb_close_db(tranger, treedb_name);
+    treedb_close_db(tranger, treedb_name);
 
     tranger_shutdown(tranger);
 
