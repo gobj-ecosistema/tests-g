@@ -24,8 +24,7 @@ static char schema_sample[]= "\
                     'id': 'firstName',                              \n\
                     'header': 'First Name',                         \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','required'],              \n\
-                    'link': ''                                      \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 {                                                   \n\
                     'id': 'lastName',                               \n\

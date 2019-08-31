@@ -1122,6 +1122,10 @@ int main(int argc, char *argv[])
         0
     );
 
+    if(!check_log_result("clean start")) { // Be sure there is no previous error
+        ret = -1;
+    }
+
     /*------------------------------*
      *  Ejecuta los tests
      *------------------------------*/
