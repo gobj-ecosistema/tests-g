@@ -7,60 +7,51 @@ static char schema_sample[]= "\
             'topic_name': 'users',                                  \n\
             'pkey': 'id',                                           \n\
             'system_flag': 'sf_string_key',                         \n\
-            'cols': [                                               \n\
-                {                                                   \n\
-                    'id': 'id',                                     \n\
+            'cols': {                                               \n\
+                'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'username',                               \n\
+                'username': {                                       \n\
                     'header': 'User Name',                          \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'firstName',                              \n\
+                'firstName': {                                      \n\
                     'header': 'First Name',                         \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'lastName',                               \n\
+                'lastName': {                                       \n\
                     'header': 'Last Name',                          \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'email',                                  \n\
+                'email': {                                          \n\
                     'header': 'Email',                              \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required']               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'emailVerified',                          \n\
+                'emailVerified': {                                  \n\
                     'header': 'Email Verified',                     \n\
                     'type': 'boolean',                              \n\
                     'flag': 'persistent'                            \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'disabled',                               \n\
+                'disabled': {                                       \n\
                     'header': 'Disabled',                           \n\
                     'type': 'boolean',                              \n\
                     'flag': 'persistent'                            \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'online',                                 \n\
+                'online': {                                         \n\
                     'header': 'On Line',                            \n\
                     'type': 'boolean',                              \n\
                     'flag': ''                                      \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'department',                             \n\
+                'department': {                                     \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent', 'hook'],                 \n\
+                    'flag': ['persistent', 'hook', 'fkey'],         \n\
                     'link': {                                       \n\
                         'departments': 'id'                         \n\
                     },                                              \n\
@@ -68,21 +59,19 @@ static char schema_sample[]= "\
                         'departments': 'users'                      \n\
                     }                                               \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'attributes',                             \n\
+                'attributes': {                                     \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent','include'],               \n\
                     'include': ['attributes$id.attribute']          \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'roles',                                  \n\
+                'roles': {                                          \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent','include'],               \n\
                     'include': ['roles$id.role']                    \n\
                 }                                                   \n\
-            ]                                                       \n\
+            }                                                       \n\
         },                                                          \n\
                                                                     \n\
         {                                                           \n\
@@ -120,7 +109,7 @@ static char schema_sample[]= "\
                                                                     \n\
                 'managers': {                                       \n\
                     'header': 'Managers',                           \n\
-                    'type': 'array',                                \n\
+                    'type': 'object',                               \n\
                     'flag': ['persistent', 'hook'],                 \n\
                     'link': {                                       \n\
                         'users': 'id',                              \n\
@@ -130,7 +119,7 @@ static char schema_sample[]= "\
                 'users': {                                          \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['hook'],                               \n\
+                    'flag': ['hook', 'fkey'],                       \n\
                     'link': {                                       \n\
                         'users': 'id'                               \n\
                     },                                              \n\
@@ -145,21 +134,18 @@ static char schema_sample[]= "\
             'topic_name': 'attributes',                             \n\
             'pkey': 'id',                                           \n\
             'system_flag': 'sf_string_key',                         \n\
-            'cols': [                                               \n\
-                {                                                   \n\
-                    'id': 'id',                                     \n\
+            'cols': {                                               \n\
+                'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'attribute',                              \n\
+                'attribute': {                                      \n\
                     'header': 'Attribute',                          \n\
                     'type': 'object',                               \n\
                     'flag': 'persistent'                            \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'attributes',                             \n\
+                'attributes': {                                     \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'hook'],                 \n\
@@ -167,28 +153,25 @@ static char schema_sample[]= "\
                         'attributes': 'id'                          \n\
                     }                                               \n\
                 }                                                   \n\
-            ]                                                       \n\
+            }                                                       \n\
         },                                                          \n\
                                                                     \n\
         {                                                           \n\
             'topic_name': 'roles',                                  \n\
             'pkey': 'id',                                           \n\
             'system_flag': 'sf_string_key',                         \n\
-            'cols': [                                               \n\
-                {                                                   \n\
-                    'id': 'id',                                     \n\
+            'cols': {                                               \n\
+                'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
                     'flag': ['persistent','required','uuid']        \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'role',                                   \n\
+                'role': {                                           \n\
                     'header': 'Role',                               \n\
                     'type': 'object',                               \n\
                     'flag': 'persistent'                            \n\
                 },                                                  \n\
-                {                                                   \n\
-                    'id': 'roles',                                  \n\
+                'roles': {                                          \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'hook'],                 \n\
@@ -196,7 +179,7 @@ static char schema_sample[]= "\
                         'roles': 'id'                               \n\
                     }                                               \n\
                 }                                                   \n\
-            ]                                                       \n\
+            }                                                       \n\
         }                                                           \n\
     ],                                                              \n\
     'indexes': [                                                    \n\
