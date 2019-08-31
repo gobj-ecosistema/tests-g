@@ -791,6 +791,26 @@ PRIVATE BOOL test_load_data(
      *      Dirección->Administración
      *------------------------------------*/
     {
+        const char *test = "link direction->administration: wrong hook";
+        set_expected_results(
+            test,
+            json_pack("[{s:s}]",  // error's list
+                "msg", "hook field not found"
+            )
+        );
+        treedb_link_nodes(
+            tranger, treedb_name,
+            "departmentsx",
+            direction,
+            administration,
+            0
+        );
+        if(!check_log_result(test)) {
+            ret = FALSE;
+        }
+    }
+
+    {
         const char *test = "link direction->administration ok";
         set_expected_results(
             test,
