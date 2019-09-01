@@ -850,7 +850,7 @@ PRIVATE BOOL test_load_data(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR link direction->administration %s\n", On_Red BWhite, Color_Off);
+            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
@@ -868,6 +868,105 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
+    { // Comprueba el timeranger
+        const char *test = "match treedb with timeranger rowid 1, id 1 Dirección";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+        md_record_t md_record;
+        tranger_get_record(
+            tranger,
+            tranger_topic(tranger, "departments"),
+            1, //__rowid__
+            &md_record,
+            TRUE
+        );
+        found = tranger_read_record_content(
+            tranger,
+            tranger_topic(tranger, "departments"),
+            &md_record
+        );
+        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
+            "id", "1",
+            "name", "Dirección",
+            "department_id", "",
+            "departments",
+            "managers",
+            "users"
+        );
+        if(!expected) {
+            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+        }
+        if(!match_record(found, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
+
+        test = "match treedb with timeranger rowid 3, id 2 Administración";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            )
+        );
+        tranger_get_record(
+            tranger,
+            tranger_topic(tranger, "departments"),
+            3, //__rowid__
+            &md_record,
+            TRUE
+        );
+        found = tranger_read_record_content(
+            tranger,
+            tranger_topic(tranger, "departments"),
+            &md_record
+        );
+        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
+            "id", "2",
+            "name", "Administración",
+            "department_id", "1",
+            "departments",
+            "managers",
+            "users"
+        );
+        if(!expected) {
+            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+        }
+
+        if(!match_record(found, expected)) {
+            ret = FALSE;
+            printf("%s  --> ERROR tranger NOT MATCH%s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
+        }
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
+    }
 #ifdef PEPE
 
 /*
