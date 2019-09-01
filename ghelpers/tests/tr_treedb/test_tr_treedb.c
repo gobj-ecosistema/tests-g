@@ -824,9 +824,48 @@ PRIVATE BOOL test_load_data(
             administration,
             0
         );
-        if(!check_log_result(test)) {
+
+        expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
+            "id", "1",
+            "name", "Dirección",
+            "department_id", "",
+            "departments",
+                "2",
+                    "id", "2",
+                    "name", "Administración",
+                    "department_id", "1",
+                    "departments",
+                    "managers",
+                    "users",
+            "managers",
+            "users"
+        );
+
+        found = treedb_read_node(
+            tranger, treedb_name,
+            "departments",
+            json_string("1"),
+            0,
+            "verbose"
+        );
+        if(!match_record(found, expected)) {
             ret = FALSE;
+            printf("%s  --> ERROR link direction->administration %s\n", On_Red BWhite, Color_Off);
+            if(verbose) {
+                log_debug_json(0, found, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            }
+        } else {
+            if(!check_log_result(test)) {
+                ret = FALSE;
+            }
         }
+        if(show_oks) {
+            log_debug_json(0, found, "Record found");
+            log_debug_json(0, expected, "Record expected");
+        }
+        JSON_DECREF(found);
+        JSON_DECREF(expected);
     }
 
 #ifdef PEPE
