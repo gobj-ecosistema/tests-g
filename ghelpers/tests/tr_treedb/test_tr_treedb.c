@@ -72,7 +72,7 @@ static struct argp_option options[] = {
 {"without-ok-tests",    1,      0,          0,      "Not execute ok tests", 1},
 {"without-bad-tests",   2,      0,          0,      "Not execute bad tests", 1},
 {"show-log-output",     3,      0,          0,      "Show log ouputs", 1},
-{"show-oks",            4,      0,          0,      "Show log ouputs", 1},
+{"show-oks",            4,      0,          0,      "Show log ouputs (verbose required)", 1},
 {"print-tranger",       5,      0,          0,      "Print tranger json", 1},
 {"print-treedb",        6,      0,          0,      "Print treedb json", 1},
 {"verbose",             7,      0,          0,      "Verbose", 1},
@@ -536,7 +536,6 @@ PRIVATE BOOL test_load_data(
          -> Administración
 */
 
-    json_t *id = 0;
     json_t *data = 0;
     json_t *found = 0;
     json_t *expected = 0;
@@ -545,15 +544,15 @@ PRIVATE BOOL test_load_data(
      *  Dirección
      *-----------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "create direction ok";
+        const char *test = "good create direction";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
             )
         );
 
-        id = json_string("1");
-        data = json_pack("{s:s}",
+        data = json_pack("{s:s, s:s}",
+            "id", "1",
             "name", "Dirección"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
@@ -565,14 +564,11 @@ PRIVATE BOOL test_load_data(
             "users"
 
         );
-        json_object_set_new(expected, "id", json_deep_copy(id));
 
-        direction = treedb_read_node(
+        direction = treedb_create_node(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
-            id,                         // id
-            data,                       // data
-            "create|verbose"            // options
+            data                        // data
         );
         if(!match_record(direction, expected)) {
             ret = FALSE;
@@ -593,6 +589,7 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
+#ifdef PEPE
     /*-----------------------------------*
      *
      *-----------------------------------*/
@@ -611,12 +608,10 @@ PRIVATE BOOL test_load_data(
         );
         expected = json_pack("[]");
 
-        found = treedb_read_node(
+        found = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            0,
-            data,
-            "create|verbose"
+            data
         );
 
         if(!match_record(found, expected)) {
@@ -644,7 +639,7 @@ PRIVATE BOOL test_load_data(
      *  Administración
      *-----------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "create administration ok";
+        const char *test = "good create administration";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -664,12 +659,10 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        administration = treedb_read_node( // HACK return list: because no explicit id!
+        administration = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            0, // no explicit id
-            data,
-            "create|verbose"
+            data
         );
         if(!match_record(administration, expected)) {
             ret = FALSE;
@@ -799,11 +792,10 @@ PRIVATE BOOL test_load_data(
             )
         );
         treedb_link_nodes(
-            tranger, treedb_name,
+            tranger,
             "departmentsx",
             direction,
-            administration,
-            0
+            administration
         );
         if(!check_log_result(test)) {
             ret = FALSE;
@@ -818,11 +810,10 @@ PRIVATE BOOL test_load_data(
             )
         );
         treedb_link_nodes(
-            tranger, treedb_name,
+            tranger,
             "departments",
             direction,
-            administration,
-            0
+            administration
         );
 
         expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
@@ -968,6 +959,7 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(found);
         JSON_DECREF(expected);
     }
+#endif
 #ifdef PEPE
 
 /*
