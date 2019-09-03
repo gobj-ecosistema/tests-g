@@ -281,14 +281,14 @@ PRIVATE BOOL match_record(
 )
 {
     BOOL ret = TRUE;
-    if(!record_) {
-        return FALSE;
-    }
-    if(!expected_) {
-        return FALSE;
-    }
     json_t *record = json_deep_copy(record_);
     json_t *expected = json_deep_copy(expected_);
+    if(!record) {
+        return FALSE;
+    }
+    if(!expected) {
+        return FALSE;
+    }
 
     if(json_typeof(record) != json_typeof(expected)) { // json_typeof CONTROLADO
         ret = FALSE;
@@ -790,7 +790,7 @@ PRIVATE BOOL test_load_data(
     /*-------------------------------------*
      *      Dirección->Administración
      *------------------------------------*/
-    {
+    if(!without_bad_tests) {
         const char *test = "link direction->administration: wrong hook";
         set_expected_results(
             test,
@@ -810,7 +810,7 @@ PRIVATE BOOL test_load_data(
         }
     }
 
-    {
+    if(!without_ok_tests) {
         const char *test = "link direction->administration ok";
         set_expected_results(
             test,
@@ -868,7 +868,8 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
-    { // Comprueba el timeranger
+    if(!without_ok_tests) {
+        // Comprueba el timeranger
         const char *test = "match treedb with timeranger rowid 1, id 1 Dirección";
         set_expected_results(
             test,
@@ -1145,6 +1146,8 @@ int main(int argc, char *argv[])
     memset(&arguments, 0, sizeof(arguments));
     arguments.without_ok_tests = 0;
     arguments.without_bad_tests = 0;
+
+    // TODO en verbose pintar OK\n, en no-verbose pintar ..... y punto rojo si error.
 
     /*
      *  Parse arguments
