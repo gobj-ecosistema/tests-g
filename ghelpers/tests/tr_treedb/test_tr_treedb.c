@@ -589,7 +589,6 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
-#ifdef PEPE
     /*-----------------------------------*
      *
      *-----------------------------------*/
@@ -599,14 +598,14 @@ PRIVATE BOOL test_load_data(
         set_expected_results(
             test,
             json_pack("[{s:s}]",  // error's list
-                "msg", "Field required"
+                "msg", "Field 'id' required"
             )
         );
 
         data = json_pack("{s:s}",
             "name", "Administración"
         );
-        expected = json_pack("[]");
+        expected = 0;
 
         found = treedb_create_node(
             tranger, treedb_name,
@@ -614,7 +613,7 @@ PRIVATE BOOL test_load_data(
             data
         );
 
-        if(!match_record(found, expected)) {
+        if(found) {
             ret = FALSE;
             printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
             if(verbose) {
@@ -635,6 +634,7 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
+#ifdef PEPE
     /*-----------------------------------*
      *  Administración
      *-----------------------------------*/
