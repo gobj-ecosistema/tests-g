@@ -814,10 +814,8 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
-#ifdef PEPE
-
     if(!without_ok_tests) {
-        // Comprueba el timeranger
+        // Comprueba con timeranger
         const char *test = "match treedb with timeranger rowid 1, id 1 Dirección";
         set_expected_results(
             test,
@@ -866,13 +864,17 @@ PRIVATE BOOL test_load_data(
         }
         JSON_DECREF(found);
         JSON_DECREF(expected);
+    }
 
-        test = "match treedb with timeranger rowid 3, id 2 Administración";
+    if(!without_ok_tests) {
+        // Comprueba con timeranger
+        const char *test = "match treedb with timeranger rowid 3, id 2 Administración";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
             )
         );
+        md_record_t md_record;
         tranger_get_record(
             tranger,
             tranger_topic(tranger, "departments"),
@@ -916,7 +918,7 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(found);
         JSON_DECREF(expected);
     }
-#endif
+
 #ifdef PEPE
 
 /*
