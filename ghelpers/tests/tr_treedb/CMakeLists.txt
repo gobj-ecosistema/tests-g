@@ -30,6 +30,7 @@ include_directories(BEFORE /yuneta/development/output/include)
 
 SET (YUNO_SRCS
     test_tr_treedb.c
+    test_departments.c
 )
 SET (YUNO_HDRS
 )
