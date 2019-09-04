@@ -315,11 +315,24 @@ PRIVATE BOOL match_record(
                     json_object_foreach_safe(record, n, key, value) {
                         if(!kw_has_key(expected, key)) {
                             ret = FALSE;
-                        } else if(!kw_is_identical(value, json_object_get(expected, key))) {
-                            ret = FALSE;
+                            break;
+                        }
+                        if(json_typeof(value)==JSON_OBJECT) {
+                            if(!match_record(value, json_object_get(expected, key))) {
+                                ret = FALSE;
+                                break;
+                            } else {
+                                json_object_del(record, key);
+                                json_object_del(expected, key);
+                            }
                         } else {
-                            json_object_del(record, key);
-                            json_object_del(expected, key);
+                            if(!kw_is_identical(value, json_object_get(expected, key))) {
+                                ret = FALSE;
+                                break;
+                            } else {
+                                json_object_del(record, key);
+                                json_object_del(expected, key);
+                            }
                         }
                     }
 
@@ -544,7 +557,7 @@ PRIVATE BOOL test_load_data(
      *  Dirección
      *-----------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "good create direction";
+        const char *test = "Create direction, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -593,8 +606,7 @@ PRIVATE BOOL test_load_data(
      *
      *-----------------------------------*/
     if(!without_bad_tests) {
-        // TEST no record with name "Administración"
-        const char *test = "load_data administration error, cannot create without pkey";
+        const char *test = "Create administration, wrong, no id";
         set_expected_results(
             test,
             json_pack("[{s:s}]",  // error's list
@@ -607,7 +619,7 @@ PRIVATE BOOL test_load_data(
         );
         expected = 0;
 
-        found = treedb_create_node(
+        found = treedb_create_node( // Must return 0
             tranger, treedb_name,
             "departments",
             data
@@ -634,12 +646,11 @@ PRIVATE BOOL test_load_data(
         JSON_DECREF(expected);
     }
 
-#ifdef PEPE
     /*-----------------------------------*
      *  Administración
      *-----------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "good create administration";
+        const char *test = "Create administration, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -650,7 +661,7 @@ PRIVATE BOOL test_load_data(
             "id", "2",
             "name", "Administración"
         );
-        expected = json_pack("[{s:s, s:s, s:s, s:{}, s:{}, s:[]}]",
+        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "2",
             "name", "Administración",
             "department_id", "",
@@ -686,65 +697,15 @@ PRIVATE BOOL test_load_data(
     /*-----------------------------------*
      *
      *-----------------------------------*/
-    if(!without_bad_tests) {
-        const char *test = "load_data administration error, can't be empty response";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            )
-        );
-
-        data = json_pack("{s:s}",
-            "name", "Administración"
-        );
-        expected = json_pack("[]"
-        );
-
-        found = treedb_read_node(
-            tranger, treedb_name,
-            "departments",
-            0,
-            data,
-            "verbose"
-        );
-// print_json(kw_get_subdict_value(tranger, "treedbs", treedb_name, 0, 0));
-// log_debug_json(0, found, "Record found");
-// log_debug_json(0, expected, "Record expected");
-        if(match_record(found, expected)) {
-            ret = FALSE;
-            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
-            if(verbose) {
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            }
-        } else {
-            if(!check_log_result(test)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(found);
-        JSON_DECREF(expected);
-    }
-
-    /*-----------------------------------*
-     *
-     *-----------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "load_data administration ok";
+        const char *test = "Get administration, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
             )
         );
 
-        data = json_pack("{s:s}",
-            "name", "Administración"
-        );
-        expected = json_pack("[{s:s, s:s, s:s, s:{}, s:{}, s:[]}]",
+        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "2",
             "name", "Administración",
             "department_id", "",
@@ -753,12 +714,10 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        found = treedb_read_node(
+        found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            0,
-            data,
-            "verbose"
+            json_string("2")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -776,7 +735,6 @@ PRIVATE BOOL test_load_data(
             log_debug_json(0, found, "Record found");
             log_debug_json(0, expected, "Record expected");
         }
-        JSON_DECREF(found);
         JSON_DECREF(expected);
     }
 
@@ -803,7 +761,7 @@ PRIVATE BOOL test_load_data(
     }
 
     if(!without_ok_tests) {
-        const char *test = "link direction->administration ok";
+        const char *test = "link direction->administration, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -832,12 +790,10 @@ PRIVATE BOOL test_load_data(
             "users"
         );
 
-        found = treedb_read_node(
+        found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("1"),
-            0,
-            "verbose"
+            json_string("1")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -855,9 +811,10 @@ PRIVATE BOOL test_load_data(
             log_debug_json(0, found, "Record found");
             log_debug_json(0, expected, "Record expected");
         }
-        JSON_DECREF(found);
         JSON_DECREF(expected);
     }
+
+#ifdef PEPE
 
     if(!without_ok_tests) {
         // Comprueba el timeranger
