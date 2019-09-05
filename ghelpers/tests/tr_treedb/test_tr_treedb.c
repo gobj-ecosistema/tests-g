@@ -737,7 +737,18 @@ int main(int argc, char *argv[])
         ret = -1;
     }
 
-    if(!test_departments_data(
+    if(!test_departments(
+            tranger,
+            treedb_name,
+            arguments.without_ok_tests,
+            arguments.without_bad_tests,
+            arguments.show_oks,
+            arguments.verbose
+        )) {
+        ret = -1;
+    }
+
+    if(!test_users(
             tranger,
             treedb_name,
             arguments.without_ok_tests,

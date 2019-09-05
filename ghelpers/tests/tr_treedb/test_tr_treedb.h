@@ -22,7 +22,16 @@ PUBLIC BOOL match_record(
 );
 PUBLIC BOOL check_log_result(const char *test);
 
-PUBLIC BOOL test_departments_data(
+PUBLIC BOOL test_departments(
+    json_t *tranger,
+    const char *treedb_name,
+    int without_ok_tests,
+    int without_bad_tests,
+    int show_oks,
+    int verbose
+);
+
+PUBLIC BOOL test_users(
     json_t *tranger,
     const char *treedb_name,
     int without_ok_tests,

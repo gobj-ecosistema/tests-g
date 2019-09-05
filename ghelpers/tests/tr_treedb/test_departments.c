@@ -30,7 +30,7 @@
                 |
                  -> Desarrollo
  ***************************************************************************/
-PUBLIC BOOL test_departments_data(
+PUBLIC BOOL test_departments(
     json_t *tranger,
     const char *treedb_name,
     int without_ok_tests,
@@ -42,7 +42,7 @@ PUBLIC BOOL test_departments_data(
     BOOL ret = TRUE;
     json_t *direction = 0;
     json_t *administration = 0;
-    json_t *management = 0;
+    json_t *operation = 0;
     json_t *microinformatics = 0;
     json_t *network = 0;
     json_t *systems = 0;
@@ -70,11 +70,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "1",
+            "id", "direction",
             "name", "Dirección"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "1",
+            "id", "direction",
             "name", "Dirección",
             "department_id", "",
             "departments",
@@ -163,11 +163,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
             "department_id", "",
             "departments",
@@ -211,7 +211,7 @@ PUBLIC BOOL test_departments_data(
         );
 
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
             "department_id", "",
             "departments",
@@ -222,7 +222,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -280,14 +280,14 @@ PUBLIC BOOL test_departments_data(
         );
 
         expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
-            "id", "1",
+            "id", "direction",
             "name", "Dirección",
             "department_id", "",
             "departments",
-                "2",
-                    "id", "2",
+                "administration",
+                    "id", "administration",
                     "name", "Administración",
-                    "department_id", "1",
+                    "department_id", "direction",
                     "departments",
                     "managers",
                     "users",
@@ -298,7 +298,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("1")
+            json_string("direction")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -341,7 +341,7 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "1",
+            "id", "direction",
             "name", "Dirección",
             "department_id", "",
             "departments",
@@ -393,9 +393,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
             "managers",
             "users"
@@ -433,7 +433,7 @@ PUBLIC BOOL test_departments_data(
      *  Gestión
      *-----------------------------------*/
     if(!without_bad_tests) {
-        const char *test = "Create management, wrong, duplicated key";
+        const char *test = "Create operation, wrong, duplicated key";
         set_expected_results(
             test,
             json_pack("[{s:s}]",  // error's list
@@ -442,20 +442,20 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "2",
+            "id", "administration",
             "name", "Gestión"
         );
 
-        management = treedb_create_node(
+        operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
             data
         );
-        if(management) {
+        if(operation) {
             ret = FALSE;
             printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
-                log_debug_json(0, management, "Record found");
+                log_debug_json(0, operation, "Record found");
             }
         } else {
             if(!check_log_result(test)) {
@@ -465,7 +465,7 @@ PUBLIC BOOL test_departments_data(
     }
 
     if(!without_ok_tests) {
-        const char *test = "Create management, good";
+        const char *test = "Create operation, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -473,11 +473,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "3",
+            "id", "operation",
             "name", "Gestión"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "3",
+            "id", "operation",
             "name", "Gestión",
             "department_id", "",
             "departments",
@@ -485,16 +485,16 @@ PUBLIC BOOL test_departments_data(
             "users"
         );
 
-        management = treedb_create_node(
+        operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
             data
         );
-        if(!match_record(management, expected)) {
+        if(!match_record(operation, expected)) {
             ret = FALSE;
             printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
-                log_debug_json(0, management, "Record found");
+                log_debug_json(0, operation, "Record found");
                 log_debug_json(0, expected, "Record expected");
             }
         } else {
@@ -503,7 +503,7 @@ PUBLIC BOOL test_departments_data(
             }
         }
         if(show_oks) {
-            log_debug_json(0, management, "Record found");
+            log_debug_json(0, operation, "Record found");
             log_debug_json(0, expected, "Record expected");
         }
         JSON_DECREF(expected);
@@ -513,7 +513,7 @@ PUBLIC BOOL test_departments_data(
      *      Administración -> Gestión
      *------------------------------------*/
     if(!without_ok_tests) {
-        const char *test = "link administration->management, good";
+        const char *test = "link administration->operation, good";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -523,18 +523,18 @@ PUBLIC BOOL test_departments_data(
             tranger,
             "departments",
             administration,
-            management
+            operation
         );
 
         expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
-                "3",
-                    "id", "3",
+                "operation",
+                    "id", "operation",
                     "name", "Gestión",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
@@ -545,7 +545,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -588,9 +588,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "3",
+            "id", "operation",
             "name", "Gestión",
-            "department_id", "2",
+            "department_id", "administration",
             "departments",
             "managers",
             "users"
@@ -636,11 +636,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "4",
+            "id", "microinformatics",
             "name", "Microinformática"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "4",
+            "id", "microinformatics",
             "name", "Microinformática",
             "department_id", "",
             "departments",
@@ -692,21 +692,21 @@ PUBLIC BOOL test_departments_data(
         expected = json_pack("{s:s, s:s, s:s, s:"
                 "{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
                 " s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
-                "3",
-                    "id", "3",
+                "operation",
+                    "id", "operation",
                     "name", "Gestión",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "4",
-                    "id", "4",
+                "microinformatics",
+                    "id", "microinformatics",
                     "name", "Microinformática",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
@@ -717,7 +717,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -760,9 +760,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "4",
+            "id", "microinformatics",
             "name", "Microinformática",
-            "department_id", "2",
+            "department_id", "administration",
             "departments",
             "managers",
             "users"
@@ -808,11 +808,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "5",
+            "id", "network",
             "name", "Redes"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "5",
+            "id", "network",
             "name", "Redes",
             "department_id", "",
             "departments",
@@ -866,28 +866,28 @@ PUBLIC BOOL test_departments_data(
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
                 " s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
-                "3",
-                    "id", "3",
+                "operation",
+                    "id", "operation",
                     "name", "Gestión",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "4",
-                    "id", "4",
+                "microinformatics",
+                    "id", "microinformatics",
                     "name", "Microinformática",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "5",
-                    "id", "5",
+                "network",
+                    "id", "network",
                     "name", "Redes",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
@@ -898,7 +898,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -941,9 +941,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "5",
+            "id", "network",
             "name", "Redes",
-            "department_id", "2",
+            "department_id", "administration",
             "departments",
             "managers",
             "users"
@@ -989,11 +989,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "6",
+            "id", "systems",
             "name", "Sistemas"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "6",
+            "id", "systems",
             "name", "Sistemas",
             "department_id", "",
             "departments",
@@ -1048,35 +1048,35 @@ PUBLIC BOOL test_departments_data(
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
                 " s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
-                "3",
-                    "id", "3",
+                "operation",
+                    "id", "operation",
                     "name", "Gestión",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "4",
-                    "id", "4",
+                "microinformatics",
+                    "id", "microinformatics",
                     "name", "Microinformática",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "5",
-                    "id", "5",
+                "network",
+                    "id", "network",
                     "name", "Redes",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "6",
-                    "id", "6",
+                "systems",
+                    "id", "systems",
                     "name", "Sistemas",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
@@ -1087,7 +1087,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -1130,9 +1130,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "6",
+            "id", "systems",
             "name", "Sistemas",
-            "department_id", "2",
+            "department_id", "administration",
             "departments",
             "managers",
             "users"
@@ -1178,11 +1178,11 @@ PUBLIC BOOL test_departments_data(
         );
 
         data = json_pack("{s:s, s:s}",
-            "id", "7",
+            "id", "development",
             "name", "Desarrollo"
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "7",
+            "id", "development",
             "name", "Desarrollo",
             "department_id", "",
             "departments",
@@ -1238,42 +1238,42 @@ PUBLIC BOOL test_departments_data(
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
                 " s:{}, s:[]}",
-            "id", "2",
+            "id", "administration",
             "name", "Administración",
-            "department_id", "1",
+            "department_id", "direction",
             "departments",
-                "3",
-                    "id", "3",
+                "operation",
+                    "id", "operation",
                     "name", "Gestión",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "4",
-                    "id", "4",
+                "microinformatics",
+                    "id", "microinformatics",
                     "name", "Microinformática",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "5",
-                    "id", "5",
+                "network",
+                    "id", "network",
                     "name", "Redes",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "6",
-                    "id", "6",
+                "systems",
+                    "id", "systems",
                     "name", "Sistemas",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
-                "7",
-                    "id", "7",
+                "development",
+                    "id", "development",
                     "name", "Desarrollo",
-                    "department_id", "2",
+                    "department_id", "administration",
                     "departments",
                     "managers",
                     "users",
@@ -1284,7 +1284,7 @@ PUBLIC BOOL test_departments_data(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            json_string("2")
+            json_string("administration")
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
@@ -1327,9 +1327,9 @@ PUBLIC BOOL test_departments_data(
             &md_record
         );
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "7",
+            "id", "development",
             "name", "Desarrollo",
-            "department_id", "2",
+            "department_id", "administration",
             "departments",
             "managers",
             "users"
@@ -1367,60 +1367,60 @@ char foto_final[]= "\
         '__tags__': {},                                                     \n\
         'users': {},                                                        \n\
         'departments': {                                                    \n\
-            '1': {                                                          \n\
-                'id': '1',                                                  \n\
+            'direction': {                                                  \n\
+                'id': 'direction',                                          \n\
                 'name': 'Dirección',                                        \n\
                 'department_id': '',                                        \n\
                 'departments': {                                            \n\
-                    '2': {                                                  \n\
-                        'id': '2',                                          \n\
+                    'administration': {                                     \n\
+                        'id': 'administration',                             \n\
                         'name': 'Administración',                           \n\
-                        'department_id': '1',                               \n\
+                        'department_id': 'direction',                       \n\
                         'departments': {                                    \n\
-                            '3': {                                          \n\
-                                'id': '3',                                  \n\
+                            'operation': {                                  \n\
+                                'id': 'operation',                          \n\
                                 'name': 'Gestión',                          \n\
-                                'department_id': '2',                       \n\
+                                'department_id': 'administration',          \n\
                                 'departments': {},                          \n\
                                 'managers': {},                             \n\
                                 'users': [],                                \n\
                                 '__md_treedb__': {                          \n\
                                 }                                           \n\
                             },                                              \n\
-                            '4': {                                          \n\
-                                'id': '4',                                  \n\
+                            'microinformatics': {                           \n\
+                                'id': 'microinformatics',                   \n\
                                 'name': 'Microinformática',                 \n\
-                                'department_id': '2',                       \n\
+                                'department_id': 'administration',          \n\
                                 'departments': {},                          \n\
                                 'managers': {},                             \n\
                                 'users': [],                                \n\
                                 '__md_treedb__': {                          \n\
                                 }                                           \n\
                             },                                              \n\
-                            '5': {                                          \n\
-                                'id': '5',                                  \n\
+                            'network': {                                    \n\
+                                'id': 'network',                            \n\
                                 'name': 'Redes',                            \n\
-                                'department_id': '2',                       \n\
+                                'department_id': 'administration',          \n\
                                 'departments': {},                          \n\
                                 'managers': {},                             \n\
                                 'users': [],                                \n\
                                 '__md_treedb__': {                          \n\
                                 }                                           \n\
                             },                                              \n\
-                            '6': {                                          \n\
-                                'id': '6',                                  \n\
+                            'systems': {                                    \n\
+                                'id': 'systems',                            \n\
                                 'name': 'Sistemas',                         \n\
-                                'department_id': '2',                       \n\
+                                'department_id': 'administration',          \n\
                                 'departments': {},                          \n\
                                 'managers': {},                             \n\
                                 'users': [],                                \n\
                                 '__md_treedb__': {                          \n\
                                 }                                           \n\
                             },                                              \n\
-                            '7': {                                          \n\
-                                'id': '7',                                  \n\
+                            'development': {                                \n\
+                                'id': 'development',                        \n\
                                 'name': 'Desarrollo',                       \n\
-                                'department_id': '2',                       \n\
+                                'department_id': 'administration',          \n\
                                 'departments': {},                          \n\
                                 'managers': {},                             \n\
                                 'users': [],                                \n\
@@ -1439,55 +1439,55 @@ char foto_final[]= "\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '2': {                                                          \n\
-                'id': '2',                                                  \n\
+            'administration': {                                             \n\
+                'id': 'administration',                                     \n\
                 'name': 'Administración',                                   \n\
-                'department_id': '1',                                       \n\
+                'department_id': 'direction',                               \n\
                 'departments': {                                            \n\
-                    '3': {                                                  \n\
-                        'id': '3',                                          \n\
+                    'operation': {                                          \n\
+                        'id': 'operation',                                  \n\
                         'name': 'Gestión',                                  \n\
-                        'department_id': '2',                               \n\
+                        'department_id': 'administration',                  \n\
                         'departments': {},                                  \n\
                         'managers': {},                                     \n\
                         'users': [],                                        \n\
                         '__md_treedb__': {                                  \n\
                         }                                                   \n\
                     },                                                      \n\
-                    '4': {                                                  \n\
-                        'id': '4',                                          \n\
+                    'microinformatics': {                                   \n\
+                        'id': 'microinformatics',                           \n\
                         'name': 'Microinformática',                         \n\
-                        'department_id': '2',                               \n\
+                        'department_id': 'administration',                  \n\
                         'departments': {},                                  \n\
                         'managers': {},                                     \n\
                         'users': [],                                        \n\
                         '__md_treedb__': {                                  \n\
                         }                                                   \n\
                     },                                                      \n\
-                    '5': {                                                  \n\
-                        'id': '5',                                          \n\
+                    'network': {                                            \n\
+                        'id': 'network',                                    \n\
                         'name': 'Redes',                                    \n\
-                        'department_id': '2',                               \n\
+                        'department_id': 'administration',                  \n\
                         'departments': {},                                  \n\
                         'managers': {},                                     \n\
                         'users': [],                                        \n\
                         '__md_treedb__': {                                  \n\
                         }                                                   \n\
                     },                                                      \n\
-                    '6': {                                                  \n\
-                        'id': '6',                                          \n\
+                    'systems': {                                            \n\
+                        'id': 'systems',                                    \n\
                         'name': 'Sistemas',                                 \n\
-                        'department_id': '2',                               \n\
+                        'department_id': 'administration',                  \n\
                         'departments': {},                                  \n\
                         'managers': {},                                     \n\
                         'users': [],                                        \n\
                         '__md_treedb__': {                                  \n\
                         }                                                   \n\
                     },                                                      \n\
-                    '7': {                                                  \n\
-                        'id': '7',                                          \n\
+                    'development': {                                        \n\
+                        'id': 'development',                                \n\
                         'name': 'Desarrollo',                               \n\
-                        'department_id': '2',                               \n\
+                        'department_id': 'administration',                  \n\
                         'departments': {},                                  \n\
                         'managers': {},                                     \n\
                         'users': [],                                        \n\
@@ -1500,50 +1500,50 @@ char foto_final[]= "\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '3': {                                                          \n\
-                'id': '3',                                                  \n\
+            'operation': {                                                  \n\
+                'id': 'operation',                                          \n\
                 'name': 'Gestión',                                          \n\
-                'department_id': '2',                                       \n\
+                'department_id': 'administration',                          \n\
                 'departments': {},                                          \n\
                 'managers': {},                                             \n\
                 'users': [],                                                \n\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '4': {                                                          \n\
-                'id': '4',                                                  \n\
+            'microinformatics': {                                           \n\
+                'id': 'microinformatics',                                   \n\
                 'name': 'Microinformática',                                 \n\
-                'department_id': '2',                                       \n\
+                'department_id': 'administration',                          \n\
                 'departments': {},                                          \n\
                 'managers': {},                                             \n\
                 'users': [],                                                \n\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '5': {                                                          \n\
-                'id': '5',                                                  \n\
+            'network': {                                                    \n\
+                'id': 'network',                                            \n\
                 'name': 'Redes',                                            \n\
-                'department_id': '2',                                       \n\
+                'department_id': 'administration',                          \n\
                 'departments': {},                                          \n\
                 'managers': {},                                             \n\
                 'users': [],                                                \n\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '6': {                                                          \n\
-                'id': '6',                                                  \n\
+            'systems': {                                                    \n\
+                'id': 'systems',                                            \n\
                 'name': 'Sistemas',                                         \n\
-                'department_id': '2',                                       \n\
+                'department_id': 'administration',                          \n\
                 'departments': {},                                          \n\
                 'managers': {},                                             \n\
                 'users': [],                                                \n\
                 '__md_treedb__': {                                          \n\
                 }                                                           \n\
             },                                                              \n\
-            '7': {                                                          \n\
-                'id': '7',                                                  \n\
+            'development': {                                                \n\
+                'id': 'development',                                        \n\
                 'name': 'Desarrollo',                                       \n\
-                'department_id': '2',                                       \n\
+                'department_id': 'administration',                          \n\
                 'departments': {},                                          \n\
                 'managers': {},                                             \n\
                 'users': [],                                                \n\
