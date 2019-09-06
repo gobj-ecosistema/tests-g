@@ -1364,199 +1364,209 @@ PUBLIC BOOL test_departments(
      *          Foto final
      *------------------------------------------------------------*/
 char foto_final[]= "\
-{                                                                           \n\
-    'treedb_test': {                                                        \n\
-        '__tags__': {},                                                     \n\
-        'users': {},                                                        \n\
-        'departments': {                                                    \n\
-            'direction': {                                                  \n\
-                'id': 'direction',                                          \n\
-                'name': 'Dirección',                                        \n\
-                'department_id': '',                                        \n\
-                'departments': {                                            \n\
-                    'administration': {                                     \n\
-                        'id': 'administration',                             \n\
-                        'name': 'Administración',                           \n\
-                        'department_id': 'direction',                       \n\
-                        'departments': {                                    \n\
-                            'operation': {                                  \n\
-                                'id': 'operation',                          \n\
-                                'name': 'Gestión',                          \n\
-                                'department_id': 'administration',          \n\
-                                'departments': {},                          \n\
-                                'managers': {},                             \n\
-                                'users': [],                                \n\
-                                '__md_treedb__': {                          \n\
-                                }                                           \n\
-                            },                                              \n\
-                            'microinformatics': {                           \n\
-                                'id': 'microinformatics',                   \n\
-                                'name': 'Microinformática',                 \n\
-                                'department_id': 'administration',          \n\
-                                'departments': {},                          \n\
-                                'managers': {},                             \n\
-                                'users': [],                                \n\
-                                '__md_treedb__': {                          \n\
-                                }                                           \n\
-                            },                                              \n\
-                            'network': {                                    \n\
-                                'id': 'network',                            \n\
-                                'name': 'Redes',                            \n\
-                                'department_id': 'administration',          \n\
-                                'departments': {},                          \n\
-                                'managers': {},                             \n\
-                                'users': [],                                \n\
-                                '__md_treedb__': {                          \n\
-                                }                                           \n\
-                            },                                              \n\
-                            'systems': {                                    \n\
-                                'id': 'systems',                            \n\
-                                'name': 'Sistemas',                         \n\
-                                'department_id': 'administration',          \n\
-                                'departments': {},                          \n\
-                                'managers': {},                             \n\
-                                'users': [],                                \n\
-                                '__md_treedb__': {                          \n\
-                                }                                           \n\
-                            },                                              \n\
-                            'development': {                                \n\
-                                'id': 'development',                        \n\
-                                'name': 'Desarrollo',                       \n\
-                                'department_id': 'administration',          \n\
-                                'departments': {},                          \n\
-                                'managers': {},                             \n\
-                                'users': [],                                \n\
-                                '__md_treedb__': {                          \n\
-                                }                                           \n\
-                            }                                               \n\
-                        },                                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    }                                                       \n\
-                },                                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'administration': {                                             \n\
-                'id': 'administration',                                     \n\
-                'name': 'Administración',                                   \n\
-                'department_id': 'direction',                               \n\
-                'departments': {                                            \n\
-                    'operation': {                                          \n\
-                        'id': 'operation',                                  \n\
-                        'name': 'Gestión',                                  \n\
-                        'department_id': 'administration',                  \n\
-                        'departments': {},                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    },                                                      \n\
-                    'microinformatics': {                                   \n\
-                        'id': 'microinformatics',                           \n\
-                        'name': 'Microinformática',                         \n\
-                        'department_id': 'administration',                  \n\
-                        'departments': {},                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    },                                                      \n\
-                    'network': {                                            \n\
-                        'id': 'network',                                    \n\
-                        'name': 'Redes',                                    \n\
-                        'department_id': 'administration',                  \n\
-                        'departments': {},                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    },                                                      \n\
-                    'systems': {                                            \n\
-                        'id': 'systems',                                    \n\
-                        'name': 'Sistemas',                                 \n\
-                        'department_id': 'administration',                  \n\
-                        'departments': {},                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    },                                                      \n\
-                    'development': {                                        \n\
-                        'id': 'development',                                \n\
-                        'name': 'Desarrollo',                               \n\
-                        'department_id': 'administration',                  \n\
-                        'departments': {},                                  \n\
-                        'managers': {},                                     \n\
-                        'users': [],                                        \n\
-                        '__md_treedb__': {                                  \n\
-                        }                                                   \n\
-                    }                                                       \n\
-                },                                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'operation': {                                                  \n\
-                'id': 'operation',                                          \n\
-                'name': 'Gestión',                                          \n\
-                'department_id': 'administration',                          \n\
-                'departments': {},                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'microinformatics': {                                           \n\
-                'id': 'microinformatics',                                   \n\
-                'name': 'Microinformática',                                 \n\
-                'department_id': 'administration',                          \n\
-                'departments': {},                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'network': {                                                    \n\
-                'id': 'network',                                            \n\
-                'name': 'Redes',                                            \n\
-                'department_id': 'administration',                          \n\
-                'departments': {},                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'systems': {                                                    \n\
-                'id': 'systems',                                            \n\
-                'name': 'Sistemas',                                         \n\
-                'department_id': 'administration',                          \n\
-                'departments': {},                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            },                                                              \n\
-            'development': {                                                \n\
-                'id': 'development',                                        \n\
-                'name': 'Desarrollo',                                       \n\
-                'department_id': 'administration',                          \n\
-                'departments': {},                                          \n\
-                'managers': {},                                             \n\
-                'users': [],                                                \n\
-                '__md_treedb__': {                                          \n\
-                }                                                           \n\
-            }                                                               \n\
-        },                                                                  \n\
-        'attributes': {},                                                   \n\
-        'roles': {}                                                         \n\
-    }                                                                       \n\
-}                                                                           \n\
+{\n\
+    'treedb_test': {\n\
+        '__tags__': {\n\
+            'id': {}\n\
+        },\n\
+        'users': {\n\
+            'id': {}\n\
+        },\n\
+        'departments': {\n\
+            'id': {\n\
+                'direction': {\n\
+                    'id': 'direction',\n\
+                    'name': 'Dirección',\n\
+                    'department_id': '',\n\
+                    'departments': {\n\
+                        'administration': {\n\
+                            'id': 'administration',\n\
+                            'name': 'Administración',\n\
+                            'department_id': 'direction',\n\
+                            'departments': {\n\
+                                'operation': {\n\
+                                    'id': 'operation',\n\
+                                    'name': 'Gestión',\n\
+                                    'department_id': 'administration',\n\
+                                    'departments': {},\n\
+                                    'managers': {},\n\
+                                    'users': [],\n\
+                                    '__md_treedb__': {\n\
+                                    }\n\
+                                },\n\
+                                'microinformatics': {\n\
+                                    'id': 'microinformatics',\n\
+                                    'name': 'Microinformática',\n\
+                                    'department_id': 'administration',\n\
+                                    'departments': {},\n\
+                                    'managers': {},\n\
+                                    'users': [],\n\
+                                    '__md_treedb__': {\n\
+                                    }\n\
+                                },\n\
+                                'network': {\n\
+                                    'id': 'network',\n\
+                                    'name': 'Redes',\n\
+                                    'department_id': 'administration',\n\
+                                    'departments': {},\n\
+                                    'managers': {},\n\
+                                    'users': [],\n\
+                                    '__md_treedb__': {\n\
+                                    }\n\
+                                },\n\
+                                'systems': {\n\
+                                    'id': 'systems',\n\
+                                    'name': 'Sistemas',\n\
+                                    'department_id': 'administration',\n\
+                                    'departments': {},\n\
+                                    'managers': {},\n\
+                                    'users': [],\n\
+                                    '__md_treedb__': {\n\
+                                    }\n\
+                                },\n\
+                                'development': {\n\
+                                    'id': 'development',\n\
+                                    'name': 'Desarrollo',\n\
+                                    'department_id': 'administration',\n\
+                                    'departments': {},\n\
+                                    'managers': {},\n\
+                                    'users': [],\n\
+                                    '__md_treedb__': {\n\
+                                    }\n\
+                                }\n\
+                            },\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        }\n\
+                    },\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'administration': {\n\
+                    'id': 'administration',\n\
+                    'name': 'Administración',\n\
+                    'department_id': 'direction',\n\
+                    'departments': {\n\
+                        'operation': {\n\
+                            'id': 'operation',\n\
+                            'name': 'Gestión',\n\
+                            'department_id': 'administration',\n\
+                            'departments': {},\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        },\n\
+                        'microinformatics': {\n\
+                            'id': 'microinformatics',\n\
+                            'name': 'Microinformática',\n\
+                            'department_id': 'administration',\n\
+                            'departments': {},\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        },\n\
+                        'network': {\n\
+                            'id': 'network',\n\
+                            'name': 'Redes',\n\
+                            'department_id': 'administration',\n\
+                            'departments': {},\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        },\n\
+                        'systems': {\n\
+                            'id': 'systems',\n\
+                            'name': 'Sistemas',\n\
+                            'department_id': 'administration',\n\
+                            'departments': {},\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        },\n\
+                        'development': {\n\
+                            'id': 'development',\n\
+                            'name': 'Desarrollo',\n\
+                            'department_id': 'administration',\n\
+                            'departments': {},\n\
+                            'managers': {},\n\
+                            'users': [],\n\
+                            '__md_treedb__': {\n\
+                            }\n\
+                        }\n\
+                    },\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'operation': {\n\
+                    'id': 'operation',\n\
+                    'name': 'Gestión',\n\
+                    'department_id': 'administration',\n\
+                    'departments': {},\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'microinformatics': {\n\
+                    'id': 'microinformatics',\n\
+                    'name': 'Microinformática',\n\
+                    'department_id': 'administration',\n\
+                    'departments': {},\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'network': {\n\
+                    'id': 'network',\n\
+                    'name': 'Redes',\n\
+                    'department_id': 'administration',\n\
+                    'departments': {},\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'systems': {\n\
+                    'id': 'systems',\n\
+                    'name': 'Sistemas',\n\
+                    'department_id': 'administration',\n\
+                    'departments': {},\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                },\n\
+                'development': {\n\
+                    'id': 'development',\n\
+                    'name': 'Desarrollo',\n\
+                    'department_id': 'administration',\n\
+                    'departments': {},\n\
+                    'managers': {},\n\
+                    'users': [],\n\
+                    '__md_treedb__': {\n\
+                    }\n\
+                }\n\
+            }\n\
+        },\n\
+        'attributes': {\n\
+            'id': {}\n\
+        },\n\
+        'roles': {\n\
+            'id': {}\n\
+        }\n\
+    }\n\
+}\n\
 ";
 
     if(!without_ok_tests) {

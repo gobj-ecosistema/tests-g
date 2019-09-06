@@ -92,9 +92,8 @@ PUBLIC BOOL test_users(
                 continue;
             }
 
-            json_t *current_data = kwid_new_dict("", treedb, topic_name);
+            json_t *current_data = treedb_get_index(tranger, treedb_name, topic_name, "id");
             json_int_t current_data_size = json_object_size(current_data);
-            JSON_DECREF(current_data);
 
             if(strcmp(operation, "update")==0) {
                 printf("update operation not implemented\n");
