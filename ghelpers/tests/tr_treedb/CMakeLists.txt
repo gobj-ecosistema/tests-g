@@ -47,7 +47,7 @@ TARGET_LINK_LIBRARIES(test_tr_treedb
     /yuneta/development/output/lib/libuv.a
     /yuneta/development/output/lib/libpcre2-8.a
     /yuneta/development/output/lib/libunwind.a
-    rt pthread dl lzma m
+    rt pthread dl lzma m uuid
 )
 
 ##############################################

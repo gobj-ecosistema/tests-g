@@ -82,7 +82,7 @@ static char schema_sample[]= "\
                 'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','required','uuid']        \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 'name': {                                           \n\
                     'header': 'Name',                               \n\
@@ -138,7 +138,7 @@ static char schema_sample[]= "\
                 'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','required','uuid']        \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 'attribute': {                                      \n\
                     'header': 'Attribute',                          \n\
@@ -164,7 +164,7 @@ static char schema_sample[]= "\
                 'id': {                                             \n\
                     'header': 'Id',                                 \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent','required','uuid']        \n\
+                    'flag': ['persistent','required']               \n\
                 },                                                  \n\
                 'role': {                                           \n\
                     'header': 'Role',                               \n\
