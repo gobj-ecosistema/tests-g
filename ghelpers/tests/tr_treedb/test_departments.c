@@ -88,7 +88,8 @@ PUBLIC BOOL test_departments(
         direction = treedb_create_node(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
-            data                        // data
+            data,                       // data
+            "strict"
         );
         if(!match_record(direction, expected)) {
             ret = FALSE;
@@ -129,7 +130,8 @@ PUBLIC BOOL test_departments(
         found = treedb_create_node( // Must return 0
             tranger, treedb_name,
             "departments",
-            data
+            data,                       // data
+            "strict"
         );
 
         if(found) {
@@ -180,7 +182,8 @@ PUBLIC BOOL test_departments(
         administration = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(administration, expected)) {
             ret = FALSE;
@@ -451,7 +454,8 @@ PUBLIC BOOL test_departments(
         operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(operation) {
             ret = FALSE;
@@ -490,7 +494,8 @@ PUBLIC BOOL test_departments(
         operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(operation, expected)) {
             ret = FALSE;
@@ -653,7 +658,8 @@ PUBLIC BOOL test_departments(
         microinformatics = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(microinformatics, expected)) {
             ret = FALSE;
@@ -825,7 +831,8 @@ PUBLIC BOOL test_departments(
         network = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(network, expected)) {
             ret = FALSE;
@@ -1006,7 +1013,8 @@ PUBLIC BOOL test_departments(
         systems = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(systems, expected)) {
             ret = FALSE;
@@ -1195,7 +1203,8 @@ PUBLIC BOOL test_departments(
         development = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data
+            data,
+            "strict"
         );
         if(!match_record(development, expected)) {
             ret = FALSE;
