@@ -1,0 +1,17 @@
+{
+    "treedbs": {
+        "treedb_test": {
+            "users": [
+                {
+                    "username": "esanchez@correo.com",
+                    "firstName": "EMILIO",
+                    "lastName": "SANCHEZ GARCIA",
+                    "email": "esanchez@correo.com",
+                    "department_id": [
+                    "direction"
+                    ]
+                }
+            ]
+        }
+    }
+}
