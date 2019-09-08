@@ -32,7 +32,6 @@ SET (YUNO_SRCS
     test_tr_treedb.c
     test_departments.c
     test_users.c
-    test_final_foto.c
 )
 SET (YUNO_HDRS
 )

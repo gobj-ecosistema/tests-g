@@ -790,7 +790,7 @@ int main(int argc, char *argv[])
         0
     );
 
-    if(!test_final_foto(
+    if(!check_final_foto(
             tranger,
             treedb_name,
             arguments.without_ok_tests,
