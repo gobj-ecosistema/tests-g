@@ -3,14 +3,12 @@
         "treedb_test": {
             "users": [
                 {
-                    "username": "esanchez@correo.com",
+                    "username": "esanchez@mulesol.es",
                     "firstName": "EMILIO",
                     "lastName": "SANCHEZ GARCIA",
-                    "email": "esanchez@correo.com",
-                    "role_id": [
-                    ],
-                    "attribute_id": [
-                    ],
+                    "email": "esanchez@mulesol.es",
+                    "role_id": [],
+                    "attribute_id": [],
                     "manager_id": [
                         "direction"
                     ],

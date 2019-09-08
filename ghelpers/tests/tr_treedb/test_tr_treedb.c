@@ -259,7 +259,7 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
                 printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
             }
         } else {
-            printf("%s.%s", On_Red BWhite,Color_Off);
+            printf("%sX%s", On_Red BWhite,Color_Off);
         }
         return FALSE;
     }
@@ -273,7 +273,7 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
                 printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
             }
         } else {
-            printf("%s.%s", On_Red BWhite,Color_Off);
+            printf("%sX%s", On_Red BWhite,Color_Off);
         }
         return FALSE;
     }
