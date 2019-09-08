@@ -7,12 +7,12 @@
                     "firstName": "EMILIO",
                     "lastName": "SANCHEZ GARCIA",
                     "email": "esanchez@mulesol.es",
-                    "role_id": [],
-                    "attribute_id": [],
-                    "manager_id": [
+                    "roles": [],
+                    "attributes": [],
+                    "manager": [
                         "direction"
                     ],
-                    "department_id": [
+                    "departments": [
                         "direction"
                     ]
                 }

@@ -733,6 +733,7 @@ int main(int argc, char *argv[])
     helper_quote2doublequote(schema_sample);
     json_t *jn_schema_sample = legalstring2json(schema_sample, TRUE);
     if(!jn_schema_sample) {
+        printf("Can't decode schema_sample json\n");
         exit(-1);
     }
 

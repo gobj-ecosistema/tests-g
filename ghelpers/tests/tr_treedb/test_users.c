@@ -330,9 +330,7 @@ PUBLIC BOOL test_users(
 
     JSON_INCREF(jn_treedbs);
     if(load_treedbs(tranger, jn_treedbs, operation)<0) {
-        printf("load_treedbs('%s') FAILED\n", path);
-        JSON_DECREF(file_json);
-        return FALSE;
+        ret = FALSE;
     }
 
     kw_check_refcounts(file_json, 1000);

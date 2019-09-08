@@ -48,22 +48,22 @@ static char schema_sample[]= "\
                     'type': 'boolean',                              \n\
                     'flag': ''                                      \n\
                 },                                                  \n\
-                'department_id': {                                  \n\
+                'departments': {                                    \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                'manager_id': {                                     \n\
+                'manager': {                                        \n\
                     'header': 'Manager',                            \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                'attribute_id': {                                   \n\
+                'attributes': {                                     \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                'role_id': {                                        \n\
+                'roles': {                                          \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'fkey']                  \n\
@@ -96,10 +96,7 @@ static char schema_sample[]= "\
                     'header': 'Departments',                        \n\
                     'type': 'object',                               \n\
                     'flag': ['hook', 'volatil'],                    \n\
-                    'link': {                                       \n\
-                        'departments': 'id'                         \n\
-                    },                                              \n\
-                    'reverse': {                                    \n\
+                    'hook': {                                       \n\
                         'departments': 'department_id'              \n\
                     }                                               \n\
                 },                                                  \n\
@@ -107,11 +104,8 @@ static char schema_sample[]= "\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['hook', 'volatil'],                    \n\
-                    'link': {                                       \n\
-                        'users': 'id'                               \n\
-                    },                                              \n\
-                    'reverse': {                                    \n\
-                        'users': 'department_id'                    \n\
+                    'hook': {                                       \n\
+                        'users': 'departments'                      \n\
                     }                                               \n\
                 },                                                  \n\
                                                                     \n\
@@ -119,12 +113,9 @@ static char schema_sample[]= "\
                     'header': 'Managers',                           \n\
                     'type': 'object',                               \n\
                     'flag': ['hook', 'persistent'],                 \n\
-                    'link': {                                       \n\
-                        'users': 'id',                              \n\
+                    'hook': {                                       \n\
+                        'users': 'manager',                         \n\
                         'departments': 'users'                      \n\
-                    },                                              \n\
-                    'reverse': {                                    \n\
-                        'users': 'manager_id'                       \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\
@@ -149,11 +140,8 @@ static char schema_sample[]= "\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
                     'flag': ['hook', 'persistent'],                 \n\
-                    'link': {                                       \n\
-                        'attributes': 'id'                          \n\
-                    },                                              \n\
-                    'reverse': {                                    \n\
-                        'users': 'attribute_id'                     \n\
+                    'hook': {                                       \n\
+                        'users': 'attributes'                       \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\
@@ -178,11 +166,8 @@ static char schema_sample[]= "\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
                     'flag': ['hook', 'persistent'],                 \n\
-                    'link': {                                       \n\
-                        'roles': 'id'                               \n\
-                    },                                              \n\
-                    'reverse': {                                    \n\
-                        'users': 'role_id'                          \n\
+                    'hook': {                                       \n\
+                        'users': 'roles'                            \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\
