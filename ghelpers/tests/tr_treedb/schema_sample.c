@@ -53,17 +53,20 @@ static char schema_sample[]= "\
                     'type': 'array',                                \n\
                     'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                'attributes': {                                     \n\
+                'manager_id': {                                     \n\
+                    'header': 'Manager',                            \n\
+                    'type': 'array',                                \n\
+                    'flag': ['persistent', 'fkey']                  \n\
+                },                                                  \n\
+                'attribute_id': {                                   \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','include'],               \n\
-                    'include': ['attributes$id.attribute']          \n\
+                    'flag': ['persistent', 'fkey']                  \n\
                 },                                                  \n\
-                'roles': {                                          \n\
+                'role_id': {                                        \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent','include'],               \n\
-                    'include': ['roles$id.role']                    \n\
+                    'flag': ['persistent', 'fkey']                  \n\
                 }                                                   \n\
             }                                                       \n\
         },                                                          \n\
@@ -119,6 +122,9 @@ static char schema_sample[]= "\
                     'link': {                                       \n\
                         'users': 'id',                              \n\
                         'departments': 'users'                      \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'users': 'manager_id'                       \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\
@@ -145,6 +151,9 @@ static char schema_sample[]= "\
                     'flag': ['hook', 'persistent'],                 \n\
                     'link': {                                       \n\
                         'attributes': 'id'                          \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'users': 'attribute_id'                     \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\
@@ -171,6 +180,9 @@ static char schema_sample[]= "\
                     'flag': ['hook', 'persistent'],                 \n\
                     'link': {                                       \n\
                         'roles': 'id'                               \n\
+                    },                                              \n\
+                    'reverse': {                                    \n\
+                        'users': 'role_id'                          \n\
                     }                                               \n\
                 }                                                   \n\
             }                                                       \n\

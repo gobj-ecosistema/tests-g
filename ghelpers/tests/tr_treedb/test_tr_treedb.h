@@ -13,14 +13,15 @@ extern "C"{
 
 PUBLIC void set_expected_results(
     const char *name,
-    json_t *errors_list
+    json_t *errors_list,
+    int verbose
 );
 
 PUBLIC BOOL match_record(
     json_t *record_, // NOT owned
     json_t *expected_ // NOT owned
 );
-PUBLIC BOOL check_log_result(const char *test);
+PUBLIC BOOL check_log_result(const char *test, int verbose);
 
 PUBLIC BOOL test_departments(
     json_t *tranger,

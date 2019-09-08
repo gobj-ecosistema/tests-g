@@ -68,7 +68,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -93,13 +94,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(direction, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, direction, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -119,7 +122,8 @@ PUBLIC BOOL test_departments(
             test,
             json_pack("[{s:s}]",  // error's list
                 "msg", "Field 'id' required"
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s}",
@@ -136,13 +140,15 @@ PUBLIC BOOL test_departments(
 
         if(found) {
             ret = FALSE;
-            printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR Administracion %s\n", On_Red BWhite, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -163,7 +169,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -187,13 +194,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(administration, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, administration, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -212,7 +221,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
@@ -231,13 +241,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -257,7 +269,8 @@ PUBLIC BOOL test_departments(
             test,
             json_pack("[{s:s}]",  // error's list
                 "msg", "hook field not found"
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -265,7 +278,7 @@ PUBLIC BOOL test_departments(
             direction,
             administration
         );
-        if(!check_log_result(test)) {
+        if(!check_log_result(test, verbose)) {
             ret = FALSE;
         }
     }
@@ -275,7 +288,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -307,13 +321,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -330,7 +346,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -354,17 +371,23 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -382,7 +405,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -406,18 +430,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -443,7 +473,8 @@ PUBLIC BOOL test_departments(
             test,
             json_pack("[{s:s}]",  // error's list
                 "msg", "Node already exists"
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -459,12 +490,14 @@ PUBLIC BOOL test_departments(
         );
         if(operation) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, operation, "Record found");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -475,7 +508,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -499,13 +533,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(operation, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, operation, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -524,7 +560,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -556,13 +593,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -579,7 +618,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -603,18 +643,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -639,7 +685,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -663,13 +710,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(microinformatics, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, microinformatics, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -688,7 +737,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -729,13 +779,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -752,7 +804,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -776,18 +829,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -812,7 +871,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -836,13 +896,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(network, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, network, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -861,7 +923,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -911,13 +974,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -934,7 +999,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -958,18 +1024,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -994,7 +1066,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -1018,13 +1091,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(systems, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, systems, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1043,7 +1118,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -1101,13 +1177,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1124,7 +1202,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -1148,18 +1227,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1184,7 +1269,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
 
         data = json_pack("{s:s, s:s}",
@@ -1208,13 +1294,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(development, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, development, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1233,7 +1321,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         treedb_link_nodes(
             tranger,
@@ -1299,13 +1388,15 @@ PUBLIC BOOL test_departments(
         );
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1322,7 +1413,8 @@ PUBLIC BOOL test_departments(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         md_record_t md_record;
         tranger_get_record(
@@ -1346,18 +1438,24 @@ PUBLIC BOOL test_departments(
             "users"
         );
         if(!expected) {
-            printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            if(verbose) {
+                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
+            }
         }
 
         if(!match_record(found, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }
@@ -1583,7 +1681,8 @@ char foto_final[]= "\
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         helper_quote2doublequote(foto_final);
         expected = legalstring2json(foto_final, TRUE);
@@ -1591,13 +1690,15 @@ char foto_final[]= "\
 
         if(!match_record(treedb, expected)) {
             ret = FALSE;
-            printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
             if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
                 log_debug_json(0, found, "Record found");
                 log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%s.%s", On_Red BWhite, Color_Off);
             }
         } else {
-            if(!check_log_result(test)) {
+            if(!check_log_result(test, verbose)) {
                 ret = FALSE;
             }
         }

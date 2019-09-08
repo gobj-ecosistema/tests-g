@@ -7,8 +7,15 @@
                     "firstName": "EMILIO",
                     "lastName": "SANCHEZ GARCIA",
                     "email": "esanchez@correo.com",
+                    "role_id": [
+                    ],
+                    "attribute_id": [
+                    ],
+                    "manager_id": [
+                        "direction"
+                    ],
                     "department_id": [
-                    "direction"
+                        "direction"
                     ]
                 }
             ]

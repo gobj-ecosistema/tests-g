@@ -300,7 +300,8 @@ PUBLIC BOOL test_users(
 {
     BOOL ret = TRUE;
     const char *path =
-        "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.one.json";
+    "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.one.json";
+    //"/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.full.json";
 
     size_t flags = 0;
     json_error_t error;
@@ -314,7 +315,8 @@ PUBLIC BOOL test_users(
     set_expected_results(
         test,
         json_pack("[]"  // error's list
-        )
+        ),
+        verbose
     );
 
     const char *operation = "create"; // "update" TODO
@@ -333,12 +335,12 @@ PUBLIC BOOL test_users(
         return FALSE;
     }
 
-    kw_check_refcounts(jn_treedbs, 1000);
+    kw_check_refcounts(file_json, 1000);
     kw_check_refcounts(tranger, 1000);
 
     JSON_DECREF(file_json);
 
-    if(!check_log_result(test)) {
+    if(!check_log_result(test, verbose)) {
         ret = FALSE;
     }
 

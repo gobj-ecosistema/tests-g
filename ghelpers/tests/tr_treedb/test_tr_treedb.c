@@ -225,7 +225,7 @@ PRIVATE int capture_log_write(void* v, int priority, const char* bf, size_t len)
         }
     }
     json_array_append_new(unexpected_log_messages, msg);
-    return 0;  // Continue with next output handlers
+    return -1; // It's only mine
 }
 
 /***************************************************************************
@@ -233,10 +233,13 @@ PRIVATE int capture_log_write(void* v, int priority, const char* bf, size_t len)
  ***************************************************************************/
 PUBLIC void set_expected_results(
     const char *name,
-    json_t *errors_list
+    json_t *errors_list,
+    int verbose
 )
 {
-    printf("Test '%s'\n", name);
+    if(verbose) {
+        printf("Test '%s'\n", name);
+    }
     JSON_DECREF(expected_log_messages);
     json_array_clear(unexpected_log_messages);
     expected_log_messages = errors_list;
@@ -245,30 +248,41 @@ PUBLIC void set_expected_results(
 /***************************************************************************
  *  Return TRUE if all is ok.
  ***************************************************************************/
-PUBLIC BOOL check_log_result(const char *test)
+PUBLIC BOOL check_log_result(const char *test, int verbose)
 {
     if(json_array_size(unexpected_log_messages)>0) {
-
-        printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
-        int idx; json_t *value;
-        printf("      Unexpected error:\n");
-        json_array_foreach(unexpected_log_messages, idx, value) {
-            printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+        if(verbose) {
+            printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
+            int idx; json_t *value;
+            printf("      Unexpected error:\n");
+            json_array_foreach(unexpected_log_messages, idx, value) {
+                printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+            }
+        } else {
+            printf("%s.%s", On_Red BWhite,Color_Off);
         }
         return FALSE;
     }
 
     if(json_array_size(expected_log_messages)>0) {
-        printf("%s  --> ERROR %s\n", On_Red BWhite, Color_Off);
-        int idx; json_t *value;
-        printf("      Expected error not consumed:\n");
-        json_array_foreach(expected_log_messages, idx, value) {
-            printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+        if(verbose) {
+            printf("%s  --> ERROR %s\n", On_Red BWhite, Color_Off);
+            int idx; json_t *value;
+            printf("      Expected error not consumed:\n");
+            json_array_foreach(expected_log_messages, idx, value) {
+                printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+            }
+        } else {
+            printf("%s.%s", On_Red BWhite,Color_Off);
         }
         return FALSE;
     }
 
-    printf("  --> OK\n");
+    if(verbose) {
+        printf("  --> OK\n");
+    } else {
+        printf(".");
+    }
     return TRUE;
 }
 
@@ -392,13 +406,14 @@ PRIVATE BOOL test_treedb_schema(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         parse_schema_cols(
             topic_cols_desc,
             kwid_new_list("verbose", topic, "cols")
         );
-        if(!check_log_result(test)) {
+        if(!check_log_result(test, verbose)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -426,13 +441,14 @@ PRIVATE BOOL test_treedb_schema(
         set_expected_results(
             test,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         parse_schema_cols(
             topic_cols_desc,
             kwid_new_list("verbose", topic, "cols")
         );
-        if(!check_log_result(test)) {
+        if(!check_log_result(test, verbose)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -467,14 +483,15 @@ PRIVATE BOOL test_treedb_schema(
                 "field", "type",
                 "msg", "Wrong enum type",
                 "field", "flag"
-            )
+            ),
+            verbose
         );
 
         parse_schema_cols(
             topic_cols_desc,
             kwid_new_list("verbose", topic, "cols")
         );
-        if(!check_log_result(test)) {
+        if(!check_log_result(test, verbose)) {
             ret = FALSE;
         }
         tranger_delete_topic(tranger, test);
@@ -501,13 +518,14 @@ PRIVATE BOOL test_schema(
         set_expected_results(
             topic_name,
             json_pack("[]"  // error's list
-            )
+            ),
+            verbose
         );
         parse_schema_cols(
             topic_cols_desc,
             kwid_new_list("verbose", topic, "cols")
         );
-        if(!check_log_result(topic_name)) {
+        if(!check_log_result(topic_name, verbose)) {
             ret = FALSE;
         }
     }
@@ -726,7 +744,7 @@ int main(int argc, char *argv[])
         0
     );
 
-    if(!check_log_result("clean start")) { // Be sure there is no previous error
+    if(!check_log_result("clean start", arguments.verbose)) { // Be sure there is no previous error
         ret = -1;
     }
 
@@ -757,6 +775,9 @@ int main(int argc, char *argv[])
             arguments.verbose
         )) {
         ret = -1;
+    }
+    if(!arguments.verbose) {
+        printf("\n");
     }
 
     if(arguments.print_tranger) {
