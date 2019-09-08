@@ -300,8 +300,7 @@ PUBLIC BOOL test_users(
 {
     BOOL ret = TRUE;
     const char *path =
-    "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.one.json";
-    //"/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.full.json";
+    "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.json";
 
     size_t flags = 0;
     json_error_t error;

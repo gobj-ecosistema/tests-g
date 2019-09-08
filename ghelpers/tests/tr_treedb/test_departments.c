@@ -1468,6 +1468,50 @@ PUBLIC BOOL test_departments(
     }
 
     /*------------------------------------------------------------*
+     *          Link and unlink
+     *------------------------------------------------------------*/
+    if(!without_ok_tests) {
+        const char *test = "Link and unlink node";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            verbose
+        );
+
+        data = json_pack("{s:s, s:s}",
+            "id", "xxx",
+            "name", "Xxxx"
+        );
+
+        json_t *xxx = treedb_create_node(
+            tranger, treedb_name,
+            "departments",
+            data,
+            "strict"
+        );
+
+        treedb_link_nodes(
+            tranger,
+            "departments",
+            development,
+            xxx
+        );
+        treedb_unlink_nodes(
+            tranger,
+            "departments",
+            development,
+            xxx
+        );
+        treedb_delete_node(tranger, xxx);
+
+        if(!check_log_result(test, verbose)) {
+            ret = FALSE;
+        }
+        // La foto final tiene que seguir igual
+    }
+
+    /*------------------------------------------------------------*
      *          Foto final
      *------------------------------------------------------------*/
 char foto_final[]= "\
