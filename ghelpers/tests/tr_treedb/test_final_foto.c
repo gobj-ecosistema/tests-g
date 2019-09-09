@@ -1001,7 +1001,7 @@ char foto_final[]= "\
         expected = legalstring2json(foto_final, TRUE);
         json_t *treedb = kw_get_dict(tranger, "treedbs", 0, 0);
 
-        if(!match_record(treedb, expected)) {
+        if(!match_record(treedb, expected, verbose)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);

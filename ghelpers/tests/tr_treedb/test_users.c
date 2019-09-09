@@ -143,6 +143,9 @@ PUBLIC int load_topic_new_data(
                 int ids_idx; json_t *jn_mix_id;
                 json_array_foreach(ids, ids_idx, jn_mix_id) {
                     const char *topic_and_id = json_string_value(jn_mix_id);
+                    if(empty_string((topic_and_id))) {
+                        continue;
+                    }
 
                     int list_size;
                     const char **ss = split2(topic_and_id, ":", &list_size);
@@ -554,7 +557,7 @@ char foto_final[]= "\
         expected = legalstring2json(foto_final, TRUE);
         json_t *users = kw_get_dict(tranger, path_users, 0, 0);
 
-        if(!match_record(users, expected)) {
+        if(!match_record(users, expected, verbose)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);

@@ -291,20 +291,30 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
  ***************************************************************************/
 PUBLIC BOOL match_record(
     json_t *record_, // NOT owned
-    json_t *expected_ // NOT owned
+    json_t *expected_, // NOT owned
+    BOOL verbose
 )
 {
     BOOL ret = TRUE;
     json_t *record = json_deep_copy(record_);
     json_t *expected = json_deep_copy(expected_);
     if(!record) {
+        if(verbose) {
+            trace_msg("match_record: record NULL");
+        }
         return FALSE;
     }
     if(!expected) {
+        if(verbose) {
+            trace_msg("match_record: expected NULL");
+        }
         return FALSE;
     }
 
     if(json_typeof(record) != json_typeof(expected)) { // json_typeof CONTROLADO
+        if(verbose) {
+            trace_msg("match_record: diferent json type");
+        }
         ret = FALSE;
     } else {
         switch(json_typeof(record)) {
@@ -312,15 +322,43 @@ PUBLIC BOOL match_record(
                 {
                     int idx; json_t *v1;
                     json_array_foreach(record, idx, v1) {
-                        json_t *v2 = json_array_get(expected, idx);
-                        if(!match_record(v1, v2)) {
-                            ret = FALSE;
-                            break;
-                        }
+                        const char *id1 = kw_get_str(v1, "id", 0, 0);
+                        if(id1) {
+                            // They are id records
+                            json_t *v2 = kwid_find("", expected, id1);
+                            if(!v2) {
+                                if(verbose) {
+                                    trace_msg("match_record: no id %s", id1);
+                                }
+                                ret = FALSE;
+                                continue;
+                            }
+                            if(!match_record(v1, v2, verbose)) {
+                                ret = FALSE;
+                                break;
+                            }
 
+                        } else {
+                            int idx2; json_t *v2;
+                            BOOL found = FALSE;
+                            json_array_foreach(expected, idx2, v2) {
+                                if(match_record(v1, v2, verbose)) {
+                                    found = TRUE;
+                                    break;
+                                }
+                            }
+                            if(!found) {
+                                if(verbose) {
+                                    trace_msg("match_record: array item not found");
+                                }
+                                ret = FALSE;
+                                break;
+                            }
+                        }
                     }
                 }
                 break;
+
             case JSON_OBJECT:
                 {
                     json_object_del(record, "__md_treedb__");
@@ -328,11 +366,24 @@ PUBLIC BOOL match_record(
                     void *n; const char *key; json_t *value;
                     json_object_foreach_safe(record, n, key, value) {
                         if(!kw_has_key(expected, key)) {
+                            if(verbose) {
+                                trace_msg("match_record: object key '%s' not found",
+                                    key
+                                );
+                            }
                             ret = FALSE;
                             break;
                         }
                         if(json_typeof(value)==JSON_OBJECT) {
-                            if(!match_record(value, json_object_get(expected, key))) {
+                            if(!match_record(
+                                    value,
+                                    json_object_get(expected, key),
+                                    verbose)) {
+                                if(verbose) {
+                                    trace_msg("match_record: object object key '%s'",
+                                        key
+                                    );
+                                }
                                 ret = FALSE;
                                 break;
                             } else {
@@ -341,6 +392,11 @@ PUBLIC BOOL match_record(
                             }
                         } else {
                             if(!kw_is_identical(value, json_object_get(expected, key))) {
+                                if(verbose) {
+                                    trace_msg("match_record: no identical '%s'",
+                                        key
+                                    );
+                                }
                                 ret = FALSE;
                                 break;
                             } else {
@@ -351,14 +407,27 @@ PUBLIC BOOL match_record(
                     }
 
                     if(json_object_size(record)>0) {
+                        if(verbose) {
+                            trace_msg("match_record: key '%s', remain items",
+                                key
+                            );
+                        }
                         ret = FALSE;
                     }
                     if(json_object_size(expected)>0) {
+                        if(verbose) {
+                            trace_msg("match_record: key '%s', remain items",
+                                key
+                            );
+                        }
                         ret = FALSE;
                     }
                 }
                 break;
             default:
+                if(verbose) {
+                    trace_msg("match_record: default");
+                }
                 ret = FALSE;
                 break;
         }

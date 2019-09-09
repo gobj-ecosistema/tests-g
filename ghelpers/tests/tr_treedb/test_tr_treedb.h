@@ -19,7 +19,8 @@ PUBLIC void set_expected_results(
 
 PUBLIC BOOL match_record(
     json_t *record_, // NOT owned
-    json_t *expected_ // NOT owned
+    json_t *expected, // NOT owned
+    int verbose
 );
 PUBLIC BOOL check_log_result(const char *test, int verbose);
 
