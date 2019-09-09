@@ -790,25 +790,38 @@ int main(int argc, char *argv[])
      */
     treedb_close_db(tranger, treedb_name);
 
-print_json(tranger);
-
-    treedb_open_db(
-        tranger,  // owned
-        treedb_name,
-        jn_schema_sample,  // owned
-        0
-    );
-
-
-    if(!test_final_foto(
-            tranger,
-            treedb_name,
-            arguments.without_ok_tests,
-            arguments.without_bad_tests,
-            arguments.show_oks,
+    if(!arguments.without_ok_tests) {
+        const char *test = "Load treedb from tranger";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
             arguments.verbose
-        )) {
-        ret = -1;
+        );
+
+        jn_schema_sample = legalstring2json(schema_sample, TRUE);
+
+        treedb_open_db(
+            tranger,  // owned
+            treedb_name,
+            jn_schema_sample,  // owned
+            0
+        );
+
+        if(!check_log_result(test, arguments.verbose)) {
+            ret = -1;
+        } else {
+            if(!test_final_foto(
+                    tranger,
+                    treedb_name,
+                    arguments.without_ok_tests,
+                    arguments.without_bad_tests,
+                    arguments.show_oks,
+                    arguments.verbose
+                )) {
+                ret = -1;
+            }
+        }
     }
 
     if(!arguments.verbose) {
