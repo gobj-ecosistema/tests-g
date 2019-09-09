@@ -81,7 +81,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
             data,                       // data
-            "strict"
+            "strict,verbose"
         );
         if(!match_record(direction, expected)) {
             ret = FALSE;
@@ -126,7 +126,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,                       // data
-            "strict"
+            "strict,verbose"
         );
 
         if(found) {
@@ -181,7 +181,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict"
+            "strict,verbose"
         );
         if(!match_record(administration, expected)) {
             ret = FALSE;
@@ -477,7 +477,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict"
+            "strict,verbose"
         );
         if(operation) {
             ret = FALSE;
@@ -520,7 +520,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict"
+            "strict,verbose"
         );
         if(!match_record(operation, expected)) {
             ret = FALSE;
@@ -697,7 +697,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict"
+            "strict,verbose"
         );
         if(!match_record(development, expected)) {
             ret = FALSE;
@@ -871,7 +871,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict"
+            "strict,verbose"
         );
 
         treedb_link_nodes(
