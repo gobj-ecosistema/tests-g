@@ -778,10 +778,19 @@ int main(int argc, char *argv[])
         ret = -1;
     }
 
+//print_json(kw_get_dict(tranger, "treedbs", 0, 0));
+
+    /*
+     *  Check refcounts
+     */
+    kw_check_refcounts(tranger, 1000);
+
     /*
      *  Close and re-open the treedb
      */
     treedb_close_db(tranger, treedb_name);
+
+print_json(tranger);
 
     treedb_open_db(
         tranger,  // owned
@@ -789,6 +798,7 @@ int main(int argc, char *argv[])
         jn_schema_sample,  // owned
         0
     );
+
 
     if(!test_final_foto(
             tranger,

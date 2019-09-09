@@ -141,16 +141,43 @@ PUBLIC int load_topic_new_data(
                  *  Get ids from new_record fkey field
                  */
                 json_t *ids = kwid_get_new_ids(new_record, col_name);
+                int ids_idx; json_t *jn_mix_id;
+                json_array_foreach(ids, ids_idx, jn_mix_id) {
+                    const char *topic_and_id = json_string_value(jn_mix_id);
 
-                int ids_idx; json_t *jn_id;
-                json_array_foreach(ids, ids_idx, jn_id) {
-                    JSON_INCREF(jn_id);
+                    int list_size;
+                    const char **ss = split2(topic_and_id, ":", &list_size);
+                    if(list_size != 2) {
+                        split_free2(ss);
+                        log_error(0,
+                            "gobj",         "%s", __FILE__,
+                            "function",     "%s", __FUNCTION__,
+                            "msgset",       "%s", MSGSET_PARAMETER_ERROR,
+                            "msg",          "%s", "Wrong mix fkey",
+                            "treedb_name",  "%s", treedb_name,
+                            "topic_name",   "%s", topic_name,
+                            "mix_id",       "%j", jn_mix_id,
+                            "record",       "%j", new_record,
+                            NULL
+                        );
+                        ret += -1;
+                        continue;
+                    }
+
+                    if(strcmp(parent_topic_name, ss[0])!=0) {
+                        split_free2(ss);
+                        continue;
+                    }
+                    json_t *jn_id = json_string(ss[1]);
+
                     json_t *parent_record = treedb_get_node( // Return is NOT YOURS
                         tranger,
                         treedb_name,
                         parent_topic_name,
                         jn_id
                     );
+                    split_free2(ss);
+
                     if(!parent_record) {
                         log_error(0,
                             "gobj",         "%s", __FILE__,
@@ -299,46 +326,254 @@ PUBLIC BOOL test_users(
 )
 {
     BOOL ret = TRUE;
-    const char *path =
-    "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.json";
+    json_t *expected;
 
-    size_t flags = 0;
-    json_error_t error;
-    json_t *file_json = json_load_file(path, flags, &error);
-    if(!file_json) {
-        printf("Can't decode %s json file\n", path);
-        return FALSE;
-    }
+char foto_final[]= "\
+{ \n\
+    'ba115bf6-5a7c-4ac7-9852-ce32135b427f': { \n\
+        'id': 'ba115bf6-5a7c-4ac7-9852-ce32135b427f', \n\
+        'username': 'dueño@email.com', \n\
+        'firstName': 'Don', \n\
+        'lastName': 'Duenño', \n\
+        'email': 'dueño@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:direction' \n\
+        ], \n\
+        'manager': [ \n\
+            'departments:direction' \n\
+        ], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 17, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    'b6eb2c61-622c-41d3-afa0-548b3fa882cd': { \n\
+        'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd', \n\
+        'username': 'admin@email.com', \n\
+        'firstName': 'Admin', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'admin@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:administration' \n\
+        ], \n\
+        'manager': [ \n\
+            'departments:administration' \n\
+        ], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 18, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    '9594f724-c029-4190-8311-a42438f74a99': { \n\
+        'id': '9594f724-c029-4190-8311-a42438f74a99', \n\
+        'username': 'escritor@email.com', \n\
+        'firstName': 'Escritor', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'escritor@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:administration' \n\
+        ], \n\
+        'manager': [], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 11, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    'cda33bc2-d191-41e6-b779-471977869463': { \n\
+        'id': 'cda33bc2-d191-41e6-b779-471977869463', \n\
+        'username': 'op1@email.com', \n\
+        'firstName': 'Op1', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'op1@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:operation' \n\
+        ], \n\
+        'manager': [], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 12, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    '95a4820d-89b0-4bd0-8144-2ef997638b80': { \n\
+        'id': '95a4820d-89b0-4bd0-8144-2ef997638b80', \n\
+        'username': 'op2@email.com', \n\
+        'firstName': 'Op2', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'op2@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:operation' \n\
+        ], \n\
+        'manager': [], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 13, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    'b24aff31-36da-4014-95ec-8b10a1279cf3': { \n\
+        'id': 'b24aff31-36da-4014-95ec-8b10a1279cf3', \n\
+        'username': 'dev1@email.com', \n\
+        'firstName': 'Dev1', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'dev1@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:development' \n\
+        ], \n\
+        'manager': [], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 14, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    'a3586af9-2e57-489e-b6d3-ede04ea77bd0': { \n\
+        'id': 'a3586af9-2e57-489e-b6d3-ede04ea77bd0', \n\
+        'username': 'dev2@email.com', \n\
+        'firstName': 'Dev2', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'dev2@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:development' \n\
+        ], \n\
+        'manager': [], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 15, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    }, \n\
+    'cf2495a7-1cb9-4ce5-85f5-7a90dc5859d8': { \n\
+        'id': 'cf2495a7-1cb9-4ce5-85f5-7a90dc5859d8', \n\
+        'username': 'devboss@email.com', \n\
+        'firstName': 'DevBoss', \n\
+        'lastName': 'Martínez', \n\
+        'email': 'devboss@email.com', \n\
+        'emailVerified': false, \n\
+        'disabled': false, \n\
+        'departments': [ \n\
+            'departments:development' \n\
+        ], \n\
+        'manager': [ \n\
+            'departments:development' \n\
+        ], \n\
+        'attributes': [], \n\
+        'roles': [], \n\
+        '__md_treedb__': { \n\
+            'treedb_name': 'treedb_test', \n\
+            'topic_name': 'users', \n\
+            '__rowid__': 19, \n\
+            '__t__': 1568010993, \n\
+            '__tag__': 0 \n\
+        } \n\
+    } \n\
+} \n\
+";
 
-    const char *test = "Load users from a treedb-json-file";
-    set_expected_results(
-        test,
-        json_pack("[]"  // error's list
-        ),
-        verbose
-    );
+    if(!without_ok_tests) {
+        const char *path =
+        "/yuneta/development/yuneta/^gobj-ecosistema/tests-g/ghelpers/tests/tr_treedb/users.json";
 
-    const char *operation = "create"; // "update" TODO
+        size_t flags = 0;
+        json_error_t error;
+        json_t *file_json = json_load_file(path, flags, &error);
+        if(!file_json) {
+            printf("Can't decode %s json file\n", path);
+            return FALSE;
+        }
 
-    json_t *jn_treedbs = kw_get_dict(file_json, "treedbs", 0, 0);
-    if(!jn_treedbs) {
-        printf("First level keyword 'treedbs' not found in this file\n  %s\n", path);
+        const char *test = "Load users from a treedb-json-file";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            verbose
+        );
+
+        const char *operation = "create"; // "update" TODO
+
+        json_t *jn_treedbs = kw_get_dict(file_json, "treedbs", 0, 0);
+        if(!jn_treedbs) {
+            printf("First level keyword 'treedbs' not found in this file\n  %s\n", path);
+            JSON_DECREF(file_json);
+            return FALSE;
+        }
+
+        JSON_INCREF(jn_treedbs);
+        if(load_treedbs(tranger, jn_treedbs, operation)<0) {
+            ret = FALSE;
+        }
+
+        char path_users[PATH_MAX];
+        build_treedb_index_path(path_users, sizeof(path_users), treedb_name, "users", "id");
+
+        helper_quote2doublequote(foto_final);
+        expected = legalstring2json(foto_final, TRUE);
+        json_t *users = kw_get_dict(tranger, path_users, 0, 0);
+
+        if(!match_record(users, expected)) {
+            ret = FALSE;
+            if(verbose) {
+                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
+                log_debug_json(0, users, "Record found");
+                log_debug_json(0, expected, "Record expected");
+            } else {
+                printf("%sX%s", On_Red BWhite, Color_Off);
+            }
+        } else {
+            if(!check_log_result(test, verbose)) {
+                ret = FALSE;
+            }
+        }
+        JSON_DECREF(expected);
+
+        kw_check_refcounts(file_json, 1000);
         JSON_DECREF(file_json);
-        return FALSE;
-    }
-
-    JSON_INCREF(jn_treedbs);
-    if(load_treedbs(tranger, jn_treedbs, operation)<0) {
-        ret = FALSE;
-    }
-
-    kw_check_refcounts(file_json, 1000);
-    kw_check_refcounts(tranger, 1000);
-
-    JSON_DECREF(file_json);
-
-    if(!check_log_result(test, verbose)) {
-        ret = FALSE;
     }
 
     return ret;

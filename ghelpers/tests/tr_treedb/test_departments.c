@@ -24,12 +24,6 @@
                 |
                 |-> Gestión
                 |
-                |-> Microinformática
-                |
-                |-> Redes
-                |
-                |-> Sistemas
-                |
                  -> Desarrollo
  ***************************************************************************/
 PUBLIC BOOL test_departments(
@@ -45,9 +39,6 @@ PUBLIC BOOL test_departments(
     json_t *direction = 0;
     json_t *administration = 0;
     json_t *operation = 0;
-    json_t *microinformatics = 0;
-    json_t *network = 0;
-    json_t *systems = 0;
     json_t *development = 0;
 
 /**------------------------------------------------------------*
@@ -306,7 +297,7 @@ PUBLIC BOOL test_departments(
                 "administration",
                     "id", "administration",
                     "name", "Administración",
-                    "department_id", "direction",
+                    "department_id", "departments:direction",
                     "departments",
                     "managers",
                     "users",
@@ -424,7 +415,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "direction",
+            "department_id", "departments:direction",
             "departments",
             "managers",
             "users"
@@ -573,12 +564,12 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "direction",
+            "department_id", "departments:direction",
             "departments",
                 "operation",
                     "id", "operation",
                     "name", "Gestión",
-                    "department_id", "administration",
+                    "department_id", "departments:administration",
                     "departments",
                     "managers",
                     "users",
@@ -637,591 +628,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "operation",
             "name", "Gestión",
-            "department_id", "administration",
-            "departments",
-            "managers",
-            "users"
-        );
-        if(!expected) {
-            if(verbose) {
-                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        }
-
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(found);
-        JSON_DECREF(expected);
-    }
-
-/*------------------------------------------------------------**
-         -> Administración
-                |
-                |-> Microinformática
-*------------------------------------------------------------*/
-    /*-----------------------------------*
-     *  Microinformática
-     *-----------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "Create microinformatics, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-
-        data = json_pack("{s:s, s:s}",
-            "id", "microinformatics",
-            "name", "Microinformática"
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "microinformatics",
-            "name", "Microinformática",
-            "department_id", "",
-            "departments",
-            "managers",
-            "users"
-        );
-
-        microinformatics = treedb_create_node(
-            tranger, treedb_name,
-            "departments",
-            data,
-            "strict"
-        );
-        if(!match_record(microinformatics, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, microinformatics, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, microinformatics, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    /*---------------------------------------------*
-     *      Administración -> Microinformática
-     *---------------------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "link administration->microinformatics, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        treedb_link_nodes(
-            tranger,
-            "departments",
-            administration,
-            microinformatics
-        );
-
-        expected = json_pack("{s:s, s:s, s:s, s:"
-                "{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
-                " s:{}, s:[]}",
-            "id", "administration",
-            "name", "Administración",
-            "department_id", "direction",
-            "departments",
-                "operation",
-                    "id", "operation",
-                    "name", "Gestión",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "microinformatics",
-                    "id", "microinformatics",
-                    "name", "Microinformática",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-            "managers",
-            "users"
-        );
-
-        found = treedb_get_node(
-            tranger, treedb_name,
-            "departments",
-            json_string("administration")
-        );
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    if(!without_ok_tests) {
-        // Comprueba con timeranger
-        const char *test = "match treedb with timeranger rowid 7, id 4 Microinformática";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        md_record_t md_record;
-        tranger_get_record(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            7, //__rowid__
-            &md_record,
-            TRUE
-        );
-        found = tranger_read_record_content(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            &md_record
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "microinformatics",
-            "name", "Microinformática",
-            "department_id", "administration",
-            "departments",
-            "managers",
-            "users"
-        );
-        if(!expected) {
-            if(verbose) {
-                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        }
-
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(found);
-        JSON_DECREF(expected);
-    }
-
-/*------------------------------------------------------------**
-         -> Administración
-                |
-                |-> Redes
-*------------------------------------------------------------*/
-    /*-----------------------------------*
-     *  Redes
-     *-----------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "Create network, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-
-        data = json_pack("{s:s, s:s}",
-            "id", "network",
-            "name", "Redes"
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "network",
-            "name", "Redes",
-            "department_id", "",
-            "departments",
-            "managers",
-            "users"
-        );
-
-        network = treedb_create_node(
-            tranger, treedb_name,
-            "departments",
-            data,
-            "strict"
-        );
-        if(!match_record(network, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, network, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, network, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    /*---------------------------------------------*
-     *      Administración -> Redes
-     *---------------------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "link administration->network, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        treedb_link_nodes(
-            tranger,
-            "departments",
-            administration,
-            network
-        );
-
-        expected = json_pack("{s:s, s:s, s:s, s:"
-                "{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
-                " s:{}, s:[]}",
-            "id", "administration",
-            "name", "Administración",
-            "department_id", "direction",
-            "departments",
-                "operation",
-                    "id", "operation",
-                    "name", "Gestión",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "microinformatics",
-                    "id", "microinformatics",
-                    "name", "Microinformática",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "network",
-                    "id", "network",
-                    "name", "Redes",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-            "managers",
-            "users"
-        );
-
-        found = treedb_get_node(
-            tranger, treedb_name,
-            "departments",
-            json_string("administration")
-        );
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    if(!without_ok_tests) {
-        // Comprueba con timeranger
-        const char *test = "match treedb with timeranger rowid 9, id 5 Redes";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        md_record_t md_record;
-        tranger_get_record(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            9, //__rowid__
-            &md_record,
-            TRUE
-        );
-        found = tranger_read_record_content(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            &md_record
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "network",
-            "name", "Redes",
-            "department_id", "administration",
-            "departments",
-            "managers",
-            "users"
-        );
-        if(!expected) {
-            if(verbose) {
-                printf("%s  --> expected NULL in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        }
-
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(found);
-        JSON_DECREF(expected);
-    }
-
-/*------------------------------------------------------------**
-         -> Administración
-                |
-                |-> Sistemas
-*------------------------------------------------------------*/
-    /*-----------------------------------*
-     *  Sistemas
-     *-----------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "Create systems, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-
-        data = json_pack("{s:s, s:s}",
-            "id", "systems",
-            "name", "Sistemas"
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "systems",
-            "name", "Sistemas",
-            "department_id", "",
-            "departments",
-            "managers",
-            "users"
-        );
-
-        systems = treedb_create_node(
-            tranger, treedb_name,
-            "departments",
-            data,
-            "strict"
-        );
-        if(!match_record(systems, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, systems, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, systems, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    /*---------------------------------------------*
-     *      Administración -> Sistemas
-     *---------------------------------------------*/
-    if(!without_ok_tests) {
-        const char *test = "link administration->systems, good";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        treedb_link_nodes(
-            tranger,
-            "departments",
-            administration,
-            systems
-        );
-
-        expected = json_pack("{s:s, s:s, s:s, s:"
-                "{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
-                " s:{}, s:[]}",
-            "id", "administration",
-            "name", "Administración",
-            "department_id", "direction",
-            "departments",
-                "operation",
-                    "id", "operation",
-                    "name", "Gestión",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "microinformatics",
-                    "id", "microinformatics",
-                    "name", "Microinformática",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "network",
-                    "id", "network",
-                    "name", "Redes",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "systems",
-                    "id", "systems",
-                    "name", "Sistemas",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-            "managers",
-            "users"
-        );
-
-        found = treedb_get_node(
-            tranger, treedb_name,
-            "departments",
-            json_string("administration")
-        );
-        if(!match_record(found, expected)) {
-            ret = FALSE;
-            if(verbose) {
-                printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                log_debug_json(0, found, "Record found");
-                log_debug_json(0, expected, "Record expected");
-            } else {
-                printf("%sX%s", On_Red BWhite, Color_Off);
-            }
-        } else {
-            if(!check_log_result(test, verbose)) {
-                ret = FALSE;
-            }
-        }
-        if(show_oks) {
-            log_debug_json(0, found, "Record found");
-            log_debug_json(0, expected, "Record expected");
-        }
-        JSON_DECREF(expected);
-    }
-
-    if(!without_ok_tests) {
-        // Comprueba con timeranger
-        const char *test = "match treedb with timeranger rowid 11, id 6 Sistemas";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            verbose
-        );
-        md_record_t md_record;
-        tranger_get_record(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            11, //__rowid__
-            &md_record,
-            TRUE
-        );
-        found = tranger_read_record_content(
-            tranger,
-            tranger_topic(tranger, "departments"),
-            &md_record
-        );
-        expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
-            "id", "systems",
-            "name", "Sistemas",
-            "department_id", "administration",
+            "department_id", "departments:administration",
             "departments",
             "managers",
             "users"
@@ -1333,47 +740,23 @@ PUBLIC BOOL test_departments(
 
         expected = json_pack("{s:s, s:s, s:s, s:"
                 "{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
-                "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}, "
                 "s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}},"
                 " s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "direction",
+            "department_id", "departments:direction",
             "departments",
                 "operation",
                     "id", "operation",
                     "name", "Gestión",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "microinformatics",
-                    "id", "microinformatics",
-                    "name", "Microinformática",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "network",
-                    "id", "network",
-                    "name", "Redes",
-                    "department_id", "administration",
-                    "departments",
-                    "managers",
-                    "users",
-                "systems",
-                    "id", "systems",
-                    "name", "Sistemas",
-                    "department_id", "administration",
+                    "department_id", "departments:administration",
                     "departments",
                     "managers",
                     "users",
                 "development",
                     "id", "development",
                     "name", "Desarrollo",
-                    "department_id", "administration",
+                    "department_id", "departments:administration",
                     "departments",
                     "managers",
                     "users",
@@ -1409,7 +792,7 @@ PUBLIC BOOL test_departments(
 
     if(!without_ok_tests) {
         // Comprueba con timeranger
-        const char *test = "match treedb with timeranger rowid 13, id 7 Desarrollo";
+        const char *test = "match treedb with timeranger rowid 7, id 4 Desarrollo";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
@@ -1420,7 +803,7 @@ PUBLIC BOOL test_departments(
         tranger_get_record(
             tranger,
             tranger_topic(tranger, "departments"),
-            13, //__rowid__
+            7, //__rowid__
             &md_record,
             TRUE
         );
@@ -1432,7 +815,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "development",
             "name", "Desarrollo",
-            "department_id", "administration",
+            "department_id", "departments:administration",
             "departments",
             "managers",
             "users"
@@ -1515,209 +898,164 @@ PUBLIC BOOL test_departments(
      *          Foto final
      *------------------------------------------------------------*/
 char foto_final[]= "\
-{\n\
-    'treedb_test': {\n\
-        '__tags__': {\n\
-            'id': {}\n\
-        },\n\
-        'users': {\n\
-            'id': {}\n\
-        },\n\
-        'departments': {\n\
-            'id': {\n\
-                'direction': {\n\
-                    'id': 'direction',\n\
-                    'name': 'Dirección',\n\
-                    'department_id': '',\n\
-                    'departments': {\n\
-                        'administration': {\n\
-                            'id': 'administration',\n\
-                            'name': 'Administración',\n\
-                            'department_id': 'direction',\n\
-                            'departments': {\n\
-                                'operation': {\n\
-                                    'id': 'operation',\n\
-                                    'name': 'Gestión',\n\
-                                    'department_id': 'administration',\n\
-                                    'departments': {},\n\
-                                    'managers': {},\n\
-                                    'users': [],\n\
-                                    '__md_treedb__': {\n\
-                                    }\n\
-                                },\n\
-                                'microinformatics': {\n\
-                                    'id': 'microinformatics',\n\
-                                    'name': 'Microinformática',\n\
-                                    'department_id': 'administration',\n\
-                                    'departments': {},\n\
-                                    'managers': {},\n\
-                                    'users': [],\n\
-                                    '__md_treedb__': {\n\
-                                    }\n\
-                                },\n\
-                                'network': {\n\
-                                    'id': 'network',\n\
-                                    'name': 'Redes',\n\
-                                    'department_id': 'administration',\n\
-                                    'departments': {},\n\
-                                    'managers': {},\n\
-                                    'users': [],\n\
-                                    '__md_treedb__': {\n\
-                                    }\n\
-                                },\n\
-                                'systems': {\n\
-                                    'id': 'systems',\n\
-                                    'name': 'Sistemas',\n\
-                                    'department_id': 'administration',\n\
-                                    'departments': {},\n\
-                                    'managers': {},\n\
-                                    'users': [],\n\
-                                    '__md_treedb__': {\n\
-                                    }\n\
-                                },\n\
-                                'development': {\n\
-                                    'id': 'development',\n\
-                                    'name': 'Desarrollo',\n\
-                                    'department_id': 'administration',\n\
-                                    'departments': {},\n\
-                                    'managers': {},\n\
-                                    'users': [],\n\
-                                    '__md_treedb__': {\n\
-                                    }\n\
-                                }\n\
-                            },\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        }\n\
-                    },\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'administration': {\n\
-                    'id': 'administration',\n\
-                    'name': 'Administración',\n\
-                    'department_id': 'direction',\n\
-                    'departments': {\n\
-                        'operation': {\n\
-                            'id': 'operation',\n\
-                            'name': 'Gestión',\n\
-                            'department_id': 'administration',\n\
-                            'departments': {},\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        },\n\
-                        'microinformatics': {\n\
-                            'id': 'microinformatics',\n\
-                            'name': 'Microinformática',\n\
-                            'department_id': 'administration',\n\
-                            'departments': {},\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        },\n\
-                        'network': {\n\
-                            'id': 'network',\n\
-                            'name': 'Redes',\n\
-                            'department_id': 'administration',\n\
-                            'departments': {},\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        },\n\
-                        'systems': {\n\
-                            'id': 'systems',\n\
-                            'name': 'Sistemas',\n\
-                            'department_id': 'administration',\n\
-                            'departments': {},\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        },\n\
-                        'development': {\n\
-                            'id': 'development',\n\
-                            'name': 'Desarrollo',\n\
-                            'department_id': 'administration',\n\
-                            'departments': {},\n\
-                            'managers': {},\n\
-                            'users': [],\n\
-                            '__md_treedb__': {\n\
-                            }\n\
-                        }\n\
-                    },\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'operation': {\n\
-                    'id': 'operation',\n\
-                    'name': 'Gestión',\n\
-                    'department_id': 'administration',\n\
-                    'departments': {},\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'microinformatics': {\n\
-                    'id': 'microinformatics',\n\
-                    'name': 'Microinformática',\n\
-                    'department_id': 'administration',\n\
-                    'departments': {},\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'network': {\n\
-                    'id': 'network',\n\
-                    'name': 'Redes',\n\
-                    'department_id': 'administration',\n\
-                    'departments': {},\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'systems': {\n\
-                    'id': 'systems',\n\
-                    'name': 'Sistemas',\n\
-                    'department_id': 'administration',\n\
-                    'departments': {},\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                },\n\
-                'development': {\n\
-                    'id': 'development',\n\
-                    'name': 'Desarrollo',\n\
-                    'department_id': 'administration',\n\
-                    'departments': {},\n\
-                    'managers': {},\n\
-                    'users': [],\n\
-                    '__md_treedb__': {\n\
-                    }\n\
-                }\n\
-            }\n\
-        },\n\
-        'attributes': {\n\
-            'id': {}\n\
-        },\n\
-        'roles': {\n\
-            'id': {}\n\
-        }\n\
-    }\n\
-}\n\
+{ \n\
+    'treedb_test': { \n\
+        '__tags__': { \n\
+            'id': {} \n\
+        }, \n\
+        'users': { \n\
+            'id': {} \n\
+        }, \n\
+        'departments': { \n\
+            'id': { \n\
+                'direction': { \n\
+                    'id': 'direction', \n\
+                    'name': 'Dirección', \n\
+                    'department_id': '', \n\
+                    'departments': { \n\
+                        'administration': { \n\
+                            'id': 'administration', \n\
+                            'name': 'Administración', \n\
+                            'department_id': 'departments:direction', \n\
+                            'departments': { \n\
+                                'operation': { \n\
+                                    'id': 'operation', \n\
+                                    'name': 'Gestión', \n\
+                                    'department_id': 'departments:administration', \n\
+                                    'departments': {}, \n\
+                                    'users': [], \n\
+                                    'managers': {}, \n\
+                                    '__md_treedb__': { \n\
+                                        'treedb_name': 'treedb_test', \n\
+                                        'topic_name': 'departments', \n\
+                                        '__rowid__': 5, \n\
+                                        '__t__': 1568007729, \n\
+                                        '__tag__': 0 \n\
+                                    } \n\
+                                }, \n\
+                                'development': { \n\
+                                    'id': 'development', \n\
+                                    'name': 'Desarrollo', \n\
+                                    'department_id': 'departments:administration', \n\
+                                    'departments': {}, \n\
+                                    'users': [], \n\
+                                    'managers': {}, \n\
+                                    '__md_treedb__': { \n\
+                                        'treedb_name': 'treedb_test', \n\
+                                        'topic_name': 'departments', \n\
+                                        '__rowid__': 7, \n\
+                                        '__t__': 1568007729, \n\
+                                        '__tag__': 0 \n\
+                                    } \n\
+                                } \n\
+                            }, \n\
+                            'users': [], \n\
+                            'managers': {}, \n\
+                            '__md_treedb__': { \n\
+                                'treedb_name': 'treedb_test', \n\
+                                'topic_name': 'departments', \n\
+                                '__rowid__': 3, \n\
+                                '__t__': 1568007729, \n\
+                                '__tag__': 0 \n\
+                            } \n\
+                        } \n\
+                    }, \n\
+                    'users': [], \n\
+                    'managers': {}, \n\
+                    '__md_treedb__': { \n\
+                        'treedb_name': 'treedb_test', \n\
+                        'topic_name': 'departments', \n\
+                        '__rowid__': 1, \n\
+                        '__t__': 1568007729, \n\
+                        '__tag__': 0 \n\
+                    } \n\
+                }, \n\
+                'administration': { \n\
+                    'id': 'administration', \n\
+                    'name': 'Administración', \n\
+                    'department_id': 'departments:direction', \n\
+                    'departments': { \n\
+                        'operation': { \n\
+                            'id': 'operation', \n\
+                            'name': 'Gestión', \n\
+                            'department_id': 'departments:administration', \n\
+                            'departments': {}, \n\
+                            'users': [], \n\
+                            'managers': {}, \n\
+                            '__md_treedb__': { \n\
+                                'treedb_name': 'treedb_test', \n\
+                                'topic_name': 'departments', \n\
+                                '__rowid__': 5, \n\
+                                '__t__': 1568007729, \n\
+                                '__tag__': 0 \n\
+                            } \n\
+                        }, \n\
+                        'development': { \n\
+                            'id': 'development', \n\
+                            'name': 'Desarrollo', \n\
+                            'department_id': 'departments:administration', \n\
+                            'departments': {}, \n\
+                            'users': [], \n\
+                            'managers': {}, \n\
+                            '__md_treedb__': { \n\
+                                'treedb_name': 'treedb_test', \n\
+                                'topic_name': 'departments', \n\
+                                '__rowid__': 7, \n\
+                                '__t__': 1568007729, \n\
+                                '__tag__': 0 \n\
+                            } \n\
+                        } \n\
+                    }, \n\
+                    'users': [], \n\
+                    'managers': {}, \n\
+                    '__md_treedb__': { \n\
+                        'treedb_name': 'treedb_test', \n\
+                        'topic_name': 'departments', \n\
+                        '__rowid__': 3, \n\
+                        '__t__': 1568007729, \n\
+                        '__tag__': 0 \n\
+                    } \n\
+                }, \n\
+                'operation': { \n\
+                    'id': 'operation', \n\
+                    'name': 'Gestión', \n\
+                    'department_id': 'departments:administration', \n\
+                    'departments': {}, \n\
+                    'users': [], \n\
+                    'managers': {}, \n\
+                    '__md_treedb__': { \n\
+                        'treedb_name': 'treedb_test', \n\
+                        'topic_name': 'departments', \n\
+                        '__rowid__': 5, \n\
+                        '__t__': 1568007729, \n\
+                        '__tag__': 0 \n\
+                    } \n\
+                }, \n\
+                'development': { \n\
+                    'id': 'development', \n\
+                    'name': 'Desarrollo', \n\
+                    'department_id': 'departments:administration', \n\
+                    'departments': {}, \n\
+                    'users': [], \n\
+                    'managers': {}, \n\
+                    '__md_treedb__': { \n\
+                        'treedb_name': 'treedb_test', \n\
+                        'topic_name': 'departments', \n\
+                        '__rowid__': 7, \n\
+                        '__t__': 1568007729, \n\
+                        '__tag__': 0 \n\
+                    } \n\
+                } \n\
+            } \n\
+        }, \n\
+        'attributes': { \n\
+            'id': {} \n\
+        }, \n\
+        'roles': { \n\
+            'id': {} \n\
+        } \n\
+    } \n\
+} \n\
 ";
 
     if(!without_ok_tests) {
