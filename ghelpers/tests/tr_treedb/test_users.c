@@ -96,8 +96,8 @@ PUBLIC int load_topic_new_data(
                 /*
                  *  In "id" of new_record there we put the "true" id of child record
                  */
-                json_t *child_id = json_object_get(new_record, "id");
-                if(!child_id || json_is_null(child_id)) {
+                const char *child_id = kw_get_str(new_record, "id", 0, 0);
+                if(empty_string(child_id)) {
                     log_error(0,
                         "gobj",         "%s", __FILE__,
                         "function",     "%s", __FUNCTION__,
@@ -115,7 +115,6 @@ PUBLIC int load_topic_new_data(
                 /*
                  *  Get child node
                  */
-                JSON_INCREF(child_id);
                 json_t *child_record = treedb_get_node( // Return is NOT YOURS
                     tranger,
                     treedb_name,
@@ -168,16 +167,13 @@ PUBLIC int load_topic_new_data(
                         split_free2(ss);
                         continue;
                     }
-                    json_t *jn_id = json_string(ss[1]);
-
+                    const char *id = ss[1];
                     json_t *parent_record = treedb_get_node( // Return is NOT YOURS
                         tranger,
                         treedb_name,
                         parent_topic_name,
-                        jn_id
+                        id
                     );
-                    split_free2(ss);
-
                     if(!parent_record) {
                         log_error(0,
                             "gobj",         "%s", __FILE__,
@@ -186,12 +182,14 @@ PUBLIC int load_topic_new_data(
                             "msg",          "%s", "Node not found",
                             "treedb_name",  "%s", treedb_name,
                             "topic_name",   "%s", parent_topic_name,
-                            "id",           "%j", jn_id,
+                            "id",           "%s", id,
                             NULL
                         );
                         ret += -1;
+                        split_free2(ss);
                         continue;
                     }
+                    split_free2(ss);
 
                     if(treedb_link_nodes(
                         tranger,

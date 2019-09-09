@@ -809,6 +809,36 @@ int main(int argc, char *argv[])
             0
         );
 
+        if(tranger_topic_size(tranger_topic(tranger, "departments")) != 10) {
+            // Comprueba que no se ha añadido ningún nodo nuevo en la carga
+            if(arguments.verbose) {
+                printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
+                int idx; json_t *value;
+                printf("      Unexpected error:\n");
+                json_array_foreach(unexpected_log_messages, idx, value) {
+                    printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                }
+            } else {
+                printf("%sX%s", On_Red BWhite,Color_Off);
+            }
+            ret = -1;
+        }
+
+        if(tranger_topic_size(tranger_topic(tranger, "users")) != 19) {
+            // Comprueba que no se ha añadido ningún nodo nuevo en la carga
+            if(arguments.verbose) {
+                printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
+                int idx; json_t *value;
+                printf("      Unexpected error:\n");
+                json_array_foreach(unexpected_log_messages, idx, value) {
+                    printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                }
+            } else {
+                printf("%sX%s", On_Red BWhite,Color_Off);
+            }
+            ret = -1;
+        }
+
         if(!check_log_result(test, arguments.verbose)) {
             ret = -1;
         } else {
@@ -825,7 +855,7 @@ int main(int argc, char *argv[])
         }
     }
 
-print_json(kw_get_dict(tranger, "treedbs", 0, 0));
+//print_json(kw_get_dict(tranger, "treedbs", 0, 0));
 
     if(!arguments.verbose) {
         printf("\n");
