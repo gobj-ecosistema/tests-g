@@ -1056,7 +1056,7 @@ int main(int argc, char *argv[])
             tranger,  // owned
             treedb_name,
             jn_schema_sample,  // owned
-            0
+            "persistent"
         );
 
         if(tranger_topic_size(tranger_topic(tranger, "departments")) != 10) {
@@ -1105,9 +1105,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    if(!arguments.verbose) {
-        printf("\n");
-    }
+    printf("\n"); // Porqué siguen saliendo solo puntos?
 
     if(arguments.print_tranger) {
         print_json(tranger);
