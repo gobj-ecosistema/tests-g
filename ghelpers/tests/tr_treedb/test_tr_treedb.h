@@ -18,9 +18,16 @@ PUBLIC void set_expected_results(
 );
 
 PUBLIC BOOL match_record(
-    json_t *record_, // NOT owned
+    json_t *record, // NOT owned
     json_t *expected, // NOT owned
-    int verbose
+    int verbose,
+    GBUFFER *gbuf_path
+);
+PUBLIC BOOL match_list(
+    json_t *list, // NOT owned
+    json_t *expected, // NOT owned
+    int verbose,
+    GBUFFER *gbuf_path
 );
 PUBLIC BOOL check_log_result(const char *test, int verbose);
 

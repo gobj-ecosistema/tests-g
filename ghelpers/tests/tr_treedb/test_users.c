@@ -557,7 +557,7 @@ char foto_final[]= "\
         expected = legalstring2json(foto_final, TRUE);
         json_t *users = kw_get_dict(tranger, path_users, 0, 0);
 
-        if(!match_record(users, expected, verbose)) {
+        if(!match_record(users, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);

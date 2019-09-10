@@ -83,7 +83,7 @@ PUBLIC BOOL test_departments(
             data,                       // data
             "strict,verbose"
         );
-        if(!match_record(direction, expected, verbose)) {
+        if(!match_record(direction, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -183,7 +183,7 @@ PUBLIC BOOL test_departments(
             data,
             "strict,verbose"
         );
-        if(!match_record(administration, expected, verbose)) {
+        if(!match_record(administration, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -230,7 +230,7 @@ PUBLIC BOOL test_departments(
             "departments",
             "administration"
         );
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -310,7 +310,7 @@ PUBLIC BOOL test_departments(
             "departments",
             "direction"
         );
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -368,7 +368,7 @@ PUBLIC BOOL test_departments(
                 printf("%sX%s", On_Red BWhite, Color_Off);
             }
         }
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -428,7 +428,7 @@ PUBLIC BOOL test_departments(
             }
         }
 
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -522,7 +522,7 @@ PUBLIC BOOL test_departments(
             data,
             "strict,verbose"
         );
-        if(!match_record(operation, expected, verbose)) {
+        if(!match_record(operation, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -582,7 +582,7 @@ PUBLIC BOOL test_departments(
             "departments",
             "administration"
         );
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -641,7 +641,7 @@ PUBLIC BOOL test_departments(
             }
         }
 
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -699,7 +699,7 @@ PUBLIC BOOL test_departments(
             data,
             "strict,verbose"
         );
-        if(!match_record(development, expected, verbose)) {
+        if(!match_record(development, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -769,7 +769,7 @@ PUBLIC BOOL test_departments(
             "departments",
             "administration"
         );
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -828,7 +828,7 @@ PUBLIC BOOL test_departments(
             }
         }
 
-        if(!match_record(found, expected, verbose)) {
+        if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
@@ -1070,7 +1070,7 @@ char foto_final[]= "\
         expected = legalstring2json(foto_final, TRUE);
         json_t *treedb = kw_get_dict(tranger, "treedbs", 0, 0);
 
-        if(!match_record(treedb, expected, verbose)) {
+        if(!match_record(treedb, expected, verbose, 0)) {
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);

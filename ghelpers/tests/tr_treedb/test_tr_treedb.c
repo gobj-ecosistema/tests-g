@@ -292,7 +292,8 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
 PUBLIC BOOL match_record(
     json_t *record_, // NOT owned
     json_t *expected_, // NOT owned
-    BOOL verbose
+    int verbose,
+    GBUFFER *gbuf_path
 )
 {
     BOOL ret = TRUE;
@@ -313,48 +314,20 @@ PUBLIC BOOL match_record(
 
     if(json_typeof(record) != json_typeof(expected)) { // json_typeof CONTROLADO
         if(verbose) {
-            trace_msg("match_record: diferent json type");
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_record(%s): diferent json type", p);
         }
         ret = FALSE;
     } else {
         switch(json_typeof(record)) {
             case JSON_ARRAY:
                 {
-                    int idx; json_t *v1;
-                    json_array_foreach(record, idx, v1) {
-                        const char *id1 = kw_get_str(v1, "id", 0, 0);
-                        if(id1) {
-                            // They are id records
-                            json_t *v2 = kwid_find("", expected, id1);
-                            if(!v2) {
-                                if(verbose) {
-                                    trace_msg("match_record: no id %s", id1);
-                                }
-                                ret = FALSE;
-                                continue;
-                            }
-                            if(!match_record(v1, v2, verbose)) {
-                                ret = FALSE;
-                                break;
-                            }
-
-                        } else {
-                            int idx2; json_t *v2;
-                            BOOL found = FALSE;
-                            json_array_foreach(expected, idx2, v2) {
-                                if(match_record(v1, v2, verbose)) {
-                                    found = TRUE;
-                                    break;
-                                }
-                            }
-                            if(!found) {
-                                if(verbose) {
-                                    trace_msg("match_record: array item not found");
-                                }
-                                ret = FALSE;
-                                break;
-                            }
+                    if(!match_list(record, expected, verbose, gbuf_path)) {
+                        if(verbose) {
+                            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                            trace_msg("match_record(%s): match_list not match", p);
                         }
+                        ret = FALSE;
                     }
                 }
                 break;
@@ -367,33 +340,91 @@ PUBLIC BOOL match_record(
                     json_object_foreach_safe(record, n, key, value) {
                         if(!kw_has_key(expected, key)) {
                             if(verbose) {
-                                trace_msg("match_record: object key '%s' not found",
+                                char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                trace_msg("match_record('%s': object key '%s' not found",
+                                    p,
                                     key
                                 );
                             }
                             ret = FALSE;
                             break;
                         }
+                        json_t *value2 = json_object_get(expected, key);
                         if(json_typeof(value)==JSON_OBJECT) {
+
+                            size_t original_position = 0;
+                            if(gbuf_path) {
+                                original_position = gbuf_totalbytes(gbuf_path);
+                                gbuf_printf(gbuf_path, ".%s", key);
+                            }
+
                             if(!match_record(
                                     value,
-                                    json_object_get(expected, key),
-                                    verbose)) {
+                                    value2,
+                                    verbose,
+                                    gbuf_path
+                                )) {
                                 if(verbose) {
-                                    trace_msg("match_record: object object key '%s'",
+                                    char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                    trace_msg("match_record('%s'): object not match key '%s'",
+                                        p,
+                                        key
+                                    );
+                                    //log_debug_json(0, value, "value");
+                                    //log_debug_json(0, value2, "value2");
+                                }
+                                ret = FALSE;
+                            }
+                            if(gbuf_path) {
+                                gbuf_set_wr(gbuf_path, original_position);
+                            }
+
+                            if(ret == FALSE) {
+                                break;
+                            }
+
+                            json_object_del(record, key);
+                            json_object_del(expected, key);
+
+                        } else if(json_typeof(value)==JSON_ARRAY) {
+
+                            size_t original_position = 0;
+                            if(gbuf_path) {
+                                original_position = gbuf_totalbytes(gbuf_path);
+                                gbuf_printf(gbuf_path, ".%s", key);
+                            }
+                            if(!match_list(
+                                    value,
+                                    value2,
+                                    verbose,
+                                    gbuf_path
+                                )) {
+                                if(verbose) {
+                                    char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                    trace_msg("match_record('%s'): object array not match key '%s'",
+                                        p,
                                         key
                                     );
                                 }
                                 ret = FALSE;
-                                break;
-                            } else {
-                                json_object_del(record, key);
-                                json_object_del(expected, key);
                             }
+                            if(gbuf_path) {
+                                gbuf_set_wr(gbuf_path, original_position);
+                            }
+
+                            if(ret == FALSE) {
+                                break;
+                            }
+
+                            json_object_del(record, key);
+                            json_object_del(expected, key);
+
                         } else {
-                            if(!kw_is_identical(value, json_object_get(expected, key))) {
+                            if(!kw_is_identical(value, value2)) {
                                 if(verbose) {
-                                    trace_msg("match_record: no identical '%s'",
+                                    char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                    trace_msg("match_record('%s'): no identical '%s'",
+                                        p,
                                         key
                                     );
                                 }
@@ -406,27 +437,30 @@ PUBLIC BOOL match_record(
                         }
                     }
 
-                    if(json_object_size(record)>0) {
-                        if(verbose) {
-                            trace_msg("match_record: key '%s', remain items",
-                                key
-                            );
+                    if(ret == TRUE) {
+                        if(json_object_size(record)>0) {
+                            if(verbose) {
+                                char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                trace_msg("match_record('%'): remain record items", p);
+                                log_debug_json(0, record, "match_record: remain record items");
+                            }
+                            ret = FALSE;
                         }
-                        ret = FALSE;
-                    }
-                    if(json_object_size(expected)>0) {
-                        if(verbose) {
-                            trace_msg("match_record: key '%s', remain items",
-                                key
-                            );
+                        if(json_object_size(expected)>0) {
+                            if(verbose) {
+                                char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                trace_msg("match_record('%s'): remain expected items", p);
+                                log_debug_json(0, expected, "match_record: remain expected items");
+                            }
+                            ret = FALSE;
                         }
-                        ret = FALSE;
                     }
                 }
                 break;
             default:
                 if(verbose) {
-                    trace_msg("match_record: default");
+                    char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                    trace_msg("match_record('%s'): default", p);
                 }
                 ret = FALSE;
                 break;
@@ -435,6 +469,157 @@ PUBLIC BOOL match_record(
     }
 
     JSON_DECREF(record);
+    JSON_DECREF(expected);
+    return ret;
+}
+
+/***************************************************************************
+ *
+ ***************************************************************************/
+PUBLIC BOOL match_list(
+    json_t *list_, // NOT owned
+    json_t *expected_, // NOT owned
+    int verbose,
+    GBUFFER *gbuf_path
+)
+{
+    BOOL ret = TRUE;
+    json_t *list = json_deep_copy(list_);
+    json_t *expected = json_deep_copy(expected_);
+    if(!list) {
+        if(verbose) {
+            trace_msg("match_list: list NULL");
+        }
+        return FALSE;
+    }
+    if(!expected) {
+        if(verbose) {
+            trace_msg("match_list: expected NULL");
+        }
+        return FALSE;
+    }
+
+    if(json_typeof(list) != json_typeof(expected)) { // json_typeof CONTROLADO
+        if(verbose) {
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_list('%s'): diferent json type", p);
+        }
+        ret = FALSE;
+    } else {
+        switch(json_typeof(list)) {
+        case JSON_ARRAY:
+            {
+                if(kw_get_str(json_array_get(list, 0), "id", 0, 0)) {
+                    /*--------------------------------*
+                     *  List with id records
+                     *--------------------------------*/
+                    int idx1; json_t *r1;
+                    json_array_foreach(list, idx1, r1) {
+                        const char *id1 = kw_get_str(r1, "id", 0, 0);
+                        size_t idx2 = kwid_find_record_in_list("", expected, id1);
+                        if(idx2 < 0) {
+                            if(verbose) {
+                                char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                trace_msg("match_list('%s'): record not found in expected list", p);
+                                //log_debug_json(0, r1, "record");
+                                //log_debug_json(0, expected, "expected");
+                            }
+                            ret = FALSE;
+                            continue;
+                        }
+                        json_t *r2 = json_array_get(expected, idx2);
+
+                        size_t original_position = 0;
+                        if(gbuf_path) {
+                            original_position = gbuf_totalbytes(gbuf_path);
+                            gbuf_printf(gbuf_path, ".%s", id1);
+                        }
+                        if(!match_record(r1, r2, verbose, gbuf_path)) {
+                            ret = FALSE;
+                        }
+                        if(gbuf_path) {
+                            gbuf_set_wr(gbuf_path, original_position);
+                        }
+
+                        if(ret == FALSE) {
+                            break;
+                        }
+
+                        if(json_array_remove(list, idx1)==0) {
+                            idx1--;
+                        }
+                        json_array_remove(expected, idx2);
+                    }
+
+                } else {
+                    /*--------------------------------*
+                     *  List with any json items
+                     *--------------------------------*/
+                    int idx1; json_t *item;
+                    json_array_foreach(list, idx1, item) {
+                        int idx2 = kwid_find_json_in_list("", expected, item);
+                        if(idx2 < 0) {
+                            if(verbose) {
+                                char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                                trace_msg("match_list('%s'): item not found in expected list", p);
+                                //log_debug_json(0, item, "item");
+                                //log_debug_json(0, expected, "expected");
+                            }
+                            ret = FALSE;
+                            break;
+                        }
+                        if(json_array_remove(list, idx1)==0) {
+                            idx1--;
+                        }
+                        json_array_remove(expected, idx2);
+                    }
+                }
+
+                if(ret == TRUE) {
+                    if(json_array_size(list)>0) {
+                        if(verbose) {
+                            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                            trace_msg("match_list('%s'): remain list items", p);
+                            log_debug_json(0, list, "match_list: remain list items");
+                        }
+                        ret = FALSE;
+                    }
+                    if(json_array_size(expected)>0) {
+                        if(verbose) {
+                            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                            trace_msg("match_list('%s': remain expected items", p);
+                            log_debug_json(0, expected, "match_list: remain expected items");
+                        }
+                        ret = FALSE;
+                    }
+                }
+            }
+            break;
+
+        case JSON_OBJECT:
+            {
+                if(!match_record(list, expected, verbose, gbuf_path)) {
+                    if(verbose) {
+                        char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                        trace_msg("match_list('%s'): match_record not match", p);
+                    }
+                    ret = FALSE;
+                }
+            }
+            break;
+        default:
+            {
+                if(verbose) {
+                    char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+                    trace_msg("match_list('%s'): default", p);
+                }
+                ret = FALSE;
+            }
+            break;
+        }
+    }
+
+    JSON_DECREF(list);
     JSON_DECREF(expected);
     return ret;
 }
@@ -859,8 +1044,7 @@ int main(int argc, char *argv[])
      *  Close and re-open the treedb
      */
     treedb_close_db(tranger, treedb_name);
-
-    {
+    if(1) {
         const char *test = "Load treedb from tranger";
         set_expected_results(
             test,
