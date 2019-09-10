@@ -1037,9 +1037,6 @@ int main(int argc, char *argv[])
      */
     kw_check_refcounts(tranger, 1000);
 
-//print_json(kw_get_dict(tranger, "treedbs", 0, 0));
-//print_json(tranger);
-
     /*
      *  Close and re-open the treedb
      */
@@ -1107,8 +1104,6 @@ int main(int argc, char *argv[])
             }
         }
     }
-
-//print_json(kw_get_dict(tranger, "treedbs", 0, 0));
 
     if(!arguments.verbose) {
         printf("\n");
