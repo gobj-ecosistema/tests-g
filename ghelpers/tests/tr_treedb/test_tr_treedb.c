@@ -256,7 +256,7 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
             int idx; json_t *value;
             printf("      Unexpected error:\n");
             json_array_foreach(unexpected_log_messages, idx, value) {
-                printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                printf("          \"%s\"\n", kw_get_str(value, "msg", "?", 0));
             }
         } else {
             printf("%sX%s", On_Red BWhite,Color_Off);
@@ -270,7 +270,7 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
             int idx; json_t *value;
             printf("      Expected error not consumed:\n");
             json_array_foreach(expected_log_messages, idx, value) {
-                printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                printf("          \"%s\"\n", kw_get_str(value, "msg", "?", 0));
             }
         } else {
             printf("%sX%s", On_Red BWhite,Color_Off);
@@ -958,9 +958,10 @@ int main(int argc, char *argv[])
     /*------------------------------*
      *      Startup tranger
      *------------------------------*/
-    json_t *jn_tranger = json_pack("{s:s, s:b}",
+    json_t *jn_tranger = json_pack("{s:s, s:b, s:i}",
         "path", path,
-        "master", 1
+        "master", 1,
+        "on_critical_error", 0
     );
     json_t *tranger = tranger_startup(
         jn_tranger // owned
@@ -1066,7 +1067,7 @@ int main(int argc, char *argv[])
                 int idx; json_t *value;
                 printf("      Unexpected error:\n");
                 json_array_foreach(unexpected_log_messages, idx, value) {
-                    printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                    printf("          \"%s\"\n", kw_get_str(value, "msg", "?", 0));
                 }
             } else {
                 printf("%sX%s", On_Red BWhite,Color_Off);
@@ -1081,7 +1082,7 @@ int main(int argc, char *argv[])
                 int idx; json_t *value;
                 printf("      Unexpected error:\n");
                 json_array_foreach(unexpected_log_messages, idx, value) {
-                    printf("          '%s'\n", kw_get_str(value, "msg", "?", 0));
+                    printf("          \"%s\"\n", kw_get_str(value, "msg", "?", 0));
                 }
             } else {
                 printf("%sX%s", On_Red BWhite,Color_Off);
