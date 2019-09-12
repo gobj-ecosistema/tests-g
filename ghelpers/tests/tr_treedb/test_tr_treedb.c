@@ -984,7 +984,7 @@ int main(int argc, char *argv[])
         arguments.show_oks,
         arguments.verbose
     )) {
-            ret = -1;
+            ret += -1;
     }
 
     /*------------------------------*
@@ -1006,14 +1006,14 @@ int main(int argc, char *argv[])
     );
 
     if(!check_log_result("clean start", arguments.verbose)) { // Be sure there is no previous error
-        ret = -1;
+        ret += -1;
     }
 
     /*------------------------------*
      *  Ejecuta los tests
      *------------------------------*/
     if(!test_schema(tranger, topic_cols_desc, treedb_name, arguments.verbose)) {
-        ret = -1;
+        ret += -1;
     }
 
     if(!test_departments(
@@ -1024,7 +1024,7 @@ int main(int argc, char *argv[])
             arguments.show_oks,
             arguments.verbose
         )) {
-        ret = -1;
+        ret += -1;
     }
 
     if(!test_users(
@@ -1035,7 +1035,7 @@ int main(int argc, char *argv[])
             arguments.show_oks,
             arguments.verbose
         )) {
-        ret = -1;
+        ret += -1;
     }
 
     /*
@@ -1070,7 +1070,7 @@ int main(int argc, char *argv[])
         if(tranger_topic_size(tranger_topic(tranger, "departments")) != 10) {
             // Comprueba que no se ha añadido ningún nodo nuevo en la carga
             if(arguments.verbose) {
-                printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
+                printf("%s  --> ERROR departments!=10%s\n", On_Red BWhite,Color_Off);
                 int idx; json_t *value;
                 printf("      Unexpected error:\n");
                 json_array_foreach(unexpected_log_messages, idx, value) {
@@ -1079,13 +1079,13 @@ int main(int argc, char *argv[])
             } else {
                 printf("%sX%s", On_Red BWhite,Color_Off);
             }
-            ret = -1;
+            ret += -1;
         }
 
         if(tranger_topic_size(tranger_topic(tranger, "users")) != 19) {
             // Comprueba que no se ha añadido ningún nodo nuevo en la carga
             if(arguments.verbose) {
-                printf("%s  --> ERROR %s\n", On_Red BWhite,Color_Off);
+                printf("%s  --> ERROR users!=19 %s\n", On_Red BWhite,Color_Off);
                 int idx; json_t *value;
                 printf("      Unexpected error:\n");
                 json_array_foreach(unexpected_log_messages, idx, value) {
@@ -1094,11 +1094,11 @@ int main(int argc, char *argv[])
             } else {
                 printf("%sX%s", On_Red BWhite,Color_Off);
             }
-            ret = -1;
+            ret += -1;
         }
 
         if(!check_log_result(test, arguments.verbose)) {
-            ret = -1;
+            ret += -1;
         } else {
             if(!test_final_foto(
                     tranger,
@@ -1108,7 +1108,7 @@ int main(int argc, char *argv[])
                     arguments.show_oks,
                     arguments.verbose
                 )) {
-                ret = -1;
+                ret += -1;
             }
         }
     }
@@ -1116,7 +1116,7 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Link compound node
      *---------------------------------------*/
-    if(1) {
+    if(0) {
         const char *test = "Link compound node";
         set_expected_results(
             test,
@@ -1125,9 +1125,28 @@ int main(int argc, char *argv[])
             arguments.verbose
         );
 
+        json_t *administration = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "administration"
+        );
+        json_t *operation = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "operation"
+        );
+
+        ret = treedb_link_nodes(
+            tranger,
+            "managers",
+            operation,
+            administration
+        );
+
+print_json(tranger);
 
         if(!check_log_result(test, arguments.verbose)) {
-            ret = -1;
+            ret += -1;
         } else {
             if(!test_final_foto2(
                     tranger,
@@ -1137,7 +1156,7 @@ int main(int argc, char *argv[])
                     arguments.show_oks,
                     arguments.verbose
                 )) {
-                ret = -1;
+                ret += -1;
             }
         }
     }
@@ -1171,7 +1190,7 @@ int main(int argc, char *argv[])
          *      Destroy all
          *---------------------------*/
         if(!check_log_result(test, arguments.verbose)) {
-            ret = -1;
+            ret += -1;
         }
     }
 

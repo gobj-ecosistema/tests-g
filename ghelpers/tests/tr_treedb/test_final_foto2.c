@@ -990,7 +990,7 @@ char foto_final[]= "\
 ";
 
     if(!without_ok_tests) {
-        const char *test = "departments: foto final";
+        const char *test = "departments: foto final 2";
         set_expected_results(
             test,
             json_pack("[]"  // error's list
