@@ -1045,9 +1045,9 @@ int main(int argc, char *argv[])
 
 //print_json(tranger);
 
-    /*
-     *  Close and re-open the treedb
-     */
+    /*---------------------------------------*
+     *      Close and re-open the treedb
+     *---------------------------------------*/
     treedb_close_db(tranger, treedb_name);
     if(1) {
         const char *test = "Load treedb from tranger";
@@ -1113,6 +1113,38 @@ int main(int argc, char *argv[])
         }
     }
 
+    /*---------------------------------------*
+     *      Link compound node
+     *---------------------------------------*/
+    if(1) {
+        const char *test = "Link compound node";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            arguments.verbose
+        );
+
+
+        if(!check_log_result(test, arguments.verbose)) {
+            ret = -1;
+        } else {
+            if(!test_final_foto2(
+                    tranger,
+                    treedb_name,
+                    arguments.without_ok_tests,
+                    arguments.without_bad_tests,
+                    arguments.show_oks,
+                    arguments.verbose
+                )) {
+                ret = -1;
+            }
+        }
+    }
+
+    /*---------------------------------------*
+     *      Shutdown
+     *---------------------------------------*/
     if(arguments.print_tranger) {
         print_json(tranger);
     } else if(arguments.print_treedb) {
@@ -1143,6 +1175,7 @@ int main(int argc, char *argv[])
         }
     }
 
+    printf("\n");
     log_del_handler("test_capture");
 
     JSON_DECREF(topic_cols_desc);
@@ -1151,8 +1184,6 @@ int main(int argc, char *argv[])
     gbmem_shutdown();
 
     end_ghelpers_library();
-
-    printf("\n");
 
     return ret;
 }

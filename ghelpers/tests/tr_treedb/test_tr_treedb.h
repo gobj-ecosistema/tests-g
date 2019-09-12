@@ -58,6 +58,15 @@ PUBLIC BOOL test_final_foto(
     int verbose
 );
 
+PUBLIC BOOL test_final_foto2(
+    json_t *tranger,
+    const char *treedb_name,
+    int without_ok_tests,
+    int without_bad_tests,
+    int show_oks,
+    int verbose
+);
+
 #ifdef __cplusplus
 }
 #endif

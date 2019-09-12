@@ -33,6 +33,7 @@ SET (YUNO_SRCS
     test_departments.c
     test_users.c
     test_final_foto.c
+    test_final_foto2.c
 )
 SET (YUNO_HDRS
 )
