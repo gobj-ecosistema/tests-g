@@ -18,7 +18,12 @@
 /***************************************************************************
  *      Constants
  ***************************************************************************/
-#define APP_NAME "test_tr_treedb"
+#define APP_NAME    "test_tr_treedb"
+#define DOC         "Test Treedb."
+
+#define VERSION     __ghelpers_version__
+#define SUPPORT     "<niyamaka at yuneta.io>"
+#define DATETIME    __DATE__ " " __TIME__
 
 /***************************************************************************
  *      Structures
@@ -54,14 +59,14 @@ PRIVATE json_t *expected_log_messages = 0;
 PRIVATE json_t *unexpected_log_messages = 0;
 
 // Set by yuneta_entry_point()
-const char *argp_program_version = APP_NAME;
-const char *argp_program_bug_address = "";
+const char *argp_program_version = APP_NAME " " VERSION;
+const char *argp_program_bug_address = SUPPORT;
 
 /* Program documentation. */
-static char doc[] = "";
+static char doc[] = DOC;
 
 /* A description of the arguments we accept. */
-static char args_doc[] = "Test of TimeRanger TreeDb";
+static char args_doc[] = "";
 
 /*
  *  The options we understand.
@@ -874,9 +879,9 @@ int main(int argc, char *argv[])
      *-------------------------------------*/
     init_ghelpers_library(APP_NAME);
     log_startup(
-        "test",             // application name
-        "1.0.0",            // applicacion version
-        "test_glogger"     // executable program, to can trace stack
+        APP_NAME,       // application name
+        VERSION,        // applicacion version
+        APP_NAME        // executable program, to can trace stack
     );
 
     static uint32_t mem_list[] = {0, 0};
@@ -996,7 +1001,7 @@ int main(int argc, char *argv[])
     treedb_open_db(
         tranger,  // owned
         treedb_name,
-        jn_schema_sample,  // owned
+        jn_schema_sample,
         0
     );
 
@@ -1038,6 +1043,8 @@ int main(int argc, char *argv[])
      */
     kw_check_refcounts(tranger, 1000);
 
+//print_json(tranger);
+
     /*
      *  Close and re-open the treedb
      */
@@ -1056,7 +1063,7 @@ int main(int argc, char *argv[])
         treedb_open_db(
             tranger,  // owned
             treedb_name,
-            jn_schema_sample,  // owned
+            jn_schema_sample,
             "persistent"
         );
 
@@ -1106,29 +1113,46 @@ int main(int argc, char *argv[])
         }
     }
 
-    printf("\n"); // Porqué siguen saliendo solo puntos?
-
     if(arguments.print_tranger) {
         print_json(tranger);
     } else if(arguments.print_treedb) {
         print_json(kw_get_dict(tranger, "treedbs", 0, 0));
     }
 
-    /*------------------------------*
-     *  Cierra la bbdd
-     *------------------------------*/
-    treedb_close_db(tranger, treedb_name);
+    if(1) {
+        const char *test = "Close and shutdown";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            arguments.verbose
+        );
 
-    tranger_shutdown(tranger);
+        /*------------------------------*
+         *  Cierra la bbdd
+         *------------------------------*/
+        treedb_close_db(tranger, treedb_name);
 
-    /*---------------------------*
-     *      Destroy all
-     *---------------------------*/
+        tranger_shutdown(tranger);
+
+        /*---------------------------*
+         *      Destroy all
+         *---------------------------*/
+        if(!check_log_result(test, arguments.verbose)) {
+            ret = -1;
+        }
+    }
+
+    log_del_handler("test_capture");
+
     JSON_DECREF(topic_cols_desc);
     JSON_DECREF(expected_log_messages);
     JSON_DECREF(unexpected_log_messages);
     gbmem_shutdown();
+
     end_ghelpers_library();
+
+    printf("\n");
 
     return ret;
 }
