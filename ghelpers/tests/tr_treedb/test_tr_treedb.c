@@ -1143,7 +1143,7 @@ int main(int argc, char *argv[])
             administration
         );
 
-print_json(tranger);
+//print_json(tranger);
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;
