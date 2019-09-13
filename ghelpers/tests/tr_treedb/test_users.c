@@ -84,29 +84,9 @@ PUBLIC int load_topic_new_data(
         /*
          *  Loop fkey desc searching reverse links
          */
-        const char *pref; json_t *jn_bool;
-        json_object_foreach(fkey, pref, jn_bool) {
-            int pref_size;
-            const char **ff = split2(pref, "^", &pref_size);
-            if(pref_size != 2) {
-                log_error(0,
-                    "gobj",         "%s", __FILE__,
-                    "function",     "%s", __FUNCTION__,
-                    "msgset",       "%s", MSGSET_PARAMETER_ERROR,
-                    "msg",          "%s", "Wrong fkey",
-                    "treedb_name",  "%s", treedb_name,
-                    "topic_name",   "%s", topic_name,
-                    "col_name",     "%s", col_name,
-                    "pref",         "%s", pref,
-                    NULL
-                );
-                ret += -1;
-                split_free2(ff);
-                continue;
-            }
-            const char *parent_topic_name = ff[0];
-            const char *hook_name = ff[1];
-
+        const char *parent_topic_name; json_t *jn_parent_field_name;
+        json_object_foreach(fkey, parent_topic_name, jn_parent_field_name) {
+            const char *hook_name = json_string_value(jn_parent_field_name);
             /*
              *  Loop new data searching links
              */
@@ -129,7 +109,6 @@ PUBLIC int load_topic_new_data(
                         NULL
                     );
                     ret += -1;
-                    split_free2(ff);
                     continue;
                 }
 
@@ -155,7 +134,6 @@ PUBLIC int load_topic_new_data(
                         NULL
                     );
                     ret += -1;
-                    split_free2(ff);
                     continue;
                 }
 
@@ -243,7 +221,6 @@ PUBLIC int load_topic_new_data(
 
                 JSON_DECREF(ids);
             }
-            split_free2(ff);
         }
     }
     JSON_DECREF(cols);
