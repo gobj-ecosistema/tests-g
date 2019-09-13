@@ -306,14 +306,20 @@ PUBLIC BOOL match_record(
     json_t *expected = json_deep_copy(expected_);
     if(!record) {
         if(verbose) {
-            trace_msg("match_record: record NULL");
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_record('%s'): record NULL", p);
         }
+        JSON_DECREF(record);
+        JSON_DECREF(expected);
         return FALSE;
     }
     if(!expected) {
         if(verbose) {
-            trace_msg("match_record: expected NULL");
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_record('%s'): expected NULL", p);
         }
+        JSON_DECREF(record);
+        JSON_DECREF(expected);
         return FALSE;
     }
 
@@ -398,6 +404,7 @@ PUBLIC BOOL match_record(
                                 original_position = gbuf_totalbytes(gbuf_path);
                                 gbuf_printf(gbuf_path, ".%s", key);
                             }
+
                             if(!match_list(
                                     value,
                                     value2,
@@ -493,14 +500,20 @@ PUBLIC BOOL match_list(
     json_t *expected = json_deep_copy(expected_);
     if(!list) {
         if(verbose) {
-            trace_msg("match_list: list NULL");
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_list('%s'): list NULL", p);
         }
+        JSON_DECREF(list);
+        JSON_DECREF(expected);
         return FALSE;
     }
     if(!expected) {
         if(verbose) {
-            trace_msg("match_list: expected NULL");
+            char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
+            trace_msg("match_list('%s'): expected NULL", p);
         }
+        JSON_DECREF(list);
+        JSON_DECREF(expected);
         return FALSE;
     }
 
@@ -514,13 +527,13 @@ PUBLIC BOOL match_list(
         switch(json_typeof(list)) {
         case JSON_ARRAY:
             {
-                if(kw_get_str(json_array_get(list, 0), "id", 0, 0)) {
+                int idx1; json_t *r1;
+                json_array_foreach(list, idx1, r1) {
+                    const char *id1 = kw_get_str(r1, "id", 0, 0);
                     /*--------------------------------*
                      *  List with id records
                      *--------------------------------*/
-                    int idx1; json_t *r1;
-                    json_array_foreach(list, idx1, r1) {
-                        const char *id1 = kw_get_str(r1, "id", 0, 0);
+                    if(id1) {
                         size_t idx2 = kwid_find_record_in_list("", expected, id1);
                         if(idx2 < 0) {
                             if(verbose) {
@@ -554,15 +567,11 @@ PUBLIC BOOL match_list(
                             idx1--;
                         }
                         json_array_remove(expected, idx2);
-                    }
-
-                } else {
-                    /*--------------------------------*
-                     *  List with any json items
-                     *--------------------------------*/
-                    int idx1; json_t *item;
-                    json_array_foreach(list, idx1, item) {
-                        int idx2 = kwid_find_json_in_list("", expected, item);
+                    } else {
+                        /*--------------------------------*
+                         *  List with any json items
+                         *--------------------------------*/
+                        int idx2 = kwid_find_json_in_list("", expected, r1);
                         if(idx2 < 0) {
                             if(verbose) {
                                 char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
@@ -884,8 +893,10 @@ int main(int argc, char *argv[])
         APP_NAME        // executable program, to can trace stack
     );
 
-    static uint32_t mem_list[] = {0, 0};
-    gbmem_trace_alloc_free(0, mem_list);
+    BOOL TEST_MEM=0;
+
+    static uint32_t mem_list[] = {242, 282, 0};
+    gbmem_trace_alloc_free(TEST_MEM, mem_list);
 
     /*------------------------------------------------*
      *          Setup memory
@@ -900,7 +911,7 @@ int main(int argc, char *argv[])
 
     uint64_t MEM_SUPERBLOCK = MEM_MAX_BLOCK;
 
-    if(1) {
+    if(TEST_MEM) {
         gbmem_startup(
             MEM_MIN_BLOCK,
             MEM_MAX_BLOCK,
@@ -939,13 +950,22 @@ int main(int argc, char *argv[])
         capture_log_write,  // write_fn
         0                   // fwrite_fn
     );
-    log_add_handler("test_capture", "testing", LOG_OPT_UP_WARNING, 0);
-    log_add_handler(
-        "test_stdout",
-        "stdout",
-        arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON,
-        0
-    );
+    if(!TEST_MEM) {
+        log_add_handler("test_capture", "testing", LOG_OPT_UP_WARNING, 0);
+        log_add_handler(
+            "test_stdout",
+            "stdout",
+            arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON,
+            0
+        );
+    } else {
+        log_add_handler(
+            "test_stdout",
+            "stdout",
+            LOG_OPT_ALL,
+            0
+        );
+    }
 
     expected_log_messages = json_array();
     unexpected_log_messages = json_array();
@@ -984,7 +1004,7 @@ int main(int argc, char *argv[])
         arguments.show_oks,
         arguments.verbose
     )) {
-            ret += -1;
+        ret += -1;
     }
 
     /*------------------------------*
@@ -1116,50 +1136,21 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Link compound node
      *---------------------------------------*/
-    if(0) {
-        const char *test = "Link compound node";
-        set_expected_results(
-            test,
-            json_pack("[]"  // error's list
-            ),
-            arguments.verbose
-        );
-
-        json_t *administration = treedb_get_node(
-            tranger, treedb_name,
-            "departments",
-            "administration"
-        );
-        json_t *operation = treedb_get_node(
-            tranger, treedb_name,
-            "departments",
-            "operation"
-        );
-
-        ret = treedb_link_nodes(
+    if(!test_compound(
             tranger,
-            "managers",
-            operation,
-            administration
-        );
-
-//print_json(tranger);
-
-        if(!check_log_result(test, arguments.verbose)) {
-            ret += -1;
-        } else {
-            if(!test_final_foto2(
-                    tranger,
-                    treedb_name,
-                    arguments.without_ok_tests,
-                    arguments.without_bad_tests,
-                    arguments.show_oks,
-                    arguments.verbose
-                )) {
-                ret += -1;
-            }
-        }
+            treedb_name,
+            arguments.without_ok_tests,
+            arguments.without_bad_tests,
+            arguments.show_oks,
+            arguments.verbose
+        )) {
+        ret += -1;
     }
+
+    /*
+     *  Check refcounts
+     */
+    kw_check_refcounts(tranger, 1000);
 
     /*---------------------------------------*
      *      Shutdown
