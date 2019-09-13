@@ -1116,7 +1116,7 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Link compound node
      *---------------------------------------*/
-    if(0) {
+    if(1) {
         const char *test = "Link compound node";
         set_expected_results(
             test,
@@ -1143,7 +1143,7 @@ int main(int argc, char *argv[])
             administration
         );
 
-//print_json(tranger);
+print_json(tranger);
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;
