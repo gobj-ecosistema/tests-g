@@ -11,10 +11,10 @@
                     "roles": [],
                     "attributes": [],
                     "manager": [
-                        "departments:direction"
+                        "departments^direction"
                     ],
                     "departments": [
-                        "departments:direction"
+                        "departments^direction"
                     ]
                 },
                 {
@@ -26,10 +26,10 @@
                     "roles": [],
                     "attributes": [],
                     "manager": [
-                        "departments:administration"
+                        "departments^administration"
                     ],
                     "departments": [
-                        "departments:administration"
+                        "departments^administration"
                     ]
                 },
                 {
@@ -43,7 +43,7 @@
                     "manager": [
                     ],
                     "departments": [
-                        "departments:administration"
+                        "departments^administration"
                     ]
                 },
                 {
@@ -57,7 +57,7 @@
                     "manager": [
                     ],
                     "departments": [
-                        "departments:operation"
+                        "departments^operation"
                     ]
                 },
                 {
@@ -71,7 +71,7 @@
                     "manager": [
                     ],
                     "departments": [
-                        "departments:operation"
+                        "departments^operation"
                     ]
                 },
                 {
@@ -85,7 +85,7 @@
                     "manager": [
                     ],
                     "departments": [
-                        "departments:development"
+                        "departments^development"
                     ]
                 },
                 {
@@ -99,7 +99,7 @@
                     "manager": [
                     ],
                     "departments": [
-                        "departments:development"
+                        "departments^development"
                     ]
                 },
                 {
@@ -111,10 +111,10 @@
                     "roles": [],
                     "attributes": [],
                     "manager": [
-                        "departments:development"
+                        "departments^development"
                     ],
                     "departments": [
-                        "departments:development"
+                        "departments^development"
                     ]
                 }
             ]

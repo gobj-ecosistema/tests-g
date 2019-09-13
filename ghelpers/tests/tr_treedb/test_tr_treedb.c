@@ -1048,8 +1048,8 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Close and re-open the treedb
      *---------------------------------------*/
-    treedb_close_db(tranger, treedb_name);
     if(1) {
+        treedb_close_db(tranger, treedb_name);
         const char *test = "Load treedb from tranger";
         set_expected_results(
             test,
@@ -1116,7 +1116,7 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Link compound node
      *---------------------------------------*/
-    if(1) {
+    if(0) {
         const char *test = "Link compound node";
         set_expected_results(
             test,
@@ -1143,7 +1143,7 @@ int main(int argc, char *argv[])
             administration
         );
 
-print_json(tranger);
+//print_json(tranger);
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;

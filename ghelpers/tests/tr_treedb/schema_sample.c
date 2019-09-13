@@ -51,22 +51,22 @@ static char schema_sample[]= "\
                 'departments': {                                    \n\
                     'header': 'Department',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent', 'fkey']                  \n\
+                    'flag': ['fkey']                                \n\
                 },                                                  \n\
                 'manager': {                                        \n\
                     'header': 'Manager',                            \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent', 'fkey']                  \n\
+                    'flag': ['fkey']                                \n\
                 },                                                  \n\
                 'attributes': {                                     \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent', 'fkey']                  \n\
+                    'flag': ['fkey']                                \n\
                 },                                                  \n\
                 'roles': {                                          \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['persistent', 'fkey']                  \n\
+                    'flag': ['fkey']                                \n\
                 }                                                   \n\
             }                                                       \n\
         },                                                          \n\
@@ -90,12 +90,12 @@ static char schema_sample[]= "\
                 'department_id': {                                  \n\
                     'header': 'Top Department',                     \n\
                     'type': 'string',                               \n\
-                    'flag': ['persistent', 'fkey']                  \n\
+                    'flag': ['fkey']                                \n\
                 },                                                  \n\
                 'departments': {                                    \n\
                     'header': 'Departments',                        \n\
                     'type': 'object',                               \n\
-                    'flag': ['hook', 'volatil'],                    \n\
+                    'flag': ['hook'],                               \n\
                     'hook': {                                       \n\
                         'departments': 'department_id'              \n\
                     }                                               \n\
@@ -103,7 +103,7 @@ static char schema_sample[]= "\
                 'users': {                                          \n\
                     'header': 'Users',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['hook', 'volatil'],                    \n\
+                    'flag': ['hook', 'fkey'],                       \n\
                     'hook': {                                       \n\
                         'users': 'departments'                      \n\
                     }                                               \n\
@@ -112,7 +112,7 @@ static char schema_sample[]= "\
                 'managers': {                                       \n\
                     'header': 'Managers',                           \n\
                     'type': 'object',                               \n\
-                    'flag': ['hook', 'persistent'],                 \n\
+                    'flag': ['hook'],                               \n\
                     'hook': {                                       \n\
                         'users': 'manager',                         \n\
                         'departments': 'users'                      \n\
@@ -139,7 +139,7 @@ static char schema_sample[]= "\
                 'attributes': {                                     \n\
                     'header': 'Attributes',                         \n\
                     'type': 'array',                                \n\
-                    'flag': ['hook', 'persistent'],                 \n\
+                    'flag': ['hook'],                               \n\
                     'hook': {                                       \n\
                         'users': 'attributes'                       \n\
                     }                                               \n\
@@ -165,7 +165,7 @@ static char schema_sample[]= "\
                 'roles': {                                          \n\
                     'header': 'Roles',                              \n\
                     'type': 'array',                                \n\
-                    'flag': ['hook', 'persistent'],                 \n\
+                    'flag': ['hook'],                               \n\
                     'hook': {                                       \n\
                         'users': 'roles'                            \n\
                     }                                               \n\

@@ -51,10 +51,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:direction'\n\
+                        'departments^direction'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments:direction'\n\
+                        'departments^direction'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -75,10 +75,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:administration'\n\
+                        'departments^administration'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments:administration'\n\
+                        'departments^administration'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -99,7 +99,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:administration'\n\
+                        'departments^administration'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -121,7 +121,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:operation'\n\
+                        'departments^operation'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -143,7 +143,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:operation'\n\
+                        'departments^operation'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -165,7 +165,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:development'\n\
+                        'departments^development'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -187,7 +187,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:development'\n\
+                        'departments^development'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -209,10 +209,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments:development'\n\
+                        'departments^development'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments:development'\n\
+                        'departments^development'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -236,12 +236,12 @@ char foto_final[]= "\
                         'administration': {\n\
                             'id': 'administration',\n\
                             'name': 'Administración',\n\
-                            'department_id': 'departments:direction',\n\
+                            'department_id': 'departments^direction',\n\
                             'departments': {\n\
                                 'operation': {\n\
                                     'id': 'operation',\n\
                                     'name': 'Gestión',\n\
-                                    'department_id': 'departments:administration',\n\
+                                    'department_id': 'departments^administration',\n\
                                     'departments': {},\n\
                                     'users': [\n\
                                         {\n\
@@ -253,7 +253,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:operation'\n\
+                                                'departments^operation'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -275,7 +275,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:operation'\n\
+                                                'departments^operation'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -301,7 +301,7 @@ char foto_final[]= "\
                                 'development': {\n\
                                     'id': 'development',\n\
                                     'name': 'Desarrollo',\n\
-                                    'department_id': 'departments:administration',\n\
+                                    'department_id': 'departments^administration',\n\
                                     'departments': {},\n\
                                     'users': [\n\
                                         {\n\
@@ -313,7 +313,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -335,7 +335,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -357,10 +357,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -383,10 +383,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments:development'\n\
+                                                'departments^development'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -418,10 +418,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:administration'\n\
+                                        'departments^administration'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments:administration'\n\
+                                        'departments^administration'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -442,7 +442,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:administration'\n\
+                                        'departments^administration'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -466,10 +466,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:administration'\n\
+                                        'departments^administration'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments:administration'\n\
+                                        'departments^administration'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -501,10 +501,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:direction'\n\
+                                'departments^direction'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:direction'\n\
+                                'departments^direction'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -527,10 +527,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:direction'\n\
+                                'departments^direction'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:direction'\n\
+                                'departments^direction'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -554,12 +554,12 @@ char foto_final[]= "\
                 'administration': {\n\
                     'id': 'administration',\n\
                     'name': 'Administración',\n\
-                    'department_id': 'departments:direction',\n\
+                    'department_id': 'departments^direction',\n\
                     'departments': {\n\
                         'operation': {\n\
                             'id': 'operation',\n\
                             'name': 'Gestión',\n\
-                            'department_id': 'departments:administration',\n\
+                            'department_id': 'departments^administration',\n\
                             'departments': {},\n\
                             'users': [\n\
                                 {\n\
@@ -571,7 +571,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:operation'\n\
+                                        'departments^operation'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -593,7 +593,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:operation'\n\
+                                        'departments^operation'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -619,7 +619,7 @@ char foto_final[]= "\
                         'development': {\n\
                             'id': 'development',\n\
                             'name': 'Desarrollo',\n\
-                            'department_id': 'departments:administration',\n\
+                            'department_id': 'departments^administration',\n\
                             'departments': {},\n\
                             'users': [\n\
                                 {\n\
@@ -631,7 +631,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -653,7 +653,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -675,10 +675,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -701,10 +701,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments:development'\n\
+                                        'departments^development'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -736,10 +736,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:administration'\n\
+                                'departments^administration'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:administration'\n\
+                                'departments^administration'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -760,7 +760,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:administration'\n\
+                                'departments^administration'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -784,10 +784,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:administration'\n\
+                                'departments^administration'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:administration'\n\
+                                'departments^administration'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -811,7 +811,7 @@ char foto_final[]= "\
                 'operation': {\n\
                     'id': 'operation',\n\
                     'name': 'Gestión',\n\
-                    'department_id': 'departments:administration',\n\
+                    'department_id': 'departments^administration',\n\
                     'departments': {},\n\
                     'users': [\n\
                         {\n\
@@ -823,7 +823,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:operation'\n\
+                                'departments^operation'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -845,7 +845,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:operation'\n\
+                                'departments^operation'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -871,7 +871,7 @@ char foto_final[]= "\
                 'development': {\n\
                     'id': 'development',\n\
                     'name': 'Desarrollo',\n\
-                    'department_id': 'departments:administration',\n\
+                    'department_id': 'departments^administration',\n\
                     'departments': {},\n\
                     'users': [\n\
                         {\n\
@@ -883,7 +883,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -905,7 +905,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -927,10 +927,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -953,10 +953,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments:development'\n\
+                                'departments^development'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -990,7 +990,7 @@ char foto_final[]= "\
 ";
 
     if(!without_ok_tests) {
-        const char *test = "departments: foto final";
+        const char *test = "departments: foto final 1";
         set_expected_results(
             test,
             json_pack("[]"  // error's list

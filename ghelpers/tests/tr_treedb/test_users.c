@@ -82,11 +82,30 @@ PUBLIC int load_topic_new_data(
             continue;
         }
         /*
-         *  Loop desc fkey searching fkeys
+         *  Loop fkey desc searching reverse links
          */
-        const char *parent_topic_name; json_t *jn_parent_field_name;
-        json_object_foreach(fkey, parent_topic_name, jn_parent_field_name) {
-            const char *hook_name = json_string_value(jn_parent_field_name);
+        const char *pref; json_t *jn_bool;
+        json_object_foreach(fkey, pref, jn_bool) {
+            int pref_size;
+            const char **ff = split2(pref, "^", &pref_size);
+            if(pref_size != 2) {
+                log_error(0,
+                    "gobj",         "%s", __FILE__,
+                    "function",     "%s", __FUNCTION__,
+                    "msgset",       "%s", MSGSET_PARAMETER_ERROR,
+                    "msg",          "%s", "Wrong fkey",
+                    "treedb_name",  "%s", treedb_name,
+                    "topic_name",   "%s", topic_name,
+                    "col_name",     "%s", col_name,
+                    "pref",         "%s", pref,
+                    NULL
+                );
+                ret += -1;
+                split_free2(ff);
+                continue;
+            }
+            const char *parent_topic_name = ff[0];
+            const char *hook_name = ff[1];
 
             /*
              *  Loop new data searching links
@@ -105,10 +124,12 @@ PUBLIC int load_topic_new_data(
                         "msg",          "%s", "Record without id",
                         "treedb_name",  "%s", treedb_name,
                         "topic_name",   "%s", topic_name,
+                        "col_name",     "%s", col_name,
                         "new_record",   "%j", new_record,
                         NULL
                     );
                     ret += -1;
+                    split_free2(ff);
                     continue;
                 }
 
@@ -129,10 +150,12 @@ PUBLIC int load_topic_new_data(
                         "msg",          "%s", "Node not found",
                         "treedb_name",  "%s", treedb_name,
                         "topic_name",   "%s", topic_name,
+                        "col_name",     "%s", col_name,
                         "id",           "%j", child_id,
                         NULL
                     );
                     ret += -1;
+                    split_free2(ff);
                     continue;
                 }
 
@@ -147,9 +170,9 @@ PUBLIC int load_topic_new_data(
                         continue;
                     }
 
-                    int list_size;
-                    const char **ss = split2(topic_and_id, ":", &list_size);
-                    if(list_size != 2) {
+                    int tai_size;
+                    const char **ss = split2(topic_and_id, "^", &tai_size);
+                    if(tai_size != 2) {
                         split_free2(ss);
                         log_error(0,
                             "gobj",         "%s", __FILE__,
@@ -158,6 +181,7 @@ PUBLIC int load_topic_new_data(
                             "msg",          "%s", "Wrong mix fkey",
                             "treedb_name",  "%s", treedb_name,
                             "topic_name",   "%s", topic_name,
+                            "col_name",     "%s", col_name,
                             "mix_id",       "%j", jn_mix_id,
                             "record",       "%j", new_record,
                             NULL
@@ -185,6 +209,7 @@ PUBLIC int load_topic_new_data(
                             "msg",          "%s", "Node not found",
                             "treedb_name",  "%s", treedb_name,
                             "topic_name",   "%s", parent_topic_name,
+                            "col_name",     "%s", col_name,
                             "id",           "%s", id,
                             NULL
                         );
@@ -207,6 +232,7 @@ PUBLIC int load_topic_new_data(
                             "msg",          "%s", "treedb_link_nodes() FAILED",
                             "treedb_name",  "%s", treedb_name,
                             "hook_name",    "%s", hook_name,
+                            "col_name",     "%s", col_name,
                             "parent_record","%j", parent_record,
                             "child_record", "%j", child_record,
                             NULL
@@ -217,6 +243,7 @@ PUBLIC int load_topic_new_data(
 
                 JSON_DECREF(ids);
             }
+            split_free2(ff);
         }
     }
     JSON_DECREF(cols);
@@ -340,10 +367,10 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:direction' \n\
+            'departments^direction' \n\
         ], \n\
         'manager': [ \n\
-            'departments:direction' \n\
+            'departments^direction' \n\
         ], \n\
         'attributes': [], \n\
         'roles': [], \n\
@@ -364,10 +391,10 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:administration' \n\
+            'departments^administration' \n\
         ], \n\
         'manager': [ \n\
-            'departments:administration' \n\
+            'departments^administration' \n\
         ], \n\
         'attributes': [], \n\
         'roles': [], \n\
@@ -388,7 +415,7 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:administration' \n\
+            'departments^administration' \n\
         ], \n\
         'manager': [], \n\
         'attributes': [], \n\
@@ -410,7 +437,7 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:operation' \n\
+            'departments^operation' \n\
         ], \n\
         'manager': [], \n\
         'attributes': [], \n\
@@ -432,7 +459,7 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:operation' \n\
+            'departments^operation' \n\
         ], \n\
         'manager': [], \n\
         'attributes': [], \n\
@@ -454,7 +481,7 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:development' \n\
+            'departments^development' \n\
         ], \n\
         'manager': [], \n\
         'attributes': [], \n\
@@ -476,7 +503,7 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:development' \n\
+            'departments^development' \n\
         ], \n\
         'manager': [], \n\
         'attributes': [], \n\
@@ -498,10 +525,10 @@ char foto_final[]= "\
         'emailVerified': false, \n\
         'disabled': false, \n\
         'departments': [ \n\
-            'departments:development' \n\
+            'departments^development' \n\
         ], \n\
         'manager': [ \n\
-            'departments:development' \n\
+            'departments^development' \n\
         ], \n\
         'attributes': [], \n\
         'roles': [], \n\
