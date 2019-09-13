@@ -180,6 +180,72 @@ PUBLIC BOOL test_compound(
         }
     }
 
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        const char *test = "Unlink simple/compound node";
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            verbose
+        );
+
+        json_t *administration = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "administration"
+        );
+        json_t *operation = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "operation"
+        );
+        json_t *mainop = treedb_get_node(
+            tranger, treedb_name,
+            "users",
+            "xxxxxxxxxxxxxxxxxxx"
+        );
+
+        ret += treedb_unlink_nodes(
+            tranger,
+            "users",
+            operation,
+            mainop
+        );
+        ret += treedb_unlink_nodes(
+            tranger,
+            "managers",
+            operation,
+            mainop
+        );
+
+        ret += treedb_unlink_nodes(
+            tranger,
+            "managers",
+            operation,
+            administration
+        );
+
+        treedb_delete_node(tranger, mainop);
+
+        if(!check_log_result(test, verbose)) {
+            ret += -1;
+        } else {
+            if(!test_final_foto(
+                    tranger,
+                    treedb_name,
+                    without_ok_tests,
+                    without_bad_tests,
+                    show_oks,
+                    verbose
+                )) {
+                ret += -1;
+            }
+        }
+    }
+
     return ret<0?FALSE:TRUE;
 }
 
