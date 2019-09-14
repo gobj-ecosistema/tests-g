@@ -297,7 +297,7 @@ PUBLIC BOOL test_departments(
                 "administration",
                     "id", "administration",
                     "name", "Administración",
-                    "department_id", "departments^direction",
+                    "department_id", "departments^direction^departments",
                     "departments",
                     "managers",
                     "users",
@@ -415,7 +415,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "departments^direction",
+            "department_id", "departments^direction^departments",
             "departments",
             "managers",
             "users"
@@ -564,12 +564,12 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{s:{s:s, s:s, s:s, s:{}, s:{}, s:[]}}, s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "departments^direction",
+            "department_id", "departments^direction^departments",
             "departments",
                 "operation",
                     "id", "operation",
                     "name", "Gestión",
-                    "department_id", "departments^administration",
+                    "department_id", "departments^administration^departments",
                     "departments",
                     "managers",
                     "users",
@@ -628,7 +628,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "operation",
             "name", "Gestión",
-            "department_id", "departments^administration",
+            "department_id", "departments^administration^departments",
             "departments",
             "managers",
             "users"
@@ -744,19 +744,19 @@ PUBLIC BOOL test_departments(
                 " s:{}, s:[]}",
             "id", "administration",
             "name", "Administración",
-            "department_id", "departments^direction",
+            "department_id", "departments^direction^departments",
             "departments",
                 "operation",
                     "id", "operation",
                     "name", "Gestión",
-                    "department_id", "departments^administration",
+                    "department_id", "departments^administration^departments",
                     "departments",
                     "managers",
                     "users",
                 "development",
                     "id", "development",
                     "name", "Desarrollo",
-                    "department_id", "departments^administration",
+                    "department_id", "departments^administration^departments",
                     "departments",
                     "managers",
                     "users",
@@ -815,7 +815,7 @@ PUBLIC BOOL test_departments(
         expected = json_pack("{s:s, s:s, s:s, s:{}, s:{}, s:[]}",
             "id", "development",
             "name", "Desarrollo",
-            "department_id", "departments^administration",
+            "department_id", "departments^administration^departments",
             "departments",
             "managers",
             "users"
@@ -916,12 +916,12 @@ char foto_final[]= "\
                         'administration': { \n\
                             'id': 'administration', \n\
                             'name': 'Administración', \n\
-                            'department_id': 'departments^direction', \n\
+                            'department_id': 'departments^direction^departments', \n\
                             'departments': { \n\
                                 'operation': { \n\
                                     'id': 'operation', \n\
                                     'name': 'Gestión', \n\
-                                    'department_id': 'departments^administration', \n\
+                                    'department_id': 'departments^administration^departments', \n\
                                     'departments': {}, \n\
                                     'users': [], \n\
                                     'managers': {}, \n\
@@ -936,7 +936,7 @@ char foto_final[]= "\
                                 'development': { \n\
                                     'id': 'development', \n\
                                     'name': 'Desarrollo', \n\
-                                    'department_id': 'departments^administration', \n\
+                                    'department_id': 'departments^administration^departments', \n\
                                     'departments': {}, \n\
                                     'users': [], \n\
                                     'managers': {}, \n\
@@ -973,12 +973,12 @@ char foto_final[]= "\
                 'administration': { \n\
                     'id': 'administration', \n\
                     'name': 'Administración', \n\
-                    'department_id': 'departments^direction', \n\
+                    'department_id': 'departments^direction^departments', \n\
                     'departments': { \n\
                         'operation': { \n\
                             'id': 'operation', \n\
                             'name': 'Gestión', \n\
-                            'department_id': 'departments^administration', \n\
+                            'department_id': 'departments^administration^departments', \n\
                             'departments': {}, \n\
                             'users': [], \n\
                             'managers': {}, \n\
@@ -993,7 +993,7 @@ char foto_final[]= "\
                         'development': { \n\
                             'id': 'development', \n\
                             'name': 'Desarrollo', \n\
-                            'department_id': 'departments^administration', \n\
+                            'department_id': 'departments^administration^departments', \n\
                             'departments': {}, \n\
                             'users': [], \n\
                             'managers': {}, \n\
@@ -1019,7 +1019,7 @@ char foto_final[]= "\
                 'operation': { \n\
                     'id': 'operation', \n\
                     'name': 'Gestión', \n\
-                    'department_id': 'departments^administration', \n\
+                    'department_id': 'departments^administration^departments', \n\
                     'departments': {}, \n\
                     'users': [], \n\
                     'managers': {}, \n\
@@ -1034,7 +1034,7 @@ char foto_final[]= "\
                 'development': { \n\
                     'id': 'development', \n\
                     'name': 'Desarrollo', \n\
-                    'department_id': 'departments^administration', \n\
+                    'department_id': 'departments^administration^departments', \n\
                     'departments': {}, \n\
                     'users': [], \n\
                     'managers': {}, \n\
@@ -1059,7 +1059,7 @@ char foto_final[]= "\
 ";
 
     if(!without_ok_tests) {
-        const char *test = "departments^ foto final";
+        const char *test = "departments: foto final";
         set_expected_results(
             test,
             json_pack("[]"  // error's list

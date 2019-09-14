@@ -1136,16 +1136,16 @@ int main(int argc, char *argv[])
     /*---------------------------------------*
      *      Link compound node
      *---------------------------------------*/
-    if(!test_compound(
-            tranger,
-            treedb_name,
-            arguments.without_ok_tests,
-            arguments.without_bad_tests,
-            arguments.show_oks,
-            arguments.verbose
-        )) {
-        ret += -1;
-    }
+//     if(!test_compound(
+//             tranger,
+//             treedb_name,
+//             arguments.without_ok_tests,
+//             arguments.without_bad_tests,
+//             arguments.show_oks,
+//             arguments.verbose
+//         )) {
+//         ret += -1;
+//     }
 
     /*
      *  Check refcounts
