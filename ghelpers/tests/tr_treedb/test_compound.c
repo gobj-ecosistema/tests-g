@@ -245,6 +245,29 @@ PUBLIC BOOL test_compound(
         }
     }
 
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_ok_tests) {
+        json_t *administration = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "administration"
+        );
+        json_t *operation = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "operation"
+        );
+
+        ret += treedb_link_nodes(
+            tranger,
+            "managers",
+            operation,
+            administration
+        );
+    }
+
     return ret<0?FALSE:TRUE;
 }
 

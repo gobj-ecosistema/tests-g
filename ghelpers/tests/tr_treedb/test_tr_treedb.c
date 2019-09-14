@@ -925,9 +925,9 @@ int main(int argc, char *argv[])
         APP_NAME        // executable program, to can trace stack
     );
 
-    BOOL TEST_MEM=0;
+    BOOL TEST_MEM = 0;
 
-    static uint32_t mem_list[] = {242, 282, 0};
+    static uint32_t mem_list[] = {230, 282, 0};
     gbmem_trace_alloc_free(TEST_MEM, mem_list);
 
     /*------------------------------------------------*
@@ -987,7 +987,7 @@ int main(int argc, char *argv[])
         log_add_handler(
             "test_stdout",
             "stdout",
-            arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON,
+            arguments.verbose?LOG_OPT_ALL:LOG_OPT_ALL|LOG_HND_OPT_BEATIFUL_JSON,
             0
         );
     } else {
@@ -1187,10 +1187,10 @@ int main(int argc, char *argv[])
             ),
             arguments.verbose
         );
-        if(tranger_topic_size(tranger_topic(tranger, "departments")) != 12) {
+        if(tranger_topic_size(tranger_topic(tranger, "departments")) != 13) {
             // Comprueba que no se ha añadido ningún nodo nuevo en la carga
             if(arguments.verbose) {
-                printf("%s  --> ERROR departments!=12%s\n", On_Red BWhite,Color_Off);
+                printf("%s  --> ERROR departments!=13%s\n", On_Red BWhite,Color_Off);
                 int idx; json_t *value;
                 printf("      Unexpected error:\n");
                 json_array_foreach(unexpected_log_messages, idx, value) {
@@ -1246,19 +1246,19 @@ int main(int argc, char *argv[])
         json_decref(expected);
 
         expected = json_pack(
-            "{s:s, s:s, s:s, s:{}, s:[], s:{}}",
+            "{s:s, s:s, s:s, s:{}, s:[s], s:{}}",
             "id", "administration",
             "name", "Administración",
             "department_id", "departments^direction^departments",
             "departments",
-            "users",
+            "users", "departments^operation^managers",
             "managers"
         );
 
         if(!match_tranger_record(
                 tranger,
                 "departments",      // topic
-                12,                 // rowid
+                13,                 // rowid
                 0,                  // uflag
                 0x1000001,          // sflag
                 "administration",   // key
