@@ -51,10 +51,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^development'\n\
+                        'departments^development^users'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments^development'\n\
+                        'departments^development^managers'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -62,7 +62,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 19,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -75,10 +75,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^administration'\n\
+                        'departments^administration^users'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments^administration'\n\
+                        'departments^administration^managers'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -86,7 +86,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 18,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -99,10 +99,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^direction'\n\
+                        'departments^direction^users'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments^direction'\n\
+                        'departments^direction^managers'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -110,7 +110,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 17,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -123,7 +123,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^development'\n\
+                        'departments^development^users'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -132,7 +132,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 15,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -145,7 +145,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^development'\n\
+                        'departments^development^users'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -154,7 +154,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 14,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -167,7 +167,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^operation'\n\
+                        'departments^operation^users'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -176,7 +176,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 13,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -189,7 +189,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^operation'\n\
+                        'departments^operation^users'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -198,7 +198,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 12,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -211,7 +211,7 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^administration'\n\
+                        'departments^administration^users'\n\
                     ],\n\
                     'manager': [],\n\
                     'attributes': [],\n\
@@ -220,7 +220,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 11,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -233,10 +233,10 @@ char foto_final[]= "\
                     'emailVerified': false,\n\
                     'disabled': false,\n\
                     'departments': [\n\
-                        'departments^operation'\n\
+                        'departments^operation^users'\n\
                     ],\n\
                     'manager': [\n\
-                        'departments^operation'\n\
+                        'departments^operation^managers'\n\
                     ],\n\
                     'attributes': [],\n\
                     'roles': [],\n\
@@ -244,7 +244,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'users',\n\
                         '__rowid__': 22,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 }\n\
@@ -255,7 +255,7 @@ char foto_final[]= "\
                 'development': {\n\
                     'id': 'development',\n\
                     'name': 'Desarrollo',\n\
-                    'department_id': 'departments^administration',\n\
+                    'department_id': 'departments^administration^departments',\n\
                     'departments': {},\n\
                     'users': [\n\
                         {\n\
@@ -267,10 +267,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^development'\n\
+                                'departments^development^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^development'\n\
+                                'departments^development^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -278,7 +278,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 19,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
@@ -291,7 +291,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^development'\n\
+                                'departments^development^users'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -300,7 +300,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 15,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
@@ -313,7 +313,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^development'\n\
+                                'departments^development^users'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -322,7 +322,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 14,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -337,10 +337,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^development'\n\
+                                'departments^development^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^development'\n\
+                                'departments^development^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -348,7 +348,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 19,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -357,14 +357,14 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'departments',\n\
                         '__rowid__': 7,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
                 'operation': {\n\
                     'id': 'operation',\n\
                     'name': 'Gestión',\n\
-                    'department_id': 'departments^administration',\n\
+                    'department_id': 'departments^administration^departments',\n\
                     'departments': {},\n\
                     'users': [\n\
                         {\n\
@@ -376,7 +376,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^users'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -385,7 +385,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 13,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
@@ -398,7 +398,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^users'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -407,7 +407,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 12,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
@@ -420,10 +420,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -431,7 +431,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 22,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -446,10 +446,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^operation'\n\
+                                'departments^operation^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -457,11 +457,11 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 22,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
-                        'administration': [\n\
+                        'departments^administration^users': [\n\
                             {\n\
                                 'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                 'username': 'admin@email.com',\n\
@@ -471,10 +471,10 @@ char foto_final[]= "\
                                 'emailVerified': false,\n\
                                 'disabled': false,\n\
                                 'departments': [\n\
-                                    'departments^administration'\n\
+                                    'departments^administration^users'\n\
                                 ],\n\
                                 'manager': [\n\
-                                    'departments^administration'\n\
+                                    'departments^administration^managers'\n\
                                 ],\n\
                                 'attributes': [],\n\
                                 'roles': [],\n\
@@ -482,7 +482,7 @@ char foto_final[]= "\
                                     'treedb_name': 'treedb_test',\n\
                                     'topic_name': 'users',\n\
                                     '__rowid__': 18,\n\
-                                    '__t__': 1568389758,\n\
+                                    '__t__': 1568460332,\n\
                                     '__tag__': 0\n\
                                 }\n\
                             },\n\
@@ -495,7 +495,7 @@ char foto_final[]= "\
                                 'emailVerified': false,\n\
                                 'disabled': false,\n\
                                 'departments': [\n\
-                                    'departments^administration'\n\
+                                    'departments^administration^users'\n\
                                 ],\n\
                                 'manager': [],\n\
                                 'attributes': [],\n\
@@ -504,30 +504,30 @@ char foto_final[]= "\
                                     'treedb_name': 'treedb_test',\n\
                                     'topic_name': 'users',\n\
                                     '__rowid__': 11,\n\
-                                    '__t__': 1568389758,\n\
+                                    '__t__': 1568460332,\n\
                                     '__tag__': 0\n\
                                 }\n\
                             },\n\
-                            'departments^operation'\n\
+                            'departments^operation^managers'\n\
                         ]\n\
                     },\n\
                     '__md_treedb__': {\n\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'departments',\n\
                         '__rowid__': 5,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
                 'administration': {\n\
                     'id': 'administration',\n\
                     'name': 'Administración',\n\
-                    'department_id': 'departments^direction',\n\
+                    'department_id': 'departments^direction^departments',\n\
                     'departments': {\n\
                         'development': {\n\
                             'id': 'development',\n\
                             'name': 'Desarrollo',\n\
-                            'department_id': 'departments^administration',\n\
+                            'department_id': 'departments^administration^departments',\n\
                             'departments': {},\n\
                             'users': [\n\
                                 {\n\
@@ -539,10 +539,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -550,7 +550,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 19,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
@@ -563,7 +563,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^users'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -572,7 +572,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 15,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
@@ -585,7 +585,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^users'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -594,7 +594,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 14,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 }\n\
@@ -609,10 +609,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^development'\n\
+                                        'departments^development^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -620,7 +620,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 19,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 }\n\
@@ -629,14 +629,14 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'departments',\n\
                                 '__rowid__': 7,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
                         'operation': {\n\
                             'id': 'operation',\n\
                             'name': 'Gestión',\n\
-                            'department_id': 'departments^administration',\n\
+                            'department_id': 'departments^administration^departments',\n\
                             'departments': {},\n\
                             'users': [\n\
                                 {\n\
@@ -648,7 +648,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^users'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -657,7 +657,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 13,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
@@ -670,7 +670,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^users'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -679,7 +679,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 12,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
@@ -692,10 +692,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -703,7 +703,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 22,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 }\n\
@@ -718,10 +718,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^operation'\n\
+                                        'departments^operation^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -729,11 +729,11 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 22,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
-                                'administration': [\n\
+                                'departments^administration^users': [\n\
                                     {\n\
                                         'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                         'username': 'admin@email.com',\n\
@@ -743,10 +743,10 @@ char foto_final[]= "\
                                         'emailVerified': false,\n\
                                         'disabled': false,\n\
                                         'departments': [\n\
-                                            'departments^administration'\n\
+                                            'departments^administration^users'\n\
                                         ],\n\
                                         'manager': [\n\
-                                            'departments^administration'\n\
+                                            'departments^administration^managers'\n\
                                         ],\n\
                                         'attributes': [],\n\
                                         'roles': [],\n\
@@ -754,7 +754,7 @@ char foto_final[]= "\
                                             'treedb_name': 'treedb_test',\n\
                                             'topic_name': 'users',\n\
                                             '__rowid__': 18,\n\
-                                            '__t__': 1568389758,\n\
+                                            '__t__': 1568460332,\n\
                                             '__tag__': 0\n\
                                         }\n\
                                     },\n\
@@ -767,7 +767,7 @@ char foto_final[]= "\
                                         'emailVerified': false,\n\
                                         'disabled': false,\n\
                                         'departments': [\n\
-                                            'departments^administration'\n\
+                                            'departments^administration^users'\n\
                                         ],\n\
                                         'manager': [],\n\
                                         'attributes': [],\n\
@@ -776,18 +776,18 @@ char foto_final[]= "\
                                             'treedb_name': 'treedb_test',\n\
                                             'topic_name': 'users',\n\
                                             '__rowid__': 11,\n\
-                                            '__t__': 1568389758,\n\
+                                            '__t__': 1568460332,\n\
                                             '__tag__': 0\n\
                                         }\n\
                                     },\n\
-                                    'departments^operation'\n\
+                                    'departments^operation^managers'\n\
                                 ]\n\
                             },\n\
                             '__md_treedb__': {\n\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'departments',\n\
                                 '__rowid__': 5,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -802,10 +802,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^administration'\n\
+                                'departments^administration^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^administration'\n\
+                                'departments^administration^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -813,7 +813,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 18,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
@@ -826,7 +826,7 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^administration'\n\
+                                'departments^administration^users'\n\
                             ],\n\
                             'manager': [],\n\
                             'attributes': [],\n\
@@ -835,11 +835,11 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 11,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
-                        'departments^operation'\n\
+                        'departments^operation^managers'\n\
                     ],\n\
                     'managers': {\n\
                         'b6eb2c61-622c-41d3-afa0-548b3fa882cd': {\n\
@@ -851,10 +851,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^administration'\n\
+                                'departments^administration^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^administration'\n\
+                                'departments^administration^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -862,7 +862,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 18,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -871,7 +871,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'departments',\n\
                         '__rowid__': 11,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 },\n\
@@ -883,12 +883,12 @@ char foto_final[]= "\
                         'administration': {\n\
                             'id': 'administration',\n\
                             'name': 'Administración',\n\
-                            'department_id': 'departments^direction',\n\
+                            'department_id': 'departments^direction^departments',\n\
                             'departments': {\n\
                                 'development': {\n\
                                     'id': 'development',\n\
                                     'name': 'Desarrollo',\n\
-                                    'department_id': 'departments^administration',\n\
+                                    'department_id': 'departments^administration^departments',\n\
                                     'departments': {},\n\
                                     'users': [\n\
                                         {\n\
@@ -900,10 +900,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^users'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^managers'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -911,7 +911,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 19,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
@@ -924,7 +924,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^users'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -933,7 +933,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 15,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
@@ -946,7 +946,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^users'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -955,7 +955,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 14,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         }\n\
@@ -970,10 +970,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^users'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments^development'\n\
+                                                'departments^development^managers'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -981,7 +981,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 19,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         }\n\
@@ -990,14 +990,14 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'departments',\n\
                                         '__rowid__': 7,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
                                 'operation': {\n\
                                     'id': 'operation',\n\
                                     'name': 'Gestión',\n\
-                                    'department_id': 'departments^administration',\n\
+                                    'department_id': 'departments^administration^departments',\n\
                                     'departments': {},\n\
                                     'users': [\n\
                                         {\n\
@@ -1009,7 +1009,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^users'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -1018,7 +1018,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 13,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
@@ -1031,7 +1031,7 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^users'\n\
                                             ],\n\
                                             'manager': [],\n\
                                             'attributes': [],\n\
@@ -1040,7 +1040,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 12,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
@@ -1053,10 +1053,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^users'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^managers'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -1064,7 +1064,7 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 22,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         }\n\
@@ -1079,10 +1079,10 @@ char foto_final[]= "\
                                             'emailVerified': false,\n\
                                             'disabled': false,\n\
                                             'departments': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^users'\n\
                                             ],\n\
                                             'manager': [\n\
-                                                'departments^operation'\n\
+                                                'departments^operation^managers'\n\
                                             ],\n\
                                             'attributes': [],\n\
                                             'roles': [],\n\
@@ -1090,11 +1090,11 @@ char foto_final[]= "\
                                                 'treedb_name': 'treedb_test',\n\
                                                 'topic_name': 'users',\n\
                                                 '__rowid__': 22,\n\
-                                                '__t__': 1568389758,\n\
+                                                '__t__': 1568460332,\n\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
-                                        'administration': [\n\
+                                        'departments^administration^users': [\n\
                                             {\n\
                                                 'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                                 'username': 'admin@email.com',\n\
@@ -1104,10 +1104,10 @@ char foto_final[]= "\
                                                 'emailVerified': false,\n\
                                                 'disabled': false,\n\
                                                 'departments': [\n\
-                                                    'departments^administration'\n\
+                                                    'departments^administration^users'\n\
                                                 ],\n\
                                                 'manager': [\n\
-                                                    'departments^administration'\n\
+                                                    'departments^administration^managers'\n\
                                                 ],\n\
                                                 'attributes': [],\n\
                                                 'roles': [],\n\
@@ -1115,7 +1115,7 @@ char foto_final[]= "\
                                                     'treedb_name': 'treedb_test',\n\
                                                     'topic_name': 'users',\n\
                                                     '__rowid__': 18,\n\
-                                                    '__t__': 1568389758,\n\
+                                                    '__t__': 1568460332,\n\
                                                     '__tag__': 0\n\
                                                 }\n\
                                             },\n\
@@ -1128,7 +1128,7 @@ char foto_final[]= "\
                                                 'emailVerified': false,\n\
                                                 'disabled': false,\n\
                                                 'departments': [\n\
-                                                    'departments^administration'\n\
+                                                    'departments^administration^users'\n\
                                                 ],\n\
                                                 'manager': [],\n\
                                                 'attributes': [],\n\
@@ -1137,18 +1137,18 @@ char foto_final[]= "\
                                                     'treedb_name': 'treedb_test',\n\
                                                     'topic_name': 'users',\n\
                                                     '__rowid__': 11,\n\
-                                                    '__t__': 1568389758,\n\
+                                                    '__t__': 1568460332,\n\
                                                     '__tag__': 0\n\
                                                 }\n\
                                             },\n\
-                                            'departments^operation'\n\
+                                            'departments^operation^managers'\n\
                                         ]\n\
                                     },\n\
                                     '__md_treedb__': {\n\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'departments',\n\
                                         '__rowid__': 5,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 }\n\
@@ -1163,10 +1163,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^administration'\n\
+                                        'departments^administration^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^administration'\n\
+                                        'departments^administration^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -1174,7 +1174,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 18,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
@@ -1187,7 +1187,7 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^administration'\n\
+                                        'departments^administration^users'\n\
                                     ],\n\
                                     'manager': [],\n\
                                     'attributes': [],\n\
@@ -1196,11 +1196,11 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 11,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
-                                'departments^operation'\n\
+                                'departments^operation^managers'\n\
                             ],\n\
                             'managers': {\n\
                                 'b6eb2c61-622c-41d3-afa0-548b3fa882cd': {\n\
@@ -1212,10 +1212,10 @@ char foto_final[]= "\
                                     'emailVerified': false,\n\
                                     'disabled': false,\n\
                                     'departments': [\n\
-                                        'departments^administration'\n\
+                                        'departments^administration^users'\n\
                                     ],\n\
                                     'manager': [\n\
-                                        'departments^administration'\n\
+                                        'departments^administration^managers'\n\
                                     ],\n\
                                     'attributes': [],\n\
                                     'roles': [],\n\
@@ -1223,7 +1223,7 @@ char foto_final[]= "\
                                         'treedb_name': 'treedb_test',\n\
                                         'topic_name': 'users',\n\
                                         '__rowid__': 18,\n\
-                                        '__t__': 1568389758,\n\
+                                        '__t__': 1568460332,\n\
                                         '__tag__': 0\n\
                                     }\n\
                                 }\n\
@@ -1232,7 +1232,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'departments',\n\
                                 '__rowid__': 11,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -1247,10 +1247,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^direction'\n\
+                                'departments^direction^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^direction'\n\
+                                'departments^direction^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -1258,7 +1258,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 17,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -1273,10 +1273,10 @@ char foto_final[]= "\
                             'emailVerified': false,\n\
                             'disabled': false,\n\
                             'departments': [\n\
-                                'departments^direction'\n\
+                                'departments^direction^users'\n\
                             ],\n\
                             'manager': [\n\
-                                'departments^direction'\n\
+                                'departments^direction^managers'\n\
                             ],\n\
                             'attributes': [],\n\
                             'roles': [],\n\
@@ -1284,7 +1284,7 @@ char foto_final[]= "\
                                 'treedb_name': 'treedb_test',\n\
                                 'topic_name': 'users',\n\
                                 '__rowid__': 17,\n\
-                                '__t__': 1568389758,\n\
+                                '__t__': 1568460332,\n\
                                 '__tag__': 0\n\
                             }\n\
                         }\n\
@@ -1293,7 +1293,7 @@ char foto_final[]= "\
                         'treedb_name': 'treedb_test',\n\
                         'topic_name': 'departments',\n\
                         '__rowid__': 1,\n\
-                        '__t__': 1568389758,\n\
+                        '__t__': 1568460332,\n\
                         '__tag__': 0\n\
                     }\n\
                 }\n\

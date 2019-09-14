@@ -163,7 +163,6 @@ PUBLIC BOOL test_compound(
             operation,
             administration
         );
-
         if(!check_log_result(test, verbose)) {
             ret += -1;
         } else {
