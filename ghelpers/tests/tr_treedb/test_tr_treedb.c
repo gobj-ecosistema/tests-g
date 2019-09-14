@@ -643,7 +643,7 @@ PUBLIC BOOL match_list(
  ***************************************************************************/
 PRIVATE BOOL match_tranger_record(
     json_t *tranger,
-    const char *topic,
+    const char *topic_name,
     json_int_t rowid,
     uint32_t uflag,
     uint32_t sflag,
@@ -651,8 +651,22 @@ PRIVATE BOOL match_tranger_record(
     json_t *record
 )
 {
-    BOOL ret = TRUE;
+    md_record_t md_record;
 
+    if(tranger_get_record(tranger, tranger_topic(tranger, topic_name), rowid, &md_record, TRUE)<0) {
+        return FALSE;
+    }
+
+    json_t *record_ = tranger_read_record_content(
+        tranger,
+        tranger_topic(tranger, topic_name),
+        &md_record
+    );
+    if(!record) {
+        return FALSE;
+    }
+    BOOL ret = match_record(record, record_, TRUE, 0);
+    json_decref(record_);
     return ret;
 }
 
@@ -1165,7 +1179,14 @@ int main(int argc, char *argv[])
             )) {
             ret += -1;
         }
+        const char *test = "tranger match";
 
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            arguments.verbose
+        );
         if(tranger_topic_size(tranger_topic(tranger, "departments")) != 12) {
             // Comprueba que no se ha añadido ningún nodo nuevo en la carga
             if(arguments.verbose) {
@@ -1196,28 +1217,60 @@ int main(int argc, char *argv[])
             ret += -1;
         }
 
-        match_tranger_record(
-            tranger,
-            "users",                // topic
-            24,                     // rowid
-            0,                      // uflag
-            0x3000001,              // sflag
-            "xxxxxxxxxxxxxxxxxxx",  // key
-            json_pack(              // record
-                "{s:s, s:s, s:s, s:s, s:s, s:b, s:b, s:[], s:[], s:[], s:[]}",
-                "id", "xxxxxxxxxxxxxxxxxxx",
-                "username", "mainop@email.com",
-                "firstName", "Bequer",
-                "lastName", "Martin",
-                "email", "mainop@email.com",
-                "emailVerified", 0,
-                "disabled", 0,
-                "departments",
-                "manager",
-                "attributes",
-                "roles"
-            )
+        json_t *expected = json_pack(
+            "{s:s, s:s, s:s, s:s, s:s, s:b, s:b, s:[], s:[], s:[], s:[]}",
+            "id", "xxxxxxxxxxxxxxxxxxx",
+            "username", "mainop@email.com",
+            "firstName", "Bequer",
+            "lastName", "Martin",
+            "email", "mainop@email.com",
+            "emailVerified", 0,
+            "disabled", 0,
+            "departments",
+            "manager",
+            "attributes",
+            "roles"
         );
+
+        if(!match_tranger_record(
+                tranger,
+                "users",                // topic
+                24,                     // rowid
+                0,                      // uflag
+                0x3000001,              // sflag
+                "xxxxxxxxxxxxxxxxxxx",  // key
+                expected
+            )) {
+            ret += -1;
+        }
+        json_decref(expected);
+
+        expected = json_pack(
+            "{s:s, s:s, s:s, s:{}, s:[], s:{}}",
+            "id", "administration",
+            "name", "Administración",
+            "department_id", "departments^direction^departments",
+            "departments",
+            "users",
+            "managers"
+        );
+
+        if(!match_tranger_record(
+                tranger,
+                "departments",      // topic
+                12,                 // rowid
+                0,                  // uflag
+                0x1000001,          // sflag
+                "administration",   // key
+                expected
+            )) {
+            ret += -1;
+        }
+        json_decref(expected);
+
+        if(!check_log_result(test, arguments.verbose)) {
+            ret += -1;
+        }
     }
 
     /*
