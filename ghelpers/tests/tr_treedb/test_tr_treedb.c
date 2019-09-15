@@ -927,7 +927,7 @@ int main(int argc, char *argv[])
 
     BOOL TEST_MEM = 0;
 
-    static uint32_t mem_list[] = {230, 282, 0};
+    static uint32_t mem_list[] = {0, 0};
     gbmem_trace_alloc_free(TEST_MEM, mem_list);
 
     /*------------------------------------------------*
@@ -1267,6 +1267,59 @@ int main(int argc, char *argv[])
             ret += -1;
         }
         json_decref(expected);
+
+        if(!check_log_result(test, arguments.verbose)) {
+            ret += -1;
+        }
+    }
+
+    /*---------------------------------------*
+     *      Delete node with links
+     *---------------------------------------*/
+    if(1) {
+        const char *test = "Delete operation, a node with links";
+
+        set_expected_results(
+            test,
+            json_pack("[{s:s}, {s:s}]",  // error's list
+                "msg", "Cannot delete node: has up links",
+                "msg", "Cannot delete node: has down links"
+            ),
+            arguments.verbose
+        );
+
+        json_t *operation = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "operation"
+        );
+
+        treedb_delete_node(tranger, operation);
+
+        if(!check_log_result(test, arguments.verbose)) {
+            ret += -1;
+        }
+    }
+
+    if(1) {
+        const char *test = "Delete administration, a node with links";
+
+        set_expected_results(
+            test,
+            json_pack("[{s:s}, {s:s}]",  // error's list
+                "msg", "Cannot delete node: has up links",
+                "msg", "Cannot delete node: has down links"
+            ),
+            arguments.verbose
+        );
+
+        json_t *operation = treedb_get_node(
+            tranger, treedb_name,
+            "departments",
+            "administration"
+        );
+
+        treedb_delete_node(tranger, operation);
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;
