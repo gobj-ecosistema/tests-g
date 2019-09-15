@@ -461,7 +461,7 @@ char foto_final[]= "\
                                 '__tag__': 0\n\
                             }\n\
                         },\n\
-                        'departments^administration^users': [\n\
+                        'departments~administration~users': [\n\
                             {\n\
                                 'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                 'username': 'admin@email.com',\n\
@@ -733,7 +733,7 @@ char foto_final[]= "\
                                         '__tag__': 0\n\
                                     }\n\
                                 },\n\
-                                'departments^administration^users': [\n\
+                                'departments~administration~users': [\n\
                                     {\n\
                                         'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                         'username': 'admin@email.com',\n\
@@ -1094,7 +1094,7 @@ char foto_final[]= "\
                                                 '__tag__': 0\n\
                                             }\n\
                                         },\n\
-                                        'departments^administration^users': [\n\
+                                        'departments~administration~users': [\n\
                                             {\n\
                                                 'id': 'b6eb2c61-622c-41d3-afa0-548b3fa882cd',\n\
                                                 'username': 'admin@email.com',\n\
