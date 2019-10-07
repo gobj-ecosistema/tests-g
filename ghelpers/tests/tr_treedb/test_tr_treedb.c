@@ -292,7 +292,7 @@ PUBLIC BOOL check_log_result(const char *test, int verbose)
 }
 
 /***************************************************************************
- *
+ *  Save in ghelpers as kw_compare_dict()
  ***************************************************************************/
 PUBLIC BOOL match_record(
     json_t *record_, // NOT owned
@@ -486,7 +486,7 @@ PUBLIC BOOL match_record(
 }
 
 /***************************************************************************
- *
+ *  Save in ghelpers as kw_compare_list
  ***************************************************************************/
 PUBLIC BOOL match_list(
     json_t *list_, // NOT owned
