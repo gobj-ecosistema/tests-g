@@ -52,7 +52,7 @@ PUBLIC BOOL test_compound(
             "lastName", "Martin",
             "email",  "mainop@email.com"
         );
-        expected = json_pack("{s:s, s:s, s:s, s:s, s:s, s:b, s:b, s:[], s:[], s:[], s:[]}",
+        expected = json_pack("{s:s, s:s, s:s, s:s, s:s, s:b, s:b, s:b, s:[], s:[], s:[], s:[]}",
             "id", "xxxxxxxxxxxxxxxxxxx",
             "username", "mainop@email.com",
             "firstName", "Bequer",
@@ -60,6 +60,7 @@ PUBLIC BOOL test_compound(
             "email", "mainop@email.com",
             "emailVerified", 0,
             "disabled", 0,
+            "online", 0,
             "departments",
             "manager",
             "attributes",

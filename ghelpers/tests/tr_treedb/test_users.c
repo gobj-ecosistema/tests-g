@@ -343,6 +343,7 @@ char foto_final[]= "\
         'email': 'dueño@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^direction^users'\n\
         ],\n\
@@ -367,6 +368,7 @@ char foto_final[]= "\
         'email': 'admin@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^administration^users'\n\
         ],\n\
@@ -391,6 +393,7 @@ char foto_final[]= "\
         'email': 'escritor@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^administration^users'\n\
         ],\n\
@@ -413,6 +416,7 @@ char foto_final[]= "\
         'email': 'op1@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^operation^users'\n\
         ],\n\
@@ -435,6 +439,7 @@ char foto_final[]= "\
         'email': 'op2@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^operation^users'\n\
         ],\n\
@@ -457,6 +462,7 @@ char foto_final[]= "\
         'email': 'dev1@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^development^users'\n\
         ],\n\
@@ -479,6 +485,7 @@ char foto_final[]= "\
         'email': 'dev2@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^development^users'\n\
         ],\n\
@@ -501,6 +508,7 @@ char foto_final[]= "\
         'email': 'devboss@email.com',\n\
         'emailVerified': false,\n\
         'disabled': false,\n\
+        'online': false,\n\
         'departments': [\n\
             'departments^development^users'\n\
         ],\n\

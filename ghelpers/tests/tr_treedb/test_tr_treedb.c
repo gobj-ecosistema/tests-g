@@ -1282,8 +1282,8 @@ int main(int argc, char *argv[])
         set_expected_results(
             test,
             json_pack("[{s:s}, {s:s}]",  // error's list
-                "msg", "Cannot delete node: has up links",
-                "msg", "Cannot delete node: has down links"
+                "msg", "Cannot delete node: has down links",
+                "msg", "Cannot delete node: has up links"
             ),
             arguments.verbose
         );
@@ -1307,8 +1307,8 @@ int main(int argc, char *argv[])
         set_expected_results(
             test,
             json_pack("[{s:s}, {s:s}]",  // error's list
-                "msg", "Cannot delete node: has up links",
-                "msg", "Cannot delete node: has down links"
+                "msg", "Cannot delete node: has down links",
+                "msg", "Cannot delete node: has up links"
             ),
             arguments.verbose
         );
