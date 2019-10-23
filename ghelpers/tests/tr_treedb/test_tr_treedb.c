@@ -987,7 +987,7 @@ int main(int argc, char *argv[])
         log_add_handler(
             "test_stdout",
             "stdout",
-            arguments.verbose?LOG_OPT_ALL:LOG_OPT_ALL|LOG_HND_OPT_BEATIFUL_JSON,
+            arguments.verbose?LOG_OPT_ALL:LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON,
             0
         );
     } else {
