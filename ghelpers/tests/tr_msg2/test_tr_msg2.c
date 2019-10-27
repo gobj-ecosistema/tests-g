@@ -259,7 +259,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
             cnt = 1;
             const char *key = "0000000000000001";
 
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter1,
                 key
             );
@@ -275,7 +275,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "0000000000000500";
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter1,
                 key
             );
@@ -291,7 +291,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "0000000000000999";
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter1,
                 key
             );
@@ -307,7 +307,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "0000000000000001";
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter2,
                 key
             );
@@ -323,7 +323,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "0000000000000500";
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter2,
                 key
             );
@@ -339,7 +339,7 @@ static void test(json_t *rc2, int caso, const char *desc, int devices, int traza
 
             cnt = 1;
             const char *key = "0000000000000999";
-            json_t *msg = trmsg_get_active_content(
+            json_t *msg = trmsg_get_active_message(
                 hrc2_topic_iter2,
                 key
             );
