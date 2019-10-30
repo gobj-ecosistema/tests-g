@@ -486,7 +486,8 @@ int main(int argc, char *argv[])
         json_pack("{s:s, s:s}", // jn_cols, owned
             "id", "",
             "address", ""
-        )
+        ),
+        0
     );
     tranger_close_topic(tranger, "topic");
 

@@ -701,7 +701,8 @@ PRIVATE BOOL test_treedb_schema(
                 "header", "Id",
                 "type", "integer",
                 "flag", "required"
-            )
+            ),
+            0
         );
         set_expected_results(
             test,
@@ -736,7 +737,8 @@ PRIVATE BOOL test_treedb_schema(
                 "type", "string",
                 "flag",
                     "persistent", "required"
-            )
+            ),
+            0
         );
         set_expected_results(
             test,
@@ -770,7 +772,8 @@ PRIVATE BOOL test_treedb_schema(
                 "header", "Xx",
                 "type", "xinteger",
                 "flag", "xrequired"
-            )
+            ),
+            0
         );
         set_expected_results(
             test,
