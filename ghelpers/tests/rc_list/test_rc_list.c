@@ -105,7 +105,6 @@ static inline void test(int flags, uint64_t cnt)
     log_add_handler("test_stdout", "stdout", LOG_OPT_ALL|LOG_HND_OPT_TRACE_STACK, 0);
 
     static uint32_t mem_list[] = {0};
-    // You also need link with ghelpersd library
     gbmem_trace_alloc_free(0, mem_list);
 
     if(0) {

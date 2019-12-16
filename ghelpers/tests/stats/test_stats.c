@@ -131,7 +131,6 @@ int main(int argc, char *argv[])
     log_add_handler("test_stdout", "stdout", LOG_OPT_LOGGER|LOG_HND_OPT_TRACE_STACK, 0);
 
     static uint32_t mem_list[] = {3731, 0};
-    // You also need link with ghelpersd library
     gbmem_trace_alloc_free(0, mem_list);
 
     #define MEM_MIN_BLOCK   512

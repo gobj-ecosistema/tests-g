@@ -41,7 +41,7 @@ ADD_EXECUTABLE(test_tr_msg2 ${YUNO_SRCS} ${YUNO_HDRS})
 
 TARGET_LINK_LIBRARIES(test_tr_msg2
     /yuneta/development/output/lib/libginsfsm.a
-    /yuneta/development/output/lib/libghelpersd.a
+    /yuneta/development/output/lib/libghelpers.a
     /yuneta/development/output/lib/libjansson.a
     /yuneta/development/output/lib/libuv.a
     /yuneta/development/output/lib/libpcre2-8.a
