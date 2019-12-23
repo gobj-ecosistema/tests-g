@@ -62,6 +62,8 @@ static inline double ts_diff2 (struct timespec start, struct timespec end)
     Added 63072000 metrics; 151,229412 seconds; 417.061 op/sec
     Added 63072000 metrics; 159,903024 seconds; 394.439 op/sec
     Added 63072000 metrics; 188,729432 seconds; 334.192 op/sec con years_in_years
+
+    Added 63072000 metrics; 191,648976 seconds; 329.101 op/sec con nuevo stats
  ***************************************************************************/
 PRIVATE int test_stats(json_t *stats)
 {
@@ -98,6 +100,7 @@ PRIVATE int test_stats(json_t *stats)
         wstats_add_value(
             stats,
             "flow_rate",
+            "",
             i,
             json_real(v)
         );
@@ -177,62 +180,82 @@ int main(int argc, char *argv[])
     rmrdir(path);
 
     json_t *jn_config = json_pack(
-        "{s:s, s:s, s:i, s:i, s:i, s:{"
-            "s:["
-                "{s:s, s:s, s:f, s:s, s:s},"
-                "{s:s, s:s, s:f, s:s, s:s},"
-                "{s:s, s:s, s:f, s:s, s:s},"
-                "{s:s, s:s, s:f, s:s, s:s},"
-                "{s:s, s:s, s:f, s:s, s:s}"
-            "],"
-            "s:[{s:n, s:s, s:I, s:s, s:s}]"
-        "}}",
-        "path", "/yuneta/store/stats/",
-        "group", "test_stats",
+        "{s:s, s:i, s:i, s:i}",
+        "path", path,
         "xpermission", 02770,
         "rpermission", 0660,
-        "on_critical_error", 2,
+        "on_critical_error", 0
+    );
+    json_t *stats = wstats_open(jn_config);
+
+    json_t *jn_var1 = json_pack(
+        "{s:s, s:s, s:s, s:["
+            "{s:s, s:s, s:f, s:s, s:s},"
+            "{s:s, s:s, s:f, s:s, s:s},"
+            "{s:s, s:s, s:f, s:s, s:s},"
+            "{s:s, s:s, s:f, s:s, s:s},"
+            "{s:s, s:s, s:f, s:s, s:s}"
+        "]}",
+        "variable_name", "flow_rate",
+        "version", "1",
+        "group", "",
         "metrics",
-            "flow_rate",
-                "id", "last_week_in_seconds",
-                "metric_type", "",
-                "value_type", (double)0,
-                "filename_mask", "WDAY",
-                "time_mask", "SEC",
+            "id", "last_week_in_seconds",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "WDAY",
+            "time_mask", "SEC",
 
-                "id", "years_in_hours",
-                "metric_type", "",
-                "value_type", (double)0,
-                "filename_mask", "YEAR",
-                "time_mask", "HOUR",
+            "id", "years_in_hours",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "YEAR",
+            "time_mask", "HOUR",
 
-                "id", "years_in_days",
-                "metric_type", "",
-                "value_type", (double)0,
-                "filename_mask", "YEAR",
-                "time_mask", "YDAY",
+            "id", "years_in_days",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "YEAR",
+            "time_mask", "YDAY",
 
-                "id", "years_in_months",
-                "metric_type", "",
-                "value_type", (double)0,
-                "filename_mask", "YEAR",
-                "time_mask", "MON",
+            "id", "years_in_months",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "YEAR",
+            "time_mask", "MON",
 
-                "id", "years_in_years",
-                "metric_type", "",
-                "value_type", (double)0,
-                "filename_mask", "years",
-                "time_mask", "YEAR",
-
-            "velocity",
-                "id",
-                "metric_type", "",
-                "value_type", (json_int_t)0,
-                "filename_mask", "WDAY",
-                "time_mask", "SEC"
+            "id", "years_in_years",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "years",
+            "time_mask", "YEAR"
     );
 
-    json_t *stats = wstats_open(jn_config);
+    wstats_add_variable(
+        stats,
+        jn_var1  // owned
+    );
+
+
+    json_t *jn_var2 = json_pack(
+        "{s:s, s:s, s:s, s:["
+            "{s:s, s:s, s:f, s:s, s:s}"
+        "]}",
+        "variable_name", "velocity",
+        "version", "1",
+        "group", "",
+        "metrics",
+            "id", "last_week_in_seconds",
+            "metric_type", "",
+            "value_type", (double)0,
+            "filename_mask", "WDAY",
+            "time_mask", "SEC"
+    );
+
+    wstats_add_variable(
+        stats,
+        jn_var2  // owned
+    );
 
     test_stats(stats);
 
