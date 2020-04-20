@@ -140,7 +140,7 @@ PUBLIC int load_topic_new_data(
                 /*
                  *  Get ids from new_record fkey field
                  */
-                json_t *ids = kwid_get_new_ids(kw_get_dict_value(new_record, col_name, 0, 0));
+                json_t *ids = kwid_get_ids(kw_get_dict_value(new_record, col_name, 0, 0));
                 int ids_idx; json_t *jn_mix_id;
                 json_array_foreach(ids, ids_idx, jn_mix_id) {
                     const char *topic_and_id = json_string_value(jn_mix_id);
