@@ -250,7 +250,7 @@ int main(int argc, char *argv[])
     }
 
     test(tranger, "topic", 0, count);
-    printf("====> mem %'lu\n", gbmem_mem_in_use());
+    printf("====> mem %'lu\n", (unsigned long)gbmem_mem_in_use());
 
     /*-------------------------------------*
      *  Your end code
