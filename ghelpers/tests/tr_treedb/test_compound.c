@@ -228,7 +228,12 @@ PUBLIC BOOL test_compound(
             administration
         );
 
-        treedb_delete_node(tranger, mainop, "");
+        treedb_delete_node(
+            tranger, treedb_name,
+            "users",
+            mainop,
+            ""
+        );
 
         if(!check_log_result(test, verbose)) {
             ret += -1;

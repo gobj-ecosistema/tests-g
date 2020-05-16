@@ -1297,7 +1297,12 @@ int main(int argc, char *argv[])
             "operation"
         );
 
-        treedb_delete_node(tranger, operation, "");
+        treedb_delete_node(
+            tranger, treedb_name,
+            "departments",
+            operation,
+            ""
+        );
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;
@@ -1322,7 +1327,12 @@ int main(int argc, char *argv[])
             "administration"
         );
 
-        treedb_delete_node(tranger, operation, "");
+        treedb_delete_node(
+            tranger, treedb_name,
+            "departments",
+            operation,
+            ""
+        );
 
         if(!check_log_result(test, arguments.verbose)) {
             ret += -1;

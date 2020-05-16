@@ -886,7 +886,12 @@ PUBLIC BOOL test_departments(
             development,
             xxx
         );
-        treedb_delete_node(tranger, xxx, "");
+        treedb_delete_node(
+            tranger, treedb_name,
+            "departments",
+            xxx,
+            ""
+        );
 
         if(!check_log_result(test, verbose)) {
             ret = FALSE;
