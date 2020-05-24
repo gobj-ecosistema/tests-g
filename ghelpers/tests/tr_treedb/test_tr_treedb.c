@@ -1295,9 +1295,9 @@ int main(int argc, char *argv[])
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "operation"
+            "operation",
+            0
         );
-
         treedb_delete_node(
             tranger, treedb_name,
             "departments",
@@ -1325,7 +1325,8 @@ int main(int argc, char *argv[])
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration"
+            "administration",
+            0
         );
 
         treedb_delete_node(
