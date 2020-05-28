@@ -904,7 +904,7 @@ int main(int argc, char *argv[])
         "1.0.0",            // applicacion version
         "test_glogger"     // executable program, to can trace stack
     );
-    log_add_handler("test_stdout", "stdout", LOG_OPT_LOGGER, 0);
+    log_add_handler("test_stdout", "stdout", LOG_OPT_UP_WARNING|LOG_HND_OPT_BEATIFUL_JSON, 0);
 
     static uint32_t mem_list[] = {0, 0};
     gbmem_trace_alloc_free(0, mem_list);
