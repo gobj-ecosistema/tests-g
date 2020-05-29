@@ -564,10 +564,6 @@ char foto_final[]= "\
             ret = FALSE;
         }
 
-//         char path_users[PATH_MAX];
-//         build_id_index_path(path_users, sizeof(path_users), treedb_name, "users");
-//         json_t *users = kw_get_dict(tranger, path_users, 0, 0);
-
         json_t *users = treedb_get_id_index(tranger, treedb_name, "users"); // Return is NOT YOURS
 
         helper_quote2doublequote(foto_final);
