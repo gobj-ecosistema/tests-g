@@ -281,7 +281,7 @@ PUBLIC int load_treedbs(
                 continue;
             }
 
-            json_t *current_data = treedb_get_index(tranger, treedb_name, topic_name, "id");
+            json_t *current_data = treedb_get_id_index(tranger, treedb_name, topic_name);
             json_int_t current_data_size = json_object_size(current_data);
 
             if(strcmp(operation, "update")==0) {
@@ -565,7 +565,7 @@ char foto_final[]= "\
         }
 
         char path_users[PATH_MAX];
-        build_treedb_index_path(path_users, sizeof(path_users), treedb_name, "users", "id");
+        build_id_index_path(path_users, sizeof(path_users), treedb_name, "users");
 
         helper_quote2doublequote(foto_final);
         expected = legalstring2json(foto_final, TRUE);
