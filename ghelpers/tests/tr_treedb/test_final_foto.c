@@ -1040,8 +1040,8 @@ char foto_final[]= "\
             ret = FALSE;
             if(verbose) {
                 printf("%s  --> ERROR in test: '%s'%s\n", On_Red BWhite, test, Color_Off);
-                //log_debug_json(0, treedb, "Record found");
-                //log_debug_json(0, expected, "Record expected");
+                log_debug_json(0, treedb, "Record found");
+                log_debug_json(0, expected, "Record expected");
             } else {
                 printf("%sX%s", On_Red BWhite, Color_Off);
             }
