@@ -759,6 +759,45 @@ PRIVATE BOOL test_treedb_schema(
     /*-----------------------------------*
      *
      *-----------------------------------*/
+    if(!without_ok_tests) {
+        test = "good_desc_03";
+        json_t *topic = tranger_create_topic(
+            tranger,
+            test,
+            "id",
+            "",
+            sf_rowid_key,
+            json_pack("[{s:s, s:s, s:[s], s:[s,s], s:s}]",
+                "id", "name",
+                "header", "Name",
+                "type", "string",
+                "flag",
+                    "persistent", "required",
+                "default",
+                    "Pepe"
+            ),
+            0
+        );
+        set_expected_results(
+            test,
+            json_pack("[]"  // error's list
+            ),
+            verbose
+        );
+        parse_schema_cols(
+            topic_cols_desc,
+            kwid_new_list("verbose", topic, "cols")
+        );
+        if(!check_log_result(test, verbose)) {
+            ret = FALSE;
+        }
+
+        tranger_delete_topic(tranger, test);
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
     if(!without_bad_tests) {
         test = "bad_desc_01";
         json_t *topic = tranger_create_topic(
@@ -772,6 +811,51 @@ PRIVATE BOOL test_treedb_schema(
                 "header", "Xx",
                 "type", "xinteger",
                 "flag", "xrequired"
+            ),
+            0
+        );
+        set_expected_results(
+            test,
+            json_pack("[{s:s, s:s}, {s:s, s:s}, {s:s, s:s}, {s:s, s:s}]",  // error's list
+                "msg", "Wrong basic type",
+                "field", "id",
+                "msg", "Wrong basic type",
+                "field", "header",
+                "msg", "Wrong enum type",
+                "field", "type",
+                "msg", "Wrong enum type",
+                "field", "flag"
+            ),
+            verbose
+        );
+
+        parse_schema_cols(
+            topic_cols_desc,
+            kwid_new_list("verbose", topic, "cols")
+        );
+        if(!check_log_result(test, verbose)) {
+            ret = FALSE;
+        }
+        tranger_delete_topic(tranger, test);
+    }
+
+    /*-----------------------------------*
+     *
+     *-----------------------------------*/
+    if(!without_bad_tests) {
+        test = "bad_desc_02";
+        json_t *topic = tranger_create_topic(
+            tranger,
+            test,
+            "id",
+            "",
+            sf_rowid_key,
+            json_pack("[{s:b, s:[s], s:s, s:s, s:[s]}]",
+                "id", 1,
+                "header", "Xx",
+                "type", "xinteger",
+                "flag", "xrequired",
+                "default", "pepe"
             ),
             0
         );
