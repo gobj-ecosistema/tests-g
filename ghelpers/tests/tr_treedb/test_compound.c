@@ -45,12 +45,13 @@ PUBLIC BOOL test_compound(
             verbose
         );
 
-        data = json_pack("{s:s, s:s, s:s, s:s, s:s}",
+        data = json_pack("{s:s, s:s, s:s, s:s, s:s, s:b}",
             "id", "xxxxxxxxxxxxxxxxxxx",
             "username", "mainop@email.com",
             "firstName", "Bequer",
             "lastName", "Martin",
-            "email",  "mainop@email.com"
+            "email",  "mainop@email.com",
+            "disabled", 0
         );
         expected = json_pack("{s:s, s:s, s:s, s:s, s:s, s:b, s:b, s:b, s:[], s:[], s:[], s:[]}",
             "id", "xxxxxxxxxxxxxxxxxxx",

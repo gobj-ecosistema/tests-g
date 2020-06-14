@@ -41,7 +41,8 @@ static char schema_sample[]= "\
                 'disabled': {                                       \n\
                     'header': 'Disabled',                           \n\
                     'type': 'boolean',                              \n\
-                    'flag': 'persistent'                            \n\
+                    'flag': 'persistent',                           \n\
+                    'default': true                                 \n\
                 },                                                  \n\
                 'online': {                                         \n\
                     'header': 'On Line',                            \n\

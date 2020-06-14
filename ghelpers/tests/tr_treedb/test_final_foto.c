@@ -49,7 +49,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'devboss@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^development^users'\n\
@@ -74,7 +74,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'admin@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^administration^users'\n\
@@ -99,7 +99,7 @@ char foto_final[]= "\
                     'lastName': 'Duenño',\n\
                     'email': 'dueño@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^direction^users'\n\
@@ -124,7 +124,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'dev2@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^development^users'\n\
@@ -147,7 +147,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'dev1@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^development^users'\n\
@@ -170,7 +170,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'op2@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^operation^users'\n\
@@ -193,7 +193,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'op1@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^operation^users'\n\
@@ -216,7 +216,7 @@ char foto_final[]= "\
                     'lastName': 'Martínez',\n\
                     'email': 'escritor@email.com',\n\
                     'emailVerified': false,\n\
-                    'disabled': false,\n\
+                    'disabled': true,\n\
                     'online': false,\n\
                     'departments': [\n\
                         'departments^administration^users'\n\
@@ -249,7 +249,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'devboss@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^development^users'\n\
@@ -274,7 +274,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'dev2@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^development^users'\n\
@@ -297,7 +297,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'dev1@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^development^users'\n\
@@ -322,7 +322,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'devboss@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^development^users'\n\
@@ -362,7 +362,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'op2@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^operation^users'\n\
@@ -385,7 +385,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'op1@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^operation^users'\n\
@@ -429,7 +429,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'devboss@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^development^users'\n\
@@ -454,7 +454,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'dev2@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^development^users'\n\
@@ -477,7 +477,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'dev1@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^development^users'\n\
@@ -502,7 +502,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'devboss@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^development^users'\n\
@@ -542,7 +542,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'op2@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^operation^users'\n\
@@ -565,7 +565,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'op1@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^operation^users'\n\
@@ -600,7 +600,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'admin@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^administration^users'\n\
@@ -625,7 +625,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'escritor@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^administration^users'\n\
@@ -650,7 +650,7 @@ char foto_final[]= "\
                             'lastName': 'Martínez',\n\
                             'email': 'admin@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^administration^users'\n\
@@ -700,7 +700,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'devboss@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^development^users'\n\
@@ -725,7 +725,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'dev2@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^development^users'\n\
@@ -748,7 +748,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'dev1@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^development^users'\n\
@@ -773,7 +773,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'devboss@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^development^users'\n\
@@ -813,7 +813,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'op2@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^operation^users'\n\
@@ -836,7 +836,7 @@ char foto_final[]= "\
                                             'lastName': 'Martínez',\n\
                                             'email': 'op1@email.com',\n\
                                             'emailVerified': false,\n\
-                                            'disabled': false,\n\
+                                            'disabled': true,\n\
                                             'online': false,\n\
                                             'departments': [\n\
                                                 'departments^operation^users'\n\
@@ -871,7 +871,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'admin@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^administration^users'\n\
@@ -896,7 +896,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'escritor@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^administration^users'\n\
@@ -921,7 +921,7 @@ char foto_final[]= "\
                                     'lastName': 'Martínez',\n\
                                     'email': 'admin@email.com',\n\
                                     'emailVerified': false,\n\
-                                    'disabled': false,\n\
+                                    'disabled': true,\n\
                                     'online': false,\n\
                                     'departments': [\n\
                                         'departments^administration^users'\n\
@@ -957,7 +957,7 @@ char foto_final[]= "\
                             'lastName': 'Duenño',\n\
                             'email': 'dueño@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^direction^users'\n\
@@ -984,7 +984,7 @@ char foto_final[]= "\
                             'lastName': 'Duenño',\n\
                             'email': 'dueño@email.com',\n\
                             'emailVerified': false,\n\
-                            'disabled': false,\n\
+                            'disabled': true,\n\
                             'online': false,\n\
                             'departments': [\n\
                                 'departments^direction^users'\n\
