@@ -571,7 +571,7 @@ PUBLIC BOOL match_list(
                         /*--------------------------------*
                          *  List with any json items
                          *--------------------------------*/
-                        int idx2 = kwid_find_json_in_list("", expected, r1);
+                        int idx2 = kw_find_json_in_list("", expected, r1);
                         if(idx2 < 0) {
                             if(verbose) {
                                 char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
