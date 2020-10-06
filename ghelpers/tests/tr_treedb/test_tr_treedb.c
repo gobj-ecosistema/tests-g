@@ -696,11 +696,13 @@ PRIVATE BOOL test_treedb_schema(
             "id",
             "",
             sf_rowid_key,
-            json_pack("[{s:s, s:s, s:s, s:s}]",
+            json_pack("[{s:s, s:s, s:i, s:s, s:s, s:i}]",
                 "id", "id",
                 "header", "Id",
+                "fillspace", 20,
                 "type", "integer",
-                "flag", "required"
+                "flag", "required",
+                "default", 0
             ),
             0
         );
@@ -731,12 +733,14 @@ PRIVATE BOOL test_treedb_schema(
             "id",
             "",
             sf_rowid_key,
-            json_pack("[{s:s, s:s, s:[s], s:[s,s]}]",
+            json_pack("[{s:s, s:s, s:i, s:[s], s:[s,s], s:s}]",
                 "id", "name",
                 "header", "Name",
+                "fillspace", 20,
                 "type", "string",
                 "flag",
-                    "persistent", "required"
+                    "persistent", "required",
+                "default", ""
             ),
             0
         );
@@ -767,9 +771,10 @@ PRIVATE BOOL test_treedb_schema(
             "id",
             "",
             sf_rowid_key,
-            json_pack("[{s:s, s:s, s:[s], s:[s,s], s:s}]",
+            json_pack("[{s:s, s:s, s:i, s:[s], s:[s,s], s:s}]",
                 "id", "name",
                 "header", "Name",
+                "fillspace", 20,
                 "type", "string",
                 "flag",
                     "persistent", "required",
@@ -806,9 +811,10 @@ PRIVATE BOOL test_treedb_schema(
             "id",
             "",
             sf_rowid_key,
-            json_pack("[{s:b, s:[s], s:s, s:s}]",
+            json_pack("[{s:b, s:[s], s:i, s:s, s:s}]",
                 "id", 1,
                 "header", "Xx",
+                "fillspace", 20,
                 "type", "xinteger",
                 "flag", "xrequired"
             ),
@@ -850,9 +856,10 @@ PRIVATE BOOL test_treedb_schema(
             "id",
             "",
             sf_rowid_key,
-            json_pack("[{s:b, s:[s], s:s, s:s, s:[s]}]",
+            json_pack("[{s:b, s:[s], s:i, s:s, s:s, s:[s]}]",
                 "id", 1,
                 "header", "Xx",
+                "fillspace", 20,
                 "type", "xinteger",
                 "flag", "xrequired",
                 "default", "pepe"
