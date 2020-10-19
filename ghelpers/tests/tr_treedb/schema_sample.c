@@ -36,18 +36,18 @@ static char schema_sample[]= "\
                 'emailVerified': {                                  \n\
                     'header': 'Email Verified',                     \n\
                     'type': 'boolean',                              \n\
-                    'flag': 'persistent'                            \n\
+                    'flag': ['persistent']                          \n\
                 },                                                  \n\
                 'disabled': {                                       \n\
                     'header': 'Disabled',                           \n\
                     'type': 'boolean',                              \n\
-                    'flag': 'persistent',                           \n\
+                    'flag': ['persistent'],                         \n\
                     'default': true                                 \n\
                 },                                                  \n\
                 'online': {                                         \n\
                     'header': 'On Line',                            \n\
                     'type': 'boolean',                              \n\
-                    'flag': ''                                      \n\
+                    'flag': []                                      \n\
                 },                                                  \n\
                 'departments': {                                    \n\
                     'header': 'Department',                         \n\
