@@ -909,6 +909,7 @@ PUBLIC BOOL test_departments(
 char foto_final[]= "\
 { \n\
     'treedb_test': { \n\
+        '__schema_version__': 0, \n\
         '__snaps__': { \n\
             'id': {} \n\
         }, \n\

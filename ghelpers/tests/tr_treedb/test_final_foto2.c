@@ -37,6 +37,7 @@ PUBLIC BOOL test_final_foto2(
 char foto_final[]= "\
 {\n\
     'treedb_test': {\n\
+        '__schema_version__': 0, \n\
         '__snaps__': {\n\
             'id': {}\n\
         },\n\
