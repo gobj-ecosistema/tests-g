@@ -877,7 +877,6 @@ PUBLIC BOOL test_departments(
             data,
             "strict,verbose"
         );
-
         treedb_link_nodes(
             tranger,
             "departments",
@@ -890,6 +889,7 @@ PUBLIC BOOL test_departments(
             development,
             xxx
         );
+        JSON_INCREF(xxx);
         treedb_delete_node(
             tranger, treedb_name,
             "departments",
