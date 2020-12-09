@@ -72,7 +72,7 @@ PUBLIC BOOL test_compound(
             tranger, treedb_name,       // treedb
             "users",              // topic_name
             data,                       // data
-            "strict,verbose"
+            0
         );
         if(!match_record(mainop, expected, verbose, 0)) {
             ret += -1;
@@ -241,7 +241,7 @@ PUBLIC BOOL test_compound(
             tranger, treedb_name,
             "users",
             mainop,
-            ""
+            0
         );
 
         if(!check_log_result(test, verbose)) {

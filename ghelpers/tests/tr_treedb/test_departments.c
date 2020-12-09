@@ -81,7 +81,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
             data,                       // data
-            "strict,verbose"
+            0
         );
         if(!match_record(direction, expected, verbose, 0)) {
             ret = FALSE;
@@ -126,7 +126,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,                       // data
-            "strict,verbose"
+            0
         );
 
         if(found) {
@@ -181,7 +181,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict,verbose"
+            0
         );
         if(!match_record(administration, expected, verbose, 0)) {
             ret = FALSE;
@@ -479,7 +479,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict,verbose"
+            0
         );
         if(operation) {
             ret = FALSE;
@@ -522,7 +522,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict,verbose"
+            0
         );
         if(!match_record(operation, expected, verbose, 0)) {
             ret = FALSE;
@@ -700,7 +700,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict,verbose"
+            0
         );
         if(!match_record(development, expected, verbose, 0)) {
             ret = FALSE;
@@ -875,7 +875,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             data,
-            "strict,verbose"
+            0
         );
         treedb_link_nodes(
             tranger,
@@ -894,7 +894,7 @@ PUBLIC BOOL test_departments(
             tranger, treedb_name,
             "departments",
             xxx,
-            ""
+            0
         );
 
         if(!check_log_result(test, verbose)) {

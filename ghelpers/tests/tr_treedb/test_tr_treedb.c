@@ -1393,7 +1393,7 @@ int main(int argc, char *argv[])
             tranger, treedb_name,
             "departments",
             operation,
-            ""
+            0
         );
 
         if(!check_log_result(test, arguments.verbose)) {
@@ -1424,7 +1424,7 @@ int main(int argc, char *argv[])
             tranger, treedb_name,
             "departments",
             operation,
-            ""
+            0
         );
 
         if(!check_log_result(test, arguments.verbose)) {

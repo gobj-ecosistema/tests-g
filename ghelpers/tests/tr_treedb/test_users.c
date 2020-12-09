@@ -40,7 +40,7 @@ PUBLIC int load_topic_new_data(
             treedb_name,
             topic_name,
             new_record,
-            ""
+            0
         );
         if(!record) {
             log_error(0,
