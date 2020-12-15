@@ -171,7 +171,7 @@ static inline void test(int flags, uint64_t cnt)
     case 0:
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
-            gobj_start_up(0, 0, 0, 0, 0, 0, 0);
+            gobj_start_up(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             for (i = 0; i < cnt; i++) {
             }
             gobj_shutdown();
@@ -182,7 +182,7 @@ static inline void test(int flags, uint64_t cnt)
         {
             clock_gettime (CLOCK_MONOTONIC, &st);
             for (i = 0; i < cnt; i++) {
-                gobj_start_up(0, 0, 0, 0, 0, 0, 0);
+                gobj_start_up(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 gobj_shutdown();
             }
             clock_gettime (CLOCK_MONOTONIC, &et);
