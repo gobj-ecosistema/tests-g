@@ -225,8 +225,7 @@ PUBLIC BOOL test_departments(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
@@ -306,8 +305,7 @@ PUBLIC BOOL test_departments(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "direction",
-            0
+            "direction"
         );
         if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
@@ -577,8 +575,7 @@ PUBLIC BOOL test_departments(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;
@@ -764,8 +761,7 @@ PUBLIC BOOL test_departments(
         found = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         if(!match_record(found, expected, verbose, 0)) {
             ret = FALSE;

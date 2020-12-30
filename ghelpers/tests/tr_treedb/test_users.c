@@ -118,8 +118,7 @@ PUBLIC int load_topic_new_data(
                     tranger,
                     treedb_name,
                     topic_name,
-                    child_id,
-                    0
+                    child_id
                 );
                 if(!child_record) {
                     log_error(0,
@@ -177,8 +176,7 @@ PUBLIC int load_topic_new_data(
                         tranger,
                         treedb_name,
                         parent_topic_name,
-                        id,
-                        0
+                        id
                     );
                     if(!parent_record) {
                         log_error(0,

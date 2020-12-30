@@ -109,14 +109,12 @@ PUBLIC BOOL test_compound(
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "operation",
-            0
+            "operation"
         );
         json_t *mainop = treedb_get_node(
             tranger, treedb_name,
             "users",
-            "xxxxxxxxxxxxxxxxxxx",
-            0
+            "xxxxxxxxxxxxxxxxxxx"
         );
 
         ret += treedb_link_nodes(
@@ -152,14 +150,12 @@ PUBLIC BOOL test_compound(
         json_t *administration = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "operation",
-            0
+            "operation"
         );
 
         ret += treedb_link_nodes(
@@ -199,20 +195,17 @@ PUBLIC BOOL test_compound(
         json_t *administration = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "operation",
-            0
+            "operation"
         );
         json_t *mainop = treedb_get_node(
             tranger, treedb_name,
             "users",
-            "xxxxxxxxxxxxxxxxxxx",
-            0
+            "xxxxxxxxxxxxxxxxxxx"
         );
 
         ret += treedb_unlink_nodes(
@@ -266,14 +259,12 @@ PUBLIC BOOL test_compound(
         json_t *administration = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "administration",
-            0
+            "administration"
         );
         json_t *operation = treedb_get_node(
             tranger, treedb_name,
             "departments",
-            "operation",
-            0
+            "operation"
         );
 
         ret += treedb_link_nodes(
