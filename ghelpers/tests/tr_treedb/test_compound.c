@@ -71,8 +71,7 @@ PUBLIC BOOL test_compound(
         json_t *mainop = treedb_create_node(
             tranger, treedb_name,       // treedb
             "users",              // topic_name
-            data,                       // data
-            0
+            data                        // data
         );
         if(!match_record(mainop, expected, verbose, 0)) {
             ret += -1;

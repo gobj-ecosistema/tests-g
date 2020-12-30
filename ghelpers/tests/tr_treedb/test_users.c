@@ -39,8 +39,7 @@ PUBLIC int load_topic_new_data(
             tranger,
             treedb_name,
             topic_name,
-            new_record,
-            0
+            new_record
         );
         if(!record) {
             log_error(0,

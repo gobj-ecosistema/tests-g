@@ -80,8 +80,7 @@ PUBLIC BOOL test_departments(
         direction = treedb_create_node(
             tranger, treedb_name,       // treedb
             "departments",              // topic_name
-            data,                       // data
-            0
+            data                        // data
         );
         if(!match_record(direction, expected, verbose, 0)) {
             ret = FALSE;
@@ -125,8 +124,7 @@ PUBLIC BOOL test_departments(
         found = treedb_create_node( // Must return 0
             tranger, treedb_name,
             "departments",
-            data,                       // data
-            0
+            data                       // data
         );
 
         if(found) {
@@ -180,8 +178,7 @@ PUBLIC BOOL test_departments(
         administration = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data,
-            0
+            data
         );
         if(!match_record(administration, expected, verbose, 0)) {
             ret = FALSE;
@@ -478,8 +475,7 @@ PUBLIC BOOL test_departments(
         operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data,
-            0
+            data
         );
         if(operation) {
             ret = FALSE;
@@ -521,8 +517,7 @@ PUBLIC BOOL test_departments(
         operation = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data,
-            0
+            data
         );
         if(!match_record(operation, expected, verbose, 0)) {
             ret = FALSE;
@@ -699,8 +694,7 @@ PUBLIC BOOL test_departments(
         development = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data,
-            0
+            data
         );
         if(!match_record(development, expected, verbose, 0)) {
             ret = FALSE;
@@ -874,8 +868,7 @@ PUBLIC BOOL test_departments(
         json_t *xxx = treedb_create_node(
             tranger, treedb_name,
             "departments",
-            data,
-            0
+            data
         );
         treedb_link_nodes(
             tranger,
