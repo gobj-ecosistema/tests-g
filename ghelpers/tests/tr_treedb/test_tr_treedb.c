@@ -1037,7 +1037,7 @@ int main(int argc, char *argv[])
 
     uint64_t MEM_SUPERBLOCK = MEM_MAX_BLOCK;
 
-    if(TEST_MEM) {
+    if(TEST_MEM || 1) {
         gbmem_startup(
             MEM_MIN_BLOCK,
             MEM_MAX_BLOCK,
@@ -1470,13 +1470,13 @@ int main(int argc, char *argv[])
     }
 
     printf("\n");
-    log_del_handler("test_capture");
 
     JSON_DECREF(topic_cols_desc);
     JSON_DECREF(expected_log_messages);
     JSON_DECREF(unexpected_log_messages);
     gbmem_shutdown();
 
+    log_del_handler("test_capture");
     end_ghelpers_library();
 
     return ret;
