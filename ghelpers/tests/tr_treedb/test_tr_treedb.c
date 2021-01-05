@@ -218,7 +218,7 @@ PRIVATE int capture_log_write(void* v, int priority, const char* bf, size_t len)
         print_json(msg);
     }
 
-    json_t *expected_msg = kw_get_list_value(expected_log_messages, 0, KW_DONT_LOG);
+    json_t *expected_msg = kw_get_list_value(expected_log_messages, 0, 0);
 
     if(expected_msg) {
         JSON_INCREF(expected_msg);
