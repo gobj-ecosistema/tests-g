@@ -217,7 +217,10 @@ PRIVATE int capture_log_write(void* v, int priority, const char* bf, size_t len)
     if(show_log_output) {
         print_json(msg);
     }
-
+    if(!expected_log_messages) {
+        // Avoid log_error in kw_ function
+        return -1;
+    }
     json_t *expected_msg = kw_get_list_value(expected_log_messages, 0, 0);
 
     if(expected_msg) {
@@ -1389,8 +1392,7 @@ int main(int argc, char *argv[])
             "operation"
         );
         treedb_delete_node(
-            tranger, treedb_name,
-            "departments",
+            tranger,
             operation,
             0
         );
@@ -1419,8 +1421,7 @@ int main(int argc, char *argv[])
         );
 
         treedb_delete_node(
-            tranger, treedb_name,
-            "departments",
+            tranger,
             operation,
             0
         );
@@ -1474,9 +1475,9 @@ int main(int argc, char *argv[])
     JSON_DECREF(topic_cols_desc);
     JSON_DECREF(expected_log_messages);
     JSON_DECREF(unexpected_log_messages);
+    log_del_handler("test_capture");
     gbmem_shutdown();
 
-    log_del_handler("test_capture");
     end_ghelpers_library();
 
     return ret;

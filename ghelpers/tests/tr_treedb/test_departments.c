@@ -880,8 +880,7 @@ PUBLIC BOOL test_departments(
         );
         JSON_INCREF(xxx);
         treedb_delete_node(
-            tranger, treedb_name,
-            "departments",
+            tranger,
             xxx,
             0
         );

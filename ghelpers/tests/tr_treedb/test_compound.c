@@ -230,8 +230,7 @@ PUBLIC BOOL test_compound(
 
         JSON_INCREF(mainop);
         treedb_delete_node(
-            tranger, treedb_name,
-            "users",
+            tranger,
             mainop,
             0
         );
