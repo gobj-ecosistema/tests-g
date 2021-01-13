@@ -583,7 +583,7 @@ char foto_final[]= "\
         JSON_DECREF(expected);
 
         int result;
-        kw_check_refcounts(file_json, 1000, &result);
+        json_check_refcounts(file_json, 1000, &result);
         JSON_DECREF(file_json);
     }
 

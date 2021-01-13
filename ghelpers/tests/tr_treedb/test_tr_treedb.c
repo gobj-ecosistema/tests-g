@@ -1191,7 +1191,7 @@ int main(int argc, char *argv[])
      *  Check refcounts
      */
     int result = 0;
-    kw_check_refcounts(tranger, 1000, &result);
+    json_check_refcounts(tranger, 1000, &result);
 
 //print_json(tranger);
 
@@ -1435,7 +1435,7 @@ int main(int argc, char *argv[])
      *  Check refcounts
      */
     result = 0;
-    kw_check_refcounts(tranger, 1000, &result);
+    json_check_refcounts(tranger, 1000, &result);
 
     /*---------------------------------------*
      *      Shutdown
