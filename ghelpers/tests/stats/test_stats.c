@@ -93,7 +93,6 @@ PRIVATE int test_stats(json_t *stats)
         if(1) { // TEST
             if(i && (i % 10000 == 0)) {
                 wstats_save(stats);
-                wstats_restore(stats);
             }
         }
 
