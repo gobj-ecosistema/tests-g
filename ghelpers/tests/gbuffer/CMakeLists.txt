@@ -45,7 +45,7 @@ TARGET_LINK_LIBRARIES(test_gbuffer
     /yuneta/development/output/lib/libuv.a
     /yuneta/development/output/lib/libpcre2-8.a
     /yuneta/development/output/lib/libunwind.a
-    rt pthread dl lzma
+    rt pthread dl lzma m
 )
 
 ##############################################

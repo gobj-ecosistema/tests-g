@@ -45,7 +45,7 @@ TARGET_LINK_LIBRARIES(test_output_udp_client
     /yuneta/development/output/lib/libuv.a
     /yuneta/development/output/lib/libunwind.a
     /yuneta/development/output/lib/libpcre2-8.a
-    rt pthread dl lzma
+    rt pthread dl lzma m
 )
 
 ##############################################
