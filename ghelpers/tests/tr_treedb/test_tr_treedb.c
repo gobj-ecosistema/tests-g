@@ -456,7 +456,7 @@ PUBLIC BOOL match_record(
                         if(json_object_size(record)>0) {
                             if(verbose) {
                                 char *p = gbuf_path?gbuf_cur_rd_pointer(gbuf_path):"";
-                                trace_msg("match_record('%'): remain record items", p);
+                                trace_msg("match_record('%p'): remain record items", p);
                                 log_debug_json(0, record, "match_record: remain record items");
                             }
                             ret = FALSE;

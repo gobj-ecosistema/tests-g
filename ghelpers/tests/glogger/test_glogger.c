@@ -283,7 +283,7 @@ static inline void test(int flags, uint64_t cnt)
                 log_debug_dump(0,
                     bf,
                     sizeof(bf),
-                    ""
+                    "dump"
                 );
                 log_debug_printf(
                     "printf con",
