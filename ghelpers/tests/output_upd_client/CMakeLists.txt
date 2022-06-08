@@ -2,7 +2,6 @@
 #   CMake
 ##############################################
 project(test_output_udp_client C)
-cmake_minimum_required(VERSION 2.8)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 
