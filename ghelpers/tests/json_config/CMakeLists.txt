@@ -44,6 +44,7 @@ TARGET_LINK_LIBRARIES(test_json_config
     /yuneta/development/output/lib/libjansson.a
     /yuneta/development/output/lib/libuv.a
     /yuneta/development/output/lib/libunwind.a
+    /yuneta/development/output/lib/libpcre2-posix.a
     /yuneta/development/output/lib/libpcre2-8.a
     rt pthread dl lzma m
 )
