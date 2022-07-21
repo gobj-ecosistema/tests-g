@@ -14,7 +14,7 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 
   if(CMAKE_COMPILER_IS_GNUCC)
     # GCC specific debug options
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g3 -ggdb")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g3 -ggdb3 -gdwarf-2")
     set(AVOID_VERSION -avoid-version)
   endif(CMAKE_COMPILER_IS_GNUCC)
 endif(CMAKE_BUILD_TYPE MATCHES Debug)
@@ -43,7 +43,6 @@ TARGET_LINK_LIBRARIES(test_json_xml
     /yuneta/development/output/lib/libghelpers.a
     /yuneta/development/output/lib/libjansson.a
     /yuneta/development/output/lib/libuv.a
-    /yuneta/development/output/lib/libpcre2-posix.a
     /yuneta/development/output/lib/libpcre2-8.a
     /yuneta/development/output/lib/libunwind.a
     rt pthread dl lzma m
