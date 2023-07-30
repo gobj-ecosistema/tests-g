@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_glogger C)
 cmake_minimum_required(VERSION 3.0)
+project(test_glogger C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

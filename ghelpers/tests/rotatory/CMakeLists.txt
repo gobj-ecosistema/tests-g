@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_rotatory C)
 cmake_minimum_required(VERSION 3.0)
+project(test_rotatory C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

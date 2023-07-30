@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_send_event C)
 cmake_minimum_required(VERSION 3.0)
+project(test_send_event C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

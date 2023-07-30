@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_gobj_start_up C)
 cmake_minimum_required(VERSION 3.0)
+project(test_gobj_start_up C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

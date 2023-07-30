@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(tests-ginsfsm C)
 cmake_minimum_required(VERSION 3.0)
+project(tests-ginsfsm C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

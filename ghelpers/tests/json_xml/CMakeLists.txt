@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_json_xml C)
 cmake_minimum_required(VERSION 3.0)
+project(test_json_xml C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

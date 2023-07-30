@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_json_config C)
 cmake_minimum_required(VERSION 3.0)
+project(test_json_config C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

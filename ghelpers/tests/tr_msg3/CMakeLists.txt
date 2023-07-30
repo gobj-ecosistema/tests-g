@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_tr_msg3 C)
 cmake_minimum_required(VERSION 3.0)
+project(test_tr_msg3 C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 

@@ -1,8 +1,8 @@
 ##############################################
 #   CMake
 ##############################################
-project(test_gbuffer C)
 cmake_minimum_required(VERSION 3.0)
+project(test_gbuffer C)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 
