@@ -1,7 +1,7 @@
 ##############################################
 #   CMake
 ##############################################
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 
 ##############################################
@@ -26,4 +26,3 @@ add_subdirectory(tr_msg3)
 add_subdirectory(tr_msg4)
 add_subdirectory(stats)
 add_subdirectory(tr_treedb)
-
