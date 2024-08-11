@@ -901,6 +901,9 @@ char foto_final[]= "\
         '__snaps__': { \n\
             'id': {} \n\
         }, \n\
+        '__graphs__': { \n\
+            'id': {} \n\
+        }, \n\
         'users': { \n\
             'id': {} \n\
         }, \n\
@@ -1087,4 +1090,3 @@ char foto_final[]= "\
 
     return ret;
 }
-
