@@ -219,6 +219,7 @@ PRIVATE int capture_log_write(void* v, int priority, const char* bf, size_t len)
     }
     if(!expected_log_messages) {
         // Avoid log_error in kw_ function
+        JSON_DECREF(msg);
         return -1;
     }
     json_t *expected_msg = kw_get_list_value(expected_log_messages, 0, 0);
