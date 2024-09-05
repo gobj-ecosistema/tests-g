@@ -314,7 +314,7 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
     case 4:
         {
             /*-------------------------------------*
-             *  Busca relative foreward from_rowid
+             *  Busca relative forward from_rowid
              *-------------------------------------*/
             json_int_t from_rowid = -10;
             printf("Case %d: tranger_open_list, relative, foreward, from_rowid %ld, to_rowid\n",
@@ -395,7 +395,7 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
     case 6:
         {
             /*------------------------------------------------*
-             *  Busca relative foreward from_rowid, to_rowid
+             *  Busca relative forward from_rowid, to_rowid
              *------------------------------------------------*/
             json_int_t from_rowid = -20;
             json_int_t to_rowid = -10;
