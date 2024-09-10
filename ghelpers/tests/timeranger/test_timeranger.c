@@ -746,7 +746,7 @@ int main(int argc, char *argv[])
 
     unsigned long count = 0;
     if(argc == 1) {
-        count = 100000;
+        count = 180000;
     } else if(argc == 2) {
         count = 1000000;
     } else if(argc == 3) {
