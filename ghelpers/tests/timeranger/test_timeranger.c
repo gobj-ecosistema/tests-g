@@ -160,27 +160,19 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
             printf("Case %d: tranger_append_record %'lu records\n", flags, (unsigned long)cnt);
             appends = cnt;
             clock_gettime (CLOCK_MONOTONIC, &st);
+
+            uint64_t t1 = 946684800; // 2000-01-01T00:00:00+0000
             for(i=0; i<cnt; i++) {
-                if(i % 2 == 0) {
-                    json_t *jn_record1 = json_pack("{s:I, s:s}",
-                        "id", (json_int_t)(i+1),
-                        "content",
-                        "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el."
-                        "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el."
-                        "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el.x"
-                    );
-                    md_record_t md_record;
-                    tranger_append_record(tranger, topic_name, 0, 0, &md_record, jn_record1);
-                } else {
-                    json_t *jn_record1 = json_pack("{s:I, s:s}",
-                        "id", (json_int_t)(i+1),
-                        "content",
-                        "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el."
-                        "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el.x"
-                    );
-                    md_record_t md_record;
-                    tranger_append_record(tranger, topic_name, 0, 0, &md_record, jn_record1);
-                }
+                json_t *jn_record1 = json_pack("{s:I, s:I, s:s}",
+                    "id", (json_int_t)(i+1),
+                    "tm", (json_int_t)(t1+i),
+                    "content",
+                    "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el."
+                    "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el."
+                    "Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el alfa.Pepe el.x"
+                );
+                md_record_t md_record;
+                tranger_append_record(tranger, topic_name, 0, 0, &md_record, jn_record1);
             }
             clock_gettime (CLOCK_MONOTONIC, &et);
         }
@@ -734,11 +726,12 @@ int main(int argc, char *argv[])
         tranger,
         "topic",    // topic name
         "id",       // pkey
-        "",         // tkey
+        "tm",       // tkey
         0,          // system_latch
-        json_pack("{s:s, s:s}", // jn_cols, owned
+        json_pack("{s:s, s:I, s:s}", // jn_cols, owned
             "id", "",
-            "address", ""
+            "tm", (json_int_t)0,
+            "content", ""
         ),
         0
     );
