@@ -182,7 +182,7 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
             /*-------------------------------------*
              *      List all records
              *-------------------------------------*/
-            printf("Case %d: tranger_open_list all, only md\n", flags);
+            printf("Case %d: tranger_open_list all\n", flags);
             clock_gettime (CLOCK_MONOTONIC, &st);
 
             leidos = 0;
