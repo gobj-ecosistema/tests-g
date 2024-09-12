@@ -42,6 +42,53 @@ static inline double ts_diff (struct timespec start, struct timespec end)
 }
 
 /***************************************************************************
+ *  Measurement of times
+ *  Example:
+
+    ...
+    time_measure_t time_measure;
+    MT_START_TIME(time_measure)
+    ...
+    MT_INCREMENT_COUNT(time_measure, MAX_KEYS*MAX_RECORDS)
+    MT_PRINT_TIME(time_measure, "tranger2_append_record")
+    ...
+
+ ***************************************************************************/
+typedef struct {
+    struct timespec start, end;
+    uint64_t count;
+} time_measure_t;
+
+#define MT_START_TIME(time_measure) \
+    clock_gettime(CLOCK_MONOTONIC, &time_measure.start); \
+    time_measure.end = time_measure.start; \
+    time_measure.count = 0;
+
+#define MT_INCREMENT_COUNT(time_measure, cnt) \
+    time_measure.count += (cnt);
+
+#define MT_PRINT_TIME(time_measure, prefix) \
+    clock_gettime(CLOCK_MONOTONIC, &time_measure.end); \
+    mt_print_time(&time_measure, prefix);
+
+static inline void mt_print_time(time_measure_t *time_measure, const char *prefix)
+{
+    register uint64_t s, e;
+    s = ((uint64_t)time_measure->start.tv_sec)*1000000 + ((uint64_t)time_measure->start.tv_nsec)/1000;
+    e = ((uint64_t)time_measure->end.tv_sec)*1000000 + ((uint64_t)time_measure->end.tv_nsec)/1000;
+    double dt =  ((double)(e-s))/1000000;
+
+    printf("%s# TIME %s (count: %"PRIu64"): %f seconds, %'ld op/sec%s\n",
+           On_Black RGreen,
+           prefix?prefix:"",
+           time_measure->count,
+           dt,
+           (long)(((double)time_measure->count)/dt),
+           Color_Off
+    );
+}
+
+/***************************************************************************
  *
  ***************************************************************************/
 static int test_result(json_t * list, uint64_t *result, int max)
@@ -225,6 +272,9 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
             );
             clock_gettime (CLOCK_MONOTONIC, &st);
 
+            time_measure_t time_measure;
+            MT_START_TIME(time_measure)
+
             leidos = 0;
             json_t *match_record = json_pack("{s:I, s:I}",
                 "from_rowid", (json_int_t)from_rowid,
@@ -240,6 +290,9 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
                 tranger,
                 jn_list
             );
+
+            MT_INCREMENT_COUNT(time_measure, MAX_RECS)
+            MT_PRINT_TIME(time_measure, "case 2")
 
             uint64_t result[MAX_RECS];
             int max = sizeof(result)/sizeof(result[0]);
