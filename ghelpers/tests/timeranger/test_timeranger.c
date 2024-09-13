@@ -28,7 +28,7 @@
 /***************************************************************************
  *      Data
  ***************************************************************************/
-BOOL pinta_rows = 0;
+BOOL pinta_rows = 1;
 
 /***************************************************************************
  *
@@ -325,6 +325,9 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
             );
             clock_gettime (CLOCK_MONOTONIC, &st);
 
+            time_measure_t time_measure;
+            MT_START_TIME(time_measure)
+
             leidos = 0;
             json_t *match_record = json_pack("{s:b, s:I, s:I}",
                 "backward", 1,
@@ -341,6 +344,9 @@ static void test(json_t *tranger, const char *topic_name, int flags, uint64_t cn
                 tranger,
                 jn_list
             );
+
+            MT_INCREMENT_COUNT(time_measure, MAX_RECS)
+            MT_PRINT_TIME(time_measure, "case 3")
 
             uint64_t result[MAX_RECS];
             int max = sizeof(result)/sizeof(result[0]);
