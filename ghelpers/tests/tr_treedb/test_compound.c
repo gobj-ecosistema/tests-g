@@ -276,4 +276,3 @@ PUBLIC BOOL test_compound(
 
     return ret<0?FALSE:TRUE;
 }
-
